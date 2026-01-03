@@ -73,9 +73,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
-            color: var(--navy);
-            font-size: 24px;
+            position: relative;
+            overflow: visible;
+        }
+
+        .brand-logo svg {
+            width: 48px;
+            height: 48px;
         }
 
         .brand-text h1 {
@@ -407,6 +411,34 @@
             text-decoration: none;
         }
 
+        .footer-branding {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .aerial-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            opacity: 0.75;
+        }
+
+        .aerial-logo {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .header-content {
@@ -425,6 +457,16 @@
             .prediction-dates {
                 flex-direction: column;
                 gap: 8px;
+            }
+
+            .footer-branding {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .footer-divider {
+                width: 40px;
+                height: 1px;
             }
         }
 
@@ -575,7 +617,20 @@
         <div class="container">
             <div class="header-content">
                 <div class="brand">
-                    <div class="brand-logo">KM</div>
+                    <div class="brand-logo">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Blue speech bubble (outlined) -->
+                            <path d="M25 20 C25 15, 28 12, 33 12 L47 12 C52 12, 55 15, 55 20 L55 38 C55 43, 52 46, 47 46 L35 46 L28 52 L28 46 C25 46, 25 43, 25 38 Z"
+                                  fill="none" stroke="#1e3a5f" stroke-width="3" stroke-linejoin="round"/>
+
+                            <!-- Orange speech bubble (filled) -->
+                            <path d="M45 32 C45 27, 48 24, 53 24 L67 24 C72 24, 75 27, 75 32 L75 50 C75 55, 72 58, 67 58 L55 58 L48 64 L48 58 C45 58, 45 55, 45 50 Z"
+                                  fill="#D97638" stroke="none"/>
+
+                            <!-- KWM text below bubbles -->
+                            <text x="50" y="85" font-family="Inter, sans-serif" font-size="18" font-weight="800" fill="#1e3a5f" text-anchor="middle">KWM</text>
+                        </svg>
+                    </div>
                     <div class="brand-text">
                         <h1>Prediction Tracker</h1>
                         <p>Know What Matters | Canadian Intelligence Briefing</p>
@@ -679,7 +734,26 @@
 
     <footer>
         <div class="container">
-            <p><strong>Know What Matters</strong> | Portfolio Company of Aerial Capital Inc.</p>
+            <div class="footer-branding">
+                <strong style="font-size: 16px;">Know What Matters</strong>
+                <div class="footer-divider"></div>
+                <div class="aerial-badge">
+                    <span>An</span>
+                    <svg class="aerial-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Aerial Capital geometric shield logo -->
+                        <!-- Left triangle piece -->
+                        <path d="M20 50 L35 25 L50 50 Z" fill="#D97638" opacity="0.9"/>
+                        <!-- Right triangle piece -->
+                        <path d="M50 50 L65 25 L80 50 Z" fill="#D97638"/>
+                        <!-- Bottom connecting piece -->
+                        <path d="M35 50 L50 65 L65 50 L50 75 Z" fill="#D97638" opacity="0.85"/>
+                        <!-- Center highlight -->
+                        <circle cx="50" cy="50" r="6" fill="white" opacity="0.3"/>
+                    </svg>
+                    <span style="font-weight: 600;">Aerial Capital</span>
+                    <span>Company</span>
+                </div>
+            </div>
             <p style="margin-top: 12px;">
                 <a href="#">Subscribe to Daily Briefing</a> &nbsp;|&nbsp;
                 <a href="#">Twitter</a> &nbsp;|&nbsp;
