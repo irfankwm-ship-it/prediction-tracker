@@ -428,6 +428,110 @@
             }
         }
 
+        /* Voting */
+        .prediction-voting {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .voting-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+
+        .voting-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vote-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border: 2px solid var(--gray-200);
+            background: white;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .vote-btn:hover:not(.voted):not(:disabled) {
+            border-color: var(--navy);
+            background: var(--gray-50);
+        }
+
+        .vote-btn.agree:hover:not(.voted) {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .vote-btn.disagree:hover:not(.voted) {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .vote-btn.voted {
+            cursor: default;
+        }
+
+        .vote-btn.voted.agree {
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+        }
+
+        .vote-btn.voted.disagree {
+            background: var(--red);
+            border-color: var(--red);
+            color: white;
+        }
+
+        .vote-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .vote-count {
+            font-size: 12px;
+            color: var(--gray-400);
+            min-width: 20px;
+        }
+
+        .crowd-consensus {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .consensus-bar {
+            width: 100px;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .consensus-fill {
+            height: 100%;
+            background: var(--green);
+            transition: width 0.3s;
+        }
+
+        .consensus-text {
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+
         /* Loading State */
         .loading {
             text-align: center;
@@ -561,6 +665,14 @@
                     <h3>Public Accountability</h3>
                     <p>All predictions are published before their due date. Outcomes are documented transparently, including our failures.</p>
                 </div>
+                <div class="methodology-item">
+                    <h3>Crowd Wisdom</h3>
+                    <p>Vote on predictions to contribute to crowd consensus. We track how crowd predictions compare to our model over time.</p>
+                </div>
+                <div class="methodology-item">
+                    <h3>Continuous Learning</h3>
+                    <p>Our model learns from both outcomes and crowd feedback, improving calibration with each prediction cycle.</p>
+                </div>
             </div>
         </div>
     </main>
@@ -582,11 +694,34 @@
     <script>
         // Predictions data - loaded from JSON file
         let predictions = [];
+        let crowdVotes = {};
+
+        // Storage key for user votes
+        const VOTES_KEY = 'kwm_prediction_votes';
+
+        function getUserVotes() {
+            try {
+                return JSON.parse(localStorage.getItem(VOTES_KEY) || '{}');
+            } catch {
+                return {};
+            }
+        }
+
+        function saveUserVote(predId, voteType) {
+            const votes = getUserVotes();
+            votes[predId] = voteType;
+            localStorage.setItem(VOTES_KEY, JSON.stringify(votes));
+        }
 
         async function loadPredictions() {
             try {
-                const response = await fetch('predictions.json');
-                predictions = await response.json();
+                const [predResponse, votesResponse] = await Promise.all([
+                    fetch('predictions.json'),
+                    fetch('crowd_votes.json').catch(() => ({ json: () => ({ votes: {} }) }))
+                ]);
+                predictions = await predResponse.json();
+                const votesData = await votesResponse.json();
+                crowdVotes = votesData.votes || {};
                 renderAll();
             } catch (error) {
                 console.error('Failed to load predictions:', error);
@@ -597,6 +732,47 @@
                     </div>
                 `;
             }
+        }
+
+        async function submitVote(predId, voteType) {
+            const userVotes = getUserVotes();
+            if (userVotes[predId]) {
+                return; // Already voted
+            }
+
+            // Save locally
+            saveUserVote(predId, voteType);
+
+            // Update UI immediately
+            renderPredictions(document.querySelector('.filter-btn.active')?.dataset.filter || 'all');
+
+            // Try to record vote via CountAPI (free, no signup)
+            try {
+                const namespace = 'kwm-predictions';
+                const key = `${predId}-${voteType}`;
+                await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+            } catch (e) {
+                console.log('Vote recorded locally');
+            }
+        }
+
+        function getVoteCounts(predId) {
+            const stored = crowdVotes[predId] || { agree: 0, disagree: 0 };
+            // Add local vote if exists
+            const userVotes = getUserVotes();
+            const localVote = userVotes[predId];
+
+            return {
+                agree: stored.agree + (localVote === 'agree' ? 1 : 0),
+                disagree: stored.disagree + (localVote === 'disagree' ? 1 : 0)
+            };
+        }
+
+        function getCrowdConsensus(predId) {
+            const counts = getVoteCounts(predId);
+            const total = counts.agree + counts.disagree;
+            if (total === 0) return null;
+            return Math.round((counts.agree / total) * 100);
         }
 
         function calculateStats() {
@@ -694,7 +870,15 @@
             // Sort by date, newest first
             filtered.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
 
-            container.innerHTML = filtered.map(p => `
+            const userVotes = getUserVotes();
+
+            container.innerHTML = filtered.map(p => {
+                const voteCounts = getVoteCounts(p.id);
+                const consensus = getCrowdConsensus(p.id);
+                const userVote = userVotes[p.id];
+                const hasVoted = !!userVote;
+
+                return `
                 <div class="prediction-card ${p.outcome}">
                     <div class="prediction-header">
                         <div class="prediction-meta">
@@ -727,14 +911,40 @@
                         ${p.evaluated_date ? `<span><strong>Evaluated:</strong> ${new Date(p.evaluated_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>` : ''}
                     </div>
 
-                    ${p.outcome !== 'pending' ? `
+                    ${p.outcome === 'pending' ? `
+                        <div class="prediction-voting">
+                            <span class="voting-label">Do you agree?</span>
+                            <div class="voting-buttons">
+                                <button class="vote-btn agree ${userVote === 'agree' ? 'voted' : ''}"
+                                        onclick="submitVote('${p.id}', 'agree')"
+                                        ${hasVoted ? 'disabled' : ''}>
+                                    <span>Agree</span>
+                                    <span class="vote-count">${voteCounts.agree}</span>
+                                </button>
+                                <button class="vote-btn disagree ${userVote === 'disagree' ? 'voted' : ''}"
+                                        onclick="submitVote('${p.id}', 'disagree')"
+                                        ${hasVoted ? 'disabled' : ''}>
+                                    <span>Disagree</span>
+                                    <span class="vote-count">${voteCounts.disagree}</span>
+                                </button>
+                            </div>
+                            ${consensus !== null ? `
+                                <div class="crowd-consensus">
+                                    <span class="consensus-text">${consensus}% agree</span>
+                                    <div class="consensus-bar">
+                                        <div class="consensus-fill" style="width: ${consensus}%"></div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    ` : `
                         <div class="prediction-outcome">
                             <div class="outcome-label ${p.outcome}">${p.outcome === 'correct' ? 'Prediction Correct' : 'Prediction Incorrect'}</div>
                             <div class="outcome-text">${p.outcome_notes || 'Outcome documented.'}</div>
                         </div>
-                    ` : ''}
+                    `}
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         function renderAll() {
