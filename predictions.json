@@ -1,0 +1,44 @@
+[
+    {
+        "id": "PRED-2026-001",
+        "prediction": "Paris Ukraine peace talks will produce at minimum a joint statement or communique from attending allies within 5 days of the January 2026 meetings.",
+        "domain": "Diplomacy",
+        "confidence": 65,
+        "created_date": "2026-01-02",
+        "due_date": "2026-01-07",
+        "verification": "Official joint statement, communique, or agreement document released by participating nations.",
+        "falsification": "No joint statement or formal agreement announced by January 7, 2026.",
+        "sources": ["Toronto Sun", "CP24", "Lethbridge Herald", "Medicine Hat News", "PA Now"],
+        "outcome": "pending",
+        "evaluated_date": null,
+        "outcome_notes": null
+    },
+    {
+        "id": "PRED-2026-002",
+        "prediction": "Iranian government will issue formal diplomatic response (via Foreign Ministry, UN mission, or state media) to Trump's intervention threats within 5 days.",
+        "domain": "US-Iran",
+        "confidence": 70,
+        "created_date": "2026-01-02",
+        "due_date": "2026-01-07",
+        "verification": "Official statement from Iranian Foreign Ministry, UN Ambassador, or Supreme Leader's office.",
+        "falsification": "No official Iranian government response to Trump's statements by January 7, 2026.",
+        "sources": ["Globe and Mail", "BBC World"],
+        "outcome": "pending",
+        "evaluated_date": null,
+        "outcome_notes": null
+    },
+    {
+        "id": "PRED-2026-003",
+        "prediction": "Budanov's new advisory role will result in at least one announced change to Ukraine's military or intelligence strategy within 5 days.",
+        "domain": "Ukraine-Russia",
+        "confidence": 60,
+        "created_date": "2026-01-02",
+        "due_date": "2026-01-07",
+        "verification": "Official Ukrainian government announcement of strategic change or observable policy shift.",
+        "falsification": "No announcements or observable changes by January 7, 2026.",
+        "sources": ["Globe and Mail", "BBC World"],
+        "outcome": "pending",
+        "evaluated_date": null,
+        "outcome_notes": null
+    }
+]
