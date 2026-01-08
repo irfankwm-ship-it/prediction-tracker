@@ -1,0 +1,30 @@
+{
+  "id": "PRED-2026-017",
+  "title": "PNG Internet Disruption",
+  "statement": "Within 7 days, PNG will implement a temporary internet blackout in response to Starlink shutdowns.",
+  "probability": 0.55,
+  "probability_display": "55%",
+  "created_date": "2026-01-08T13:46:18.887847",
+  "resolution_deadline": "2026-01-15",
+  "category": "technology_cyber",
+  "tags": [
+    "PNG",
+    "Starlink",
+    "digital sovereignty"
+  ],
+  "status": "published",
+  "status_display": "Active",
+  "outcome": null,
+  "outcome_display": null,
+  "outcome_date": null,
+  "was_correct": null,
+  "timing_error_days": null,
+  "reasoning_summary": "PNG's reliance on Starlink and the government's licensing stance suggest a regulatory response. A blackout would test digital sovereignty measures.",
+  "key_indicators": [
+    "PNG telecommunications regulations",
+    "Starlink service status",
+    "Internet usage metrics"
+  ],
+  "permalink": "/predictions/prediction/PRED-2026-017.html",
+  "api_url": "/predictions/api/predictions/PRED-2026-017.json"
+}

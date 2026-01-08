@@ -1,0 +1,39 @@
+{
+  "total_predictions": 10,
+  "resolved_predictions": 0,
+  "pending_predictions": 10,
+  "hit_rate": 0,
+  "brier_score": 0,
+  "calibration": {
+    "0-20%": {
+      "predicted": 0.1,
+      "actual": 0,
+      "count": 0
+    },
+    "20-40%": {
+      "predicted": 0.3,
+      "actual": 0,
+      "count": 0
+    },
+    "40-60%": {
+      "predicted": 0.5,
+      "actual": 0,
+      "count": 0
+    },
+    "60-80%": {
+      "predicted": 0.7,
+      "actual": 0,
+      "count": 0
+    },
+    "80-100%": {
+      "predicted": 0.9,
+      "actual": 0,
+      "count": 0
+    }
+  },
+  "by_category": {},
+  "on_time_rate": 0,
+  "avg_timing_error_days": 0,
+  "monthly_brier": {},
+  "last_updated": "2026-01-08T13:46:18.894090"
+}

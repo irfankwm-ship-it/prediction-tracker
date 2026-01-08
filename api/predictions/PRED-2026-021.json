@@ -1,0 +1,30 @@
+{
+  "id": "PRED-2026-021",
+  "title": "Protests in Minneapolis",
+  "statement": "Within 7 days, Minneapolis will implement a citywide curfew due to escalating protests.",
+  "probability": 0.7,
+  "probability_display": "70%",
+  "created_date": "2026-01-08T13:46:18.890243",
+  "resolution_deadline": "2026-01-15",
+  "category": "social_humanitarian",
+  "tags": [
+    "USA",
+    "Minneapolis",
+    "protests"
+  ],
+  "status": "published",
+  "status_display": "Active",
+  "outcome": null,
+  "outcome_display": null,
+  "outcome_date": null,
+  "was_correct": null,
+  "timing_error_days": null,
+  "reasoning_summary": "Recent protests and police tensions suggest a likelihood of citywide measures to manage unrest.",
+  "key_indicators": [
+    "Local police reports",
+    "Protest coordination data",
+    "Mayor's emergency declarations"
+  ],
+  "permalink": "/predictions/prediction/PRED-2026-021.html",
+  "api_url": "/predictions/api/predictions/PRED-2026-021.json"
+}

@@ -1,0 +1,41 @@
+{
+  "points": [],
+  "buckets": {
+    "0-20%": {
+      "predicted": 0.1,
+      "actual": 0,
+      "count": 0
+    },
+    "20-40%": {
+      "predicted": 0.3,
+      "actual": 0,
+      "count": 0
+    },
+    "40-60%": {
+      "predicted": 0.5,
+      "actual": 0,
+      "count": 0
+    },
+    "60-80%": {
+      "predicted": 0.7,
+      "actual": 0,
+      "count": 0
+    },
+    "80-100%": {
+      "predicted": 0.9,
+      "actual": 0,
+      "count": 0
+    }
+  },
+  "ideal_line": [
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      1
+    ]
+  ],
+  "generated_at": "2026-01-08T13:46:18.894181"
+}

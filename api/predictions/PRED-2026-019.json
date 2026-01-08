@@ -1,0 +1,30 @@
+{
+  "id": "PRED-2026-019",
+  "title": "Canadian Trade Adjustment",
+  "statement": "Within 7 days, Canada will revise its trade agreements with the EU to mitigate U.S.-driven tariff risks.",
+  "probability": 0.65,
+  "probability_display": "65%",
+  "created_date": "2026-01-08T13:46:18.888959",
+  "resolution_deadline": "2026-01-15",
+  "category": "economic_trade",
+  "tags": [
+    "Canada",
+    "EU",
+    "tariffs"
+  ],
+  "status": "published",
+  "status_display": "Active",
+  "outcome": null,
+  "outcome_display": null,
+  "outcome_date": null,
+  "was_correct": null,
+  "timing_error_days": null,
+  "reasoning_summary": "U.S.-EU tensions and Canada's reliance on transatlantic trade suggest proactive adjustments to avoid economic fallout.",
+  "key_indicators": [
+    "Canadian trade policy announcements",
+    "U.S.-EU tariff dynamics",
+    "CETA renegotiation talks"
+  ],
+  "permalink": "/predictions/prediction/PRED-2026-019.html",
+  "api_url": "/predictions/api/predictions/PRED-2026-019.json"
+}

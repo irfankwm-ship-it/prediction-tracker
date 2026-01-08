@@ -1,0 +1,30 @@
+{
+  "id": "PRED-2026-018",
+  "title": "Syrian Aleppo Escalation",
+  "statement": "Within 7 days, the Syrian army will shell Aleppo neighborhoods, causing \u226550 civilian casualties.",
+  "probability": 0.7,
+  "probability_display": "70%",
+  "created_date": "2026-01-08T13:46:18.888388",
+  "resolution_deadline": "2026-01-15",
+  "category": "conflict_security",
+  "tags": [
+    "Syria",
+    "Aleppo",
+    "SDF"
+  ],
+  "status": "published",
+  "status_display": "Active",
+  "outcome": null,
+  "outcome_display": null,
+  "outcome_date": null,
+  "was_correct": null,
+  "timing_error_days": null,
+  "reasoning_summary": "Recent shelling reports and SDF-Syrian clashes indicate ongoing conflict. Civilian casualties are a predictable outcome of such operations.",
+  "key_indicators": [
+    "Syrian military operations",
+    "Civilian casualty reports",
+    "UN humanitarian updates"
+  ],
+  "permalink": "/predictions/prediction/PRED-2026-018.html",
+  "api_url": "/predictions/api/predictions/PRED-2026-018.json"
+}

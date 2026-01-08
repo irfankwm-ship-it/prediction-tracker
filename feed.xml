@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Canadian Intelligence Hub - Predictions</title>
+    <description>Geopolitical predictions with tracked accuracy</description>
+    <link>/predictions</link>
+    <lastBuildDate>Thu, 08 Jan 2026 13:46:18 +0000</lastBuildDate>
+    
+    <item>
+      <title>Cyberattack on Starlink</title>
+      <link>/predictions/prediction/PRED-2026-023.html</link>
+      <guid>PRED-2026-023</guid>
+      <pubDate>Thu, 08 Jan 2026 13:46:18 +0000</pubDate>
+      <description>Within 7 days, a state-sponsored cyberattack will disrupt Starlink services in PNG. (50%)</description>
+      <category>technology_cyber</category>
+    </item>
+    <item>
+      <title>Russia-EU Trade Surge</title>
+      <link>/predictions/prediction/PRED-2026-022.html</link>
+      <guid>PRED-2026-022</guid>
+      <pubDate>Thu, 08 Jan 2026 13:46:18 +0000</pubDate>
+      <description>Within 7 days, Russia-EU trade will surpass $1.2 trillion USD, driven by sanctions evasion. (60%)</description>
+      <category>economic_trade</category>
+    </item>
+    <item>
+      <title>Protests in Minneapolis</title>
+      <link>/predictions/prediction/PRED-2026-021.html</link>
+      <guid>PRED-2026-021</guid>
+      <pubDate>Thu, 08 Jan 2026 13:46:18 +0000</pubDate>
+      <description>Within 7 days, Minneapolis will implement a citywide curfew due to escalating protests. (70%)</description>
+      <category>social_humanitarian</category>
+    </item>
+    <item>
+      <title>U.S. Military Action Pause</title>
+      <link>/predictions/prediction/PRED-2026-020.html</link>
+      <guid>PRED-2026-020</guid>
+      <pubDate>Thu, 08 Jan 2026 13:46:18 +0000</pubDate>
+      <description>Within 7 days, the U.S. Senate will vote to block Trump&apos;s military actions in Venezuela. (85%)</description>
+      <category>political_domestic</category>
+    </item>
+    <item>
+      <title>Canadian Trade Adjustment</title>
+      <link>/predictions/prediction/PRED-2026-019.html</link>
+      <guid>PRED-2026-019</guid>
+      <pubDate>Thu, 08 Jan 2026 13:46:18 +0000</pubDate>
+      <description>Within 7 days, Canada will revise its trade agreements with the EU to mitigate U.S.-driven tariff risks. (65%)</description>
+      <category>economic_trade</category>
+    </item>
+    <item>
+      <title>Syrian Aleppo Escalation</title>
+      <link>/predictions/prediction/PRED-2026-018.html</link>
+      <guid>PRED-2026-018</guid>
+      <pubDate>Thu, 08 Jan 2026 13:46:18 +0000</pubDate>
+      <description>Within 7 days, the Syrian army will shell Aleppo neighborhoods, causing ≥50 civilian casualties. (70%)</description>
+      <category>conflict_security</category>
+    </item>
+    <item>
+      <title>PNG Internet Disruption</title>
+      <link>/predictions/prediction/PRED-2026-017.html</link>
+      <guid>PRED-2026-017</guid>
+      <pubDate>Thu, 08 Jan 2026 13:46:18 +0000</pubDate>
+      <description>Within 7 days, PNG will implement a temporary internet blackout in response to Starlink shutdowns. (55%)</description>
+      <category>technology_cyber</category>
+    </item>
+    <item>
+      <title>Indian Market Volatility</title>
+      <link>/predictions/prediction/PRED-2026-016.html</link>
+      <guid>PRED-2026-016</guid>
+      <pubDate>Thu, 08 Jan 2026 13:46:18 +0000</pubDate>
+      <description>Within 7 days, the Indian stock market will drop by ≥5% due to Trump&apos;s 500% tariff threat. (60%)</description>
+      <category>economic_trade</category>
+    </item>
+    <item>
+      <title>Danish Greenland Defense Posture</title>
+      <link>/predictions/prediction/PRED-2026-015.html</link>
+      <guid>PRED-2026-015</guid>
+      <pubDate>Thu, 08 Jan 2026 13:46:18 +0000</pubDate>
+      <description>Within 7 days, Danish forces will conduct a joint military exercise with NATO in Greenland to deter potential invasions. (80%)</description>
+      <category>conflict_security</category>
+    </item>
+    <item>
+      <title>Venezuela Sanctions Escalation</title>
+      <link>/predictions/prediction/PRED-2026-014.html</link>
+      <guid>PRED-2026-014</guid>
+      <pubDate>Thu, 08 Jan 2026 13:46:18 +0000</pubDate>
+      <description>Within 7 days, the U.S. will announce new sanctions targeting Venezuelan oil exports, reducing them by 20%. (75%)</description>
+      <category>economic_trade</category>
+    </item>
+  </channel>
+</rss>

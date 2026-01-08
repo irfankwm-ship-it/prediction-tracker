@@ -1,0 +1,325 @@
+{
+  "site": {
+    "title": "Canadian Intelligence Hub - Predictions",
+    "description": "Geopolitical predictions with tracked accuracy",
+    "base_url": "/predictions"
+  },
+  "summary": {
+    "total_predictions": 10,
+    "weeks_tracked": 1,
+    "latest_week": "2026-W01"
+  },
+  "recent_predictions": [
+    {
+      "id": "PRED-2026-023",
+      "title": "Cyberattack on Starlink",
+      "statement": "Within 7 days, a state-sponsored cyberattack will disrupt Starlink services in PNG.",
+      "probability": 0.5,
+      "probability_display": "50%",
+      "created_date": "2026-01-08T13:46:18.891542",
+      "resolution_deadline": "2026-01-15",
+      "category": "technology_cyber",
+      "tags": [
+        "PNG",
+        "Starlink",
+        "cyberattacks"
+      ],
+      "status": "published",
+      "status_display": "Active",
+      "outcome": null,
+      "outcome_display": null,
+      "outcome_date": null,
+      "was_correct": null,
+      "timing_error_days": null,
+      "reasoning_summary": "PNG's reliance on Starlink and regional cyber tensions suggest a possible targeted attack.",
+      "key_indicators": [
+        "Cybersecurity alerts",
+        "Starlink service outages",
+        "State-sponsored attack patterns"
+      ],
+      "permalink": "/predictions/prediction/PRED-2026-023.html",
+      "api_url": "/predictions/api/predictions/PRED-2026-023.json"
+    },
+    {
+      "id": "PRED-2026-022",
+      "title": "Russia-EU Trade Surge",
+      "statement": "Within 7 days, Russia-EU trade will surpass $1.2 trillion USD, driven by sanctions evasion.",
+      "probability": 0.6,
+      "probability_display": "60%",
+      "created_date": "2026-01-08T13:46:18.890874",
+      "resolution_deadline": "2026-01-15",
+      "category": "economic_trade",
+      "tags": [
+        "Russia",
+        "EU",
+        "sanctions"
+      ],
+      "status": "published",
+      "status_display": "Active",
+      "outcome": null,
+      "outcome_display": null,
+      "outcome_date": null,
+      "was_correct": null,
+      "timing_error_days": null,
+      "reasoning_summary": "Recent trade anomalies and EU-Russia energy deals indicate a potential surge in illicit trade volumes.",
+      "key_indicators": [
+        "Russia-EU trade statistics",
+        "Energy export data",
+        "EU sanctions enforcement reports"
+      ],
+      "permalink": "/predictions/prediction/PRED-2026-022.html",
+      "api_url": "/predictions/api/predictions/PRED-2026-022.json"
+    },
+    {
+      "id": "PRED-2026-021",
+      "title": "Protests in Minneapolis",
+      "statement": "Within 7 days, Minneapolis will implement a citywide curfew due to escalating protests.",
+      "probability": 0.7,
+      "probability_display": "70%",
+      "created_date": "2026-01-08T13:46:18.890243",
+      "resolution_deadline": "2026-01-15",
+      "category": "social_humanitarian",
+      "tags": [
+        "USA",
+        "Minneapolis",
+        "protests"
+      ],
+      "status": "published",
+      "status_display": "Active",
+      "outcome": null,
+      "outcome_display": null,
+      "outcome_date": null,
+      "was_correct": null,
+      "timing_error_days": null,
+      "reasoning_summary": "Recent protests and police tensions suggest a likelihood of citywide measures to manage unrest.",
+      "key_indicators": [
+        "Local police reports",
+        "Protest coordination data",
+        "Mayor's emergency declarations"
+      ],
+      "permalink": "/predictions/prediction/PRED-2026-021.html",
+      "api_url": "/predictions/api/predictions/PRED-2026-021.json"
+    },
+    {
+      "id": "PRED-2026-020",
+      "title": "U.S. Military Action Pause",
+      "statement": "Within 7 days, the U.S. Senate will vote to block Trump's military actions in Venezuela.",
+      "probability": 0.85,
+      "probability_display": "85%",
+      "created_date": "2026-01-08T13:46:18.889565",
+      "resolution_deadline": "2026-01-15",
+      "category": "political_domestic",
+      "tags": [
+        "USA",
+        "Venezuela",
+        "Senate"
+      ],
+      "status": "published",
+      "status_display": "Active",
+      "outcome": null,
+      "outcome_display": null,
+      "outcome_date": null,
+      "was_correct": null,
+      "timing_error_days": null,
+      "reasoning_summary": "The recent war powers resolution and Senate majority indicate a likely vote to curtail executive military authority.",
+      "key_indicators": [
+        "Senate floor votes",
+        "Trump's military directives",
+        "Congressional committee reports"
+      ],
+      "permalink": "/predictions/prediction/PRED-2026-020.html",
+      "api_url": "/predictions/api/predictions/PRED-2026-020.json"
+    },
+    {
+      "id": "PRED-2026-019",
+      "title": "Canadian Trade Adjustment",
+      "statement": "Within 7 days, Canada will revise its trade agreements with the EU to mitigate U.S.-driven tariff risks.",
+      "probability": 0.65,
+      "probability_display": "65%",
+      "created_date": "2026-01-08T13:46:18.888959",
+      "resolution_deadline": "2026-01-15",
+      "category": "economic_trade",
+      "tags": [
+        "Canada",
+        "EU",
+        "tariffs"
+      ],
+      "status": "published",
+      "status_display": "Active",
+      "outcome": null,
+      "outcome_display": null,
+      "outcome_date": null,
+      "was_correct": null,
+      "timing_error_days": null,
+      "reasoning_summary": "U.S.-EU tensions and Canada's reliance on transatlantic trade suggest proactive adjustments to avoid economic fallout.",
+      "key_indicators": [
+        "Canadian trade policy announcements",
+        "U.S.-EU tariff dynamics",
+        "CETA renegotiation talks"
+      ],
+      "permalink": "/predictions/prediction/PRED-2026-019.html",
+      "api_url": "/predictions/api/predictions/PRED-2026-019.json"
+    },
+    {
+      "id": "PRED-2026-018",
+      "title": "Syrian Aleppo Escalation",
+      "statement": "Within 7 days, the Syrian army will shell Aleppo neighborhoods, causing \u226550 civilian casualties.",
+      "probability": 0.7,
+      "probability_display": "70%",
+      "created_date": "2026-01-08T13:46:18.888388",
+      "resolution_deadline": "2026-01-15",
+      "category": "conflict_security",
+      "tags": [
+        "Syria",
+        "Aleppo",
+        "SDF"
+      ],
+      "status": "published",
+      "status_display": "Active",
+      "outcome": null,
+      "outcome_display": null,
+      "outcome_date": null,
+      "was_correct": null,
+      "timing_error_days": null,
+      "reasoning_summary": "Recent shelling reports and SDF-Syrian clashes indicate ongoing conflict. Civilian casualties are a predictable outcome of such operations.",
+      "key_indicators": [
+        "Syrian military operations",
+        "Civilian casualty reports",
+        "UN humanitarian updates"
+      ],
+      "permalink": "/predictions/prediction/PRED-2026-018.html",
+      "api_url": "/predictions/api/predictions/PRED-2026-018.json"
+    },
+    {
+      "id": "PRED-2026-017",
+      "title": "PNG Internet Disruption",
+      "statement": "Within 7 days, PNG will implement a temporary internet blackout in response to Starlink shutdowns.",
+      "probability": 0.55,
+      "probability_display": "55%",
+      "created_date": "2026-01-08T13:46:18.887847",
+      "resolution_deadline": "2026-01-15",
+      "category": "technology_cyber",
+      "tags": [
+        "PNG",
+        "Starlink",
+        "digital sovereignty"
+      ],
+      "status": "published",
+      "status_display": "Active",
+      "outcome": null,
+      "outcome_display": null,
+      "outcome_date": null,
+      "was_correct": null,
+      "timing_error_days": null,
+      "reasoning_summary": "PNG's reliance on Starlink and the government's licensing stance suggest a regulatory response. A blackout would test digital sovereignty measures.",
+      "key_indicators": [
+        "PNG telecommunications regulations",
+        "Starlink service status",
+        "Internet usage metrics"
+      ],
+      "permalink": "/predictions/prediction/PRED-2026-017.html",
+      "api_url": "/predictions/api/predictions/PRED-2026-017.json"
+    },
+    {
+      "id": "PRED-2026-016",
+      "title": "Indian Market Volatility",
+      "statement": "Within 7 days, the Indian stock market will drop by \u22655% due to Trump's 500% tariff threat.",
+      "probability": 0.6,
+      "probability_display": "60%",
+      "created_date": "2026-01-08T13:46:18.887121",
+      "resolution_deadline": "2026-01-15",
+      "category": "economic_trade",
+      "tags": [
+        "USA",
+        "India",
+        "tariffs"
+      ],
+      "status": "published",
+      "status_display": "Active",
+      "outcome": null,
+      "outcome_display": null,
+      "outcome_date": null,
+      "was_correct": null,
+      "timing_error_days": null,
+      "reasoning_summary": "Recent market reports link Trump's tariff threats to volatility. A 5% drop is plausible given historical reactions to such threats.",
+      "key_indicators": [
+        "Indian stock indices",
+        "U.S. tariff announcements",
+        "Central Bank interventions"
+      ],
+      "permalink": "/predictions/prediction/PRED-2026-016.html",
+      "api_url": "/predictions/api/predictions/PRED-2026-016.json"
+    },
+    {
+      "id": "PRED-2026-015",
+      "title": "Danish Greenland Defense Posture",
+      "statement": "Within 7 days, Danish forces will conduct a joint military exercise with NATO in Greenland to deter potential invasions.",
+      "probability": 0.8,
+      "probability_display": "80%",
+      "created_date": "2026-01-08T13:46:18.886586",
+      "resolution_deadline": "2026-01-15",
+      "category": "conflict_security",
+      "tags": [
+        "Denmark",
+        "Greenland",
+        "NATO"
+      ],
+      "status": "published",
+      "status_display": "Active",
+      "outcome": null,
+      "outcome_display": null,
+      "outcome_date": null,
+      "was_correct": null,
+      "timing_error_days": null,
+      "reasoning_summary": "The 'shoot first' rhetoric from Danish forces and U.S. threats to Greenland align with heightened regional security posturing.",
+      "key_indicators": [
+        "NATO exercise schedules",
+        "Danish defense budget allocations",
+        "U.S.-Greenland diplomatic tensions"
+      ],
+      "permalink": "/predictions/prediction/PRED-2026-015.html",
+      "api_url": "/predictions/api/predictions/PRED-2026-015.json"
+    },
+    {
+      "id": "PRED-2026-014",
+      "title": "Venezuela Sanctions Escalation",
+      "statement": "Within 7 days, the U.S. will announce new sanctions targeting Venezuelan oil exports, reducing them by 20%.",
+      "probability": 0.75,
+      "probability_display": "75%",
+      "created_date": "2026-01-08T13:46:18.886109",
+      "resolution_deadline": "2026-01-15",
+      "category": "economic_trade",
+      "tags": [
+        "USA",
+        "Venezuela",
+        "sanctions"
+      ],
+      "status": "published",
+      "status_display": "Active",
+      "outcome": null,
+      "outcome_display": null,
+      "outcome_date": null,
+      "was_correct": null,
+      "timing_error_days": null,
+      "reasoning_summary": "Recent U.S. control over Venezuelan oil sales and European rejection of U.S. demands suggest ongoing pressure on Venezuela. A 20% reduction aligns with historical sanction patterns.",
+      "key_indicators": [
+        "U.S. Treasury announcements",
+        "Venezuela oil export data",
+        "European diplomatic responses"
+      ],
+      "permalink": "/predictions/prediction/PRED-2026-014.html",
+      "api_url": "/predictions/api/predictions/PRED-2026-014.json"
+    }
+  ],
+  "weeks": [
+    "2026-W01"
+  ],
+  "api_endpoints": {
+    "predictions": "/predictions/api/predictions.json",
+    "stats": "/predictions/api/stats.json",
+    "calibration": "/predictions/api/calibration.json",
+    "weekly": "/predictions/api/weeks/{week_id}.json",
+    "prediction": "/predictions/api/predictions/{id}.json"
+  },
+  "generated_at": "2026-01-08T13:46:18.894308"
+}

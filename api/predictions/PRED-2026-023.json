@@ -1,0 +1,30 @@
+{
+  "id": "PRED-2026-023",
+  "title": "Cyberattack on Starlink",
+  "statement": "Within 7 days, a state-sponsored cyberattack will disrupt Starlink services in PNG.",
+  "probability": 0.5,
+  "probability_display": "50%",
+  "created_date": "2026-01-08T13:46:18.891542",
+  "resolution_deadline": "2026-01-15",
+  "category": "technology_cyber",
+  "tags": [
+    "PNG",
+    "Starlink",
+    "cyberattacks"
+  ],
+  "status": "published",
+  "status_display": "Active",
+  "outcome": null,
+  "outcome_display": null,
+  "outcome_date": null,
+  "was_correct": null,
+  "timing_error_days": null,
+  "reasoning_summary": "PNG's reliance on Starlink and regional cyber tensions suggest a possible targeted attack.",
+  "key_indicators": [
+    "Cybersecurity alerts",
+    "Starlink service outages",
+    "State-sponsored attack patterns"
+  ],
+  "permalink": "/predictions/prediction/PRED-2026-023.html",
+  "api_url": "/predictions/api/predictions/PRED-2026-023.json"
+}

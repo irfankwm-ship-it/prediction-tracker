@@ -1,0 +1,30 @@
+{
+  "id": "PRED-2026-016",
+  "title": "Indian Market Volatility",
+  "statement": "Within 7 days, the Indian stock market will drop by \u22655% due to Trump's 500% tariff threat.",
+  "probability": 0.6,
+  "probability_display": "60%",
+  "created_date": "2026-01-08T13:46:18.887121",
+  "resolution_deadline": "2026-01-15",
+  "category": "economic_trade",
+  "tags": [
+    "USA",
+    "India",
+    "tariffs"
+  ],
+  "status": "published",
+  "status_display": "Active",
+  "outcome": null,
+  "outcome_display": null,
+  "outcome_date": null,
+  "was_correct": null,
+  "timing_error_days": null,
+  "reasoning_summary": "Recent market reports link Trump's tariff threats to volatility. A 5% drop is plausible given historical reactions to such threats.",
+  "key_indicators": [
+    "Indian stock indices",
+    "U.S. tariff announcements",
+    "Central Bank interventions"
+  ],
+  "permalink": "/predictions/prediction/PRED-2026-016.html",
+  "api_url": "/predictions/api/predictions/PRED-2026-016.json"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "PRED-2026-014",
+  "title": "Venezuela Sanctions Escalation",
+  "statement": "Within 7 days, the U.S. will announce new sanctions targeting Venezuelan oil exports, reducing them by 20%.",
+  "probability": 0.75,
+  "probability_display": "75%",
+  "created_date": "2026-01-08T13:46:18.886109",
+  "resolution_deadline": "2026-01-15",
+  "category": "economic_trade",
+  "tags": [
+    "USA",
+    "Venezuela",
+    "sanctions"
+  ],
+  "status": "published",
+  "status_display": "Active",
+  "outcome": null,
+  "outcome_display": null,
+  "outcome_date": null,
+  "was_correct": null,
+  "timing_error_days": null,
+  "reasoning_summary": "Recent U.S. control over Venezuelan oil sales and European rejection of U.S. demands suggest ongoing pressure on Venezuela. A 20% reduction aligns with historical sanction patterns.",
+  "key_indicators": [
+    "U.S. Treasury announcements",
+    "Venezuela oil export data",
+    "European diplomatic responses"
+  ],
+  "permalink": "/predictions/prediction/PRED-2026-014.html",
+  "api_url": "/predictions/api/predictions/PRED-2026-014.json"
+}

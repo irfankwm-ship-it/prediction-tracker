@@ -1,0 +1,30 @@
+{
+  "id": "PRED-2026-022",
+  "title": "Russia-EU Trade Surge",
+  "statement": "Within 7 days, Russia-EU trade will surpass $1.2 trillion USD, driven by sanctions evasion.",
+  "probability": 0.6,
+  "probability_display": "60%",
+  "created_date": "2026-01-08T13:46:18.890874",
+  "resolution_deadline": "2026-01-15",
+  "category": "economic_trade",
+  "tags": [
+    "Russia",
+    "EU",
+    "sanctions"
+  ],
+  "status": "published",
+  "status_display": "Active",
+  "outcome": null,
+  "outcome_display": null,
+  "outcome_date": null,
+  "was_correct": null,
+  "timing_error_days": null,
+  "reasoning_summary": "Recent trade anomalies and EU-Russia energy deals indicate a potential surge in illicit trade volumes.",
+  "key_indicators": [
+    "Russia-EU trade statistics",
+    "Energy export data",
+    "EU sanctions enforcement reports"
+  ],
+  "permalink": "/predictions/prediction/PRED-2026-022.html",
+  "api_url": "/predictions/api/predictions/PRED-2026-022.json"
+}

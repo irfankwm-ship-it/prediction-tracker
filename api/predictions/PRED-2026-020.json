@@ -1,0 +1,30 @@
+{
+  "id": "PRED-2026-020",
+  "title": "U.S. Military Action Pause",
+  "statement": "Within 7 days, the U.S. Senate will vote to block Trump's military actions in Venezuela.",
+  "probability": 0.85,
+  "probability_display": "85%",
+  "created_date": "2026-01-08T13:46:18.889565",
+  "resolution_deadline": "2026-01-15",
+  "category": "political_domestic",
+  "tags": [
+    "USA",
+    "Venezuela",
+    "Senate"
+  ],
+  "status": "published",
+  "status_display": "Active",
+  "outcome": null,
+  "outcome_display": null,
+  "outcome_date": null,
+  "was_correct": null,
+  "timing_error_days": null,
+  "reasoning_summary": "The recent war powers resolution and Senate majority indicate a likely vote to curtail executive military authority.",
+  "key_indicators": [
+    "Senate floor votes",
+    "Trump's military directives",
+    "Congressional committee reports"
+  ],
+  "permalink": "/predictions/prediction/PRED-2026-020.html",
+  "api_url": "/predictions/api/predictions/PRED-2026-020.json"
+}

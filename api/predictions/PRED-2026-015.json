@@ -1,0 +1,30 @@
+{
+  "id": "PRED-2026-015",
+  "title": "Danish Greenland Defense Posture",
+  "statement": "Within 7 days, Danish forces will conduct a joint military exercise with NATO in Greenland to deter potential invasions.",
+  "probability": 0.8,
+  "probability_display": "80%",
+  "created_date": "2026-01-08T13:46:18.886586",
+  "resolution_deadline": "2026-01-15",
+  "category": "conflict_security",
+  "tags": [
+    "Denmark",
+    "Greenland",
+    "NATO"
+  ],
+  "status": "published",
+  "status_display": "Active",
+  "outcome": null,
+  "outcome_display": null,
+  "outcome_date": null,
+  "was_correct": null,
+  "timing_error_days": null,
+  "reasoning_summary": "The 'shoot first' rhetoric from Danish forces and U.S. threats to Greenland align with heightened regional security posturing.",
+  "key_indicators": [
+    "NATO exercise schedules",
+    "Danish defense budget allocations",
+    "U.S.-Greenland diplomatic tensions"
+  ],
+  "permalink": "/predictions/prediction/PRED-2026-015.html",
+  "api_url": "/predictions/api/predictions/PRED-2026-015.json"
+}
