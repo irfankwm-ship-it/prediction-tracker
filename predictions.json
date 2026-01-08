@@ -1,44 +1,242 @@
 [
     {
-        "id": "PRED-2026-001",
-        "prediction": "Paris Ukraine peace talks will produce at minimum a joint statement or communique from attending allies within 5 days of the January 2026 meetings.",
+        "id": "PRED-2026-004",
+        "prediction": "The US will announce the seizure of at least two additional Venezuelan oil tankers in the North Atlantic within 7 days.",
+        "domain": "Security",
+        "confidence": 75,
+        "created_date": "2026-01-07",
+        "due_date": "2026-01-14",
+        "verification": "Verifiable via news sources and official announcements.",
+        "falsification": "No evidence of outcome by 2026-01-14.",
+        "sources": [
+            "USA",
+            "Venezuela",
+            "oil"
+        ],
+        "outcome": "pending",
+        "evaluated_date": null,
+        "outcome_notes": null,
+        "reasoning": "Recent seizures of Venezuelan tankers indicate ongoing US efforts to disrupt Venezuela's oil exports. The North Atlantic route is a key transit corridor for Venezuelan oil, making further seizures likely.",
+        "key_indicators": [
+            "US Coast Guard movements",
+            "Venezuelan military responses",
+            "Sanctions announcements"
+        ]
+    },
+    {
+        "id": "PRED-2026-005",
+        "prediction": "Denmark will issue an official condemnation of the US's public statements about purchasing Greenland within 7 days.",
         "domain": "Diplomacy",
-        "confidence": 65,
-        "created_date": "2026-01-02",
-        "due_date": "2026-01-07",
-        "verification": "Official joint statement, communique, or agreement document released by participating nations.",
-        "falsification": "No joint statement or formal agreement announced by January 7, 2026.",
-        "sources": ["Toronto Sun", "CP24", "Lethbridge Herald", "Medicine Hat News", "PA Now"],
+        "confidence": 85,
+        "created_date": "2026-01-07",
+        "due_date": "2026-01-14",
+        "verification": "Verifiable via news sources and official announcements.",
+        "falsification": "No evidence of outcome by 2026-01-14.",
+        "sources": [
+            "USA",
+            "Denmark",
+            "Greenland"
+        ],
         "outcome": "pending",
         "evaluated_date": null,
-        "outcome_notes": null
+        "outcome_notes": null,
+        "reasoning": "Denmark's strong diplomatic stance against US territorial claims, combined with NATO's unified position, makes an official response highly probable.",
+        "key_indicators": [
+            "Danish government statements",
+            "NATO press releases",
+            "European Union reactions"
+        ]
     },
     {
-        "id": "PRED-2026-002",
-        "prediction": "Iranian government will issue formal diplomatic response (via Foreign Ministry, UN mission, or state media) to Trump's intervention threats within 5 days.",
-        "domain": "US-Iran",
-        "confidence": 70,
-        "created_date": "2026-01-02",
-        "due_date": "2026-01-07",
-        "verification": "Official statement from Iranian Foreign Ministry, UN Ambassador, or Supreme Leader's office.",
-        "falsification": "No official Iranian government response to Trump's statements by January 7, 2026.",
-        "sources": ["Globe and Mail", "BBC World"],
-        "outcome": "pending",
-        "evaluated_date": null,
-        "outcome_notes": null
-    },
-    {
-        "id": "PRED-2026-003",
-        "prediction": "Budanov's new advisory role will result in at least one announced change to Ukraine's military or intelligence strategy within 5 days.",
-        "domain": "Ukraine-Russia",
+        "id": "PRED-2026-006",
+        "prediction": "The UN will impose new sanctions on Iran within 7 days due to the 100% trade collapse since 2022.",
+        "domain": "Economic",
         "confidence": 60,
-        "created_date": "2026-01-02",
-        "due_date": "2026-01-07",
-        "verification": "Official Ukrainian government announcement of strategic change or observable policy shift.",
-        "falsification": "No announcements or observable changes by January 7, 2026.",
-        "sources": ["Globe and Mail", "BBC World"],
+        "created_date": "2026-01-07",
+        "due_date": "2026-01-14",
+        "verification": "Verifiable via news sources and official announcements.",
+        "falsification": "No evidence of outcome by 2026-01-14.",
+        "sources": [
+            "Iran",
+            "UN",
+            "sanctions"
+        ],
         "outcome": "pending",
         "evaluated_date": null,
-        "outcome_notes": null
+        "outcome_notes": null,
+        "reasoning": "The total trade collapse with Iran creates a vacuum for sanctions, especially as global powers seek to isolate Iran economically.",
+        "key_indicators": [
+            "UN Security Council meetings",
+            "Iranian economic reports",
+            "US/EU sanctions updates"
+        ]
+    },
+    {
+        "id": "PRED-2026-007",
+        "prediction": "Canada will announce a 10% increase in defense spending by 2026 in response to the US's 50% defense budget surge.",
+        "domain": "Political",
+        "confidence": 55,
+        "created_date": "2026-01-07",
+        "due_date": "2026-01-14",
+        "verification": "Verifiable via news sources and official announcements.",
+        "falsification": "No evidence of outcome by 2026-01-14.",
+        "sources": [
+            "Canada",
+            "USA",
+            "defense"
+        ],
+        "outcome": "pending",
+        "evaluated_date": null,
+        "outcome_notes": null,
+        "reasoning": "The US's defense budget increase could pressure Canada to align its spending with NATO commitments, especially in Arctic and North American security.",
+        "key_indicators": [
+            "Canadian federal budget announcements",
+            "NATO summit discussions",
+            "Arctic security reports"
+        ]
+    },
+    {
+        "id": "PRED-2026-008",
+        "prediction": "Protests in Minneapolis will turn into a citywide strike involving labor unions within 7 days.",
+        "domain": "Social",
+        "confidence": 70,
+        "created_date": "2026-01-07",
+        "due_date": "2026-01-14",
+        "verification": "Verifiable via news sources and official announcements.",
+        "falsification": "No evidence of outcome by 2026-01-14.",
+        "sources": [
+            "USA",
+            "Minneapolis",
+            "protests"
+        ],
+        "outcome": "pending",
+        "evaluated_date": null,
+        "outcome_notes": null,
+        "reasoning": "The ICE shooting incident has already sparked widespread anger, and labor unions are likely to mobilize to pressure local authorities.",
+        "key_indicators": [
+            "Union strike announcements",
+            "Police deployment changes",
+            "Social media mobilization"
+        ]
+    },
+    {
+        "id": "PRED-2026-009",
+        "prediction": "A state-sponsored cyberattack will target US military networks linked to Venezuela operations within 7 days.",
+        "domain": "Technology",
+        "confidence": 65,
+        "created_date": "2026-01-07",
+        "due_date": "2026-01-14",
+        "verification": "Verifiable via news sources and official announcements.",
+        "falsification": "No evidence of outcome by 2026-01-14.",
+        "sources": [
+            "USA",
+            "Venezuela",
+            "cyberattacks"
+        ],
+        "outcome": "pending",
+        "evaluated_date": null,
+        "outcome_notes": null,
+        "reasoning": "The US's aggressive military actions in Venezuela could provoke retaliatory cyber operations, particularly from state actors like Russia or Iran.",
+        "key_indicators": [
+            "Unusual network traffic",
+            "Attributed cyber incidents",
+            "Military communication disruptions"
+        ]
+    },
+    {
+        "id": "PRED-2026-010",
+        "prediction": "Venezuela will launch a cyber or physical attack on US oil infrastructure within 7 days.",
+        "domain": "Security",
+        "confidence": 50,
+        "created_date": "2026-01-07",
+        "due_date": "2026-01-14",
+        "verification": "Verifiable via news sources and official announcements.",
+        "falsification": "No evidence of outcome by 2026-01-14.",
+        "sources": [
+            "USA",
+            "Venezuela",
+            "cyberwarfare"
+        ],
+        "outcome": "pending",
+        "evaluated_date": null,
+        "outcome_notes": null,
+        "reasoning": "The US's seizure of Venezuelan tankers and oil sales control is likely to provoke retaliatory measures, given Venezuela's history of asymmetric warfare.",
+        "key_indicators": [
+            "Venezuelan military movements",
+            "Oil infrastructure disruptions",
+            "State media reports"
+        ]
+    },
+    {
+        "id": "PRED-2026-011",
+        "prediction": "The US and Venezuela will finalize an oil deal by 2026, with Venezuela purchasing 20% of US crude oil.",
+        "domain": "Economic",
+        "confidence": 70,
+        "created_date": "2026-01-07",
+        "due_date": "2026-01-14",
+        "verification": "Verifiable via news sources and official announcements.",
+        "falsification": "No evidence of outcome by 2026-01-14.",
+        "sources": [
+            "USA",
+            "Venezuela",
+            "oil"
+        ],
+        "outcome": "pending",
+        "evaluated_date": null,
+        "outcome_notes": null,
+        "reasoning": "The White House's public commitment to a 'fair' oil deal, combined with Venezuela's need for revenue, makes this a probable outcome.",
+        "key_indicators": [
+            "Official oil contract announcements",
+            "Venezuela's oil export data",
+            "US Energy Department reports"
+        ]
+    },
+    {
+        "id": "PRED-2026-012",
+        "prediction": "NATO will formally agree to protect Greenland's strategic assets against US territorial claims within 7 days.",
+        "domain": "Diplomacy",
+        "confidence": 80,
+        "created_date": "2026-01-07",
+        "due_date": "2026-01-14",
+        "verification": "Verifiable via news sources and official announcements.",
+        "falsification": "No evidence of outcome by 2026-01-14.",
+        "sources": [
+            "NATO",
+            "Greenland",
+            "USA"
+        ],
+        "outcome": "pending",
+        "evaluated_date": null,
+        "outcome_notes": null,
+        "reasoning": "NATO's unified condemnation of US Greenland claims and Denmark's sovereignty stance will likely lead to a security pact to counter US influence.",
+        "key_indicators": [
+            "NATO council meetings",
+            "Denmark's security proposals",
+            "European Union diplomatic notes"
+        ]
+    },
+    {
+        "id": "PRED-2026-013",
+        "prediction": "Employees at the Zion Community Kitchen in Washington will go on strike demanding an end to Israeli ties within 7 days.",
+        "domain": "Social",
+        "confidence": 60,
+        "created_date": "2026-01-07",
+        "due_date": "2026-01-14",
+        "verification": "Verifiable via news sources and official announcements.",
+        "falsification": "No evidence of outcome by 2026-01-14.",
+        "sources": [
+            "USA",
+            "Washington",
+            "labor"
+        ],
+        "outcome": "pending",
+        "evaluated_date": null,
+        "outcome_notes": null,
+        "reasoning": "The recent demand from bread bakery employees aligns with broader anti-Israel sentiment in the region, and labor unions are likely to act swiftly.",
+        "key_indicators": [
+            "Strike announcements",
+            "Union negotiations",
+            "Social media campaigns"
+        ]
     }
 ]
