@@ -48,54 +48,6 @@
         ]
     },
     {
-        "id": "PRED-2026-006",
-        "prediction": "The UN will impose new sanctions on Iran within 7 days due to the 100% trade collapse since 2022.",
-        "domain": "Economic",
-        "confidence": 60,
-        "created_date": "2026-01-07",
-        "due_date": "2026-01-14",
-        "verification": "Verifiable via news sources and official announcements.",
-        "falsification": "No evidence of outcome by 2026-01-14.",
-        "sources": [
-            "Iran",
-            "UN",
-            "sanctions"
-        ],
-        "outcome": "pending",
-        "evaluated_date": null,
-        "outcome_notes": null,
-        "reasoning": "The total trade collapse with Iran creates a vacuum for sanctions, especially as global powers seek to isolate Iran economically.",
-        "key_indicators": [
-            "UN Security Council meetings",
-            "Iranian economic reports",
-            "US/EU sanctions updates"
-        ]
-    },
-    {
-        "id": "PRED-2026-007",
-        "prediction": "Canada will announce a 10% increase in defense spending by 2026 in response to the US's 50% defense budget surge.",
-        "domain": "Political",
-        "confidence": 55,
-        "created_date": "2026-01-07",
-        "due_date": "2026-01-14",
-        "verification": "Verifiable via news sources and official announcements.",
-        "falsification": "No evidence of outcome by 2026-01-14.",
-        "sources": [
-            "Canada",
-            "USA",
-            "defense"
-        ],
-        "outcome": "pending",
-        "evaluated_date": null,
-        "outcome_notes": null,
-        "reasoning": "The US's defense budget increase could pressure Canada to align its spending with NATO commitments, especially in Arctic and North American security.",
-        "key_indicators": [
-            "Canadian federal budget announcements",
-            "NATO summit discussions",
-            "Arctic security reports"
-        ]
-    },
-    {
         "id": "PRED-2026-008",
         "prediction": "Protests in Minneapolis will turn into a citywide strike involving labor unions within 7 days.",
         "domain": "Social",
@@ -165,54 +117,6 @@
             "Venezuelan military movements",
             "Oil infrastructure disruptions",
             "State media reports"
-        ]
-    },
-    {
-        "id": "PRED-2026-011",
-        "prediction": "The US and Venezuela will finalize an oil deal by 2026, with Venezuela purchasing 20% of US crude oil.",
-        "domain": "Economic",
-        "confidence": 70,
-        "created_date": "2026-01-07",
-        "due_date": "2026-01-14",
-        "verification": "Verifiable via news sources and official announcements.",
-        "falsification": "No evidence of outcome by 2026-01-14.",
-        "sources": [
-            "USA",
-            "Venezuela",
-            "oil"
-        ],
-        "outcome": "pending",
-        "evaluated_date": null,
-        "outcome_notes": null,
-        "reasoning": "The White House's public commitment to a 'fair' oil deal, combined with Venezuela's need for revenue, makes this a probable outcome.",
-        "key_indicators": [
-            "Official oil contract announcements",
-            "Venezuela's oil export data",
-            "US Energy Department reports"
-        ]
-    },
-    {
-        "id": "PRED-2026-012",
-        "prediction": "NATO will formally agree to protect Greenland's strategic assets against US territorial claims within 7 days.",
-        "domain": "Diplomacy",
-        "confidence": 80,
-        "created_date": "2026-01-07",
-        "due_date": "2026-01-14",
-        "verification": "Verifiable via news sources and official announcements.",
-        "falsification": "No evidence of outcome by 2026-01-14.",
-        "sources": [
-            "NATO",
-            "Greenland",
-            "USA"
-        ],
-        "outcome": "pending",
-        "evaluated_date": null,
-        "outcome_notes": null,
-        "reasoning": "NATO's unified condemnation of US Greenland claims and Denmark's sovereignty stance will likely lead to a security pact to counter US influence.",
-        "key_indicators": [
-            "NATO council meetings",
-            "Denmark's security proposals",
-            "European Union diplomatic notes"
         ]
     },
     {
