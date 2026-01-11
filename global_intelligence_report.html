@@ -7,80 +7,69 @@
     <meta name="description" content="Daily global intelligence briefing with curated analysis from open sources.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e3a5f;
-            --accent: #D97638;
-            --critical: #dc2626;
-            --tense: #ea580c;
-            --stable: #16a34a;
-            --bg-light: #f8fafc;
-            --bg-card: #ffffff;
-            --text-dark: #1a1f36;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --satellite: #7c3aed;
-            --trade: #0891b2;
-            --flight: #0d9488;
+            --black: #161618;
+            --dark-gray: #1a1a1c;
+            --medium-gray: #414143;
+            --light-gray: #efeff3;
+            --white: #ffffff;
+            --red: #e21a41;
+            --primary: #161618;
+            --accent: #e21a41;
+            --critical: #e21a41;
+            --tense: #f97316;
+            --stable: #22c55e;
+            --bg-light: #1a1a1c;
+            --bg-card: #161618;
+            --text-dark: #ffffff;
+            --text-muted: #9ca3af;
+            --border: #333;
+            --satellite: #e21a41;
+            --trade: #e21a41;
+            --flight: #e21a41;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            color: var(--text-dark);
+            background: var(--black);
+            color: var(--white);
             line-height: 1.6;
             min-height: 100vh;
         }
 
-        /* Navigation */
-        .nav-bar {
-            background: rgba(255,255,255,0.1);
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent calc(8.33% - 1px), var(--border) calc(8.33% - 1px), var(--border) 8.33%);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
         }
-
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: flex-end;
-            gap: 1.5rem;
-        }
-
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-link:hover { background: rgba(255,255,255,0.15); }
-        .nav-link.active { background: rgba(255,255,255,0.2); }
 
         /* Header */
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, #2c5282 100%);
-            color: white;
-            padding: 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--black);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            height: 70px;
         }
 
-        .header-main { padding: 2rem 0; }
-
         .header-content {
-            max-width: 1200px;
+            max-width: 1140px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 30px;
+            height: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -89,35 +78,54 @@
         .logo-section {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--white);
         }
 
-        .logo-section img {
-            height: 70px;
-            width: auto;
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
 
-        .logo-section h1 {
-            font-size: 1.75rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+        .nav-links {
+            display: flex;
+            gap: 0;
         }
 
-        .logo-section .tagline {
+        .nav-link {
+            color: var(--light-gray);
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            font-weight: 500;
             font-size: 0.9rem;
-            opacity: 0.9;
-            margin-top: 0.25rem;
+            position: relative;
+            transition: color 0.4s cubic-bezier(.5,.15,.5,.85);
         }
 
-        .report-meta { text-align: right; }
-        .report-date { font-size: 1.1rem; font-weight: 600; }
-        .source-count { font-size: 0.85rem; opacity: 0.85; margin-top: 0.25rem; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--red);
+            transition: all 0.4s cubic-bezier(.5,.15,.5,.85);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover { color: var(--white); }
+        .nav-link:hover::after { width: 80%; }
+
+        main { position: relative; z-index: 1; }
 
         /* Main Container */
         .container {
-            max-width: 1200px;
+            max-width: 1140px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 100px 30px 2rem;
         }
 
         /* Global State Banner */
@@ -166,9 +174,9 @@
             font-weight: 600;
         }
 
-        .trend-badge.deteriorating { background: #fef2f2; color: var(--critical); }
-        .trend-badge.stable { background: #fefce8; color: #a16207; }
-        .trend-badge.improving { background: #f0fdf4; color: var(--stable); }
+        .trend-badge.deteriorating { background: rgba(226,26,65,0.2); color: var(--critical); }
+        .trend-badge.stable { background: rgba(249,115,22,0.2); color: var(--tense); }
+        .trend-badge.improving { background: rgba(34,197,94,0.2); color: var(--stable); }
 
         .state-title {
             font-size: 1.25rem;
@@ -199,31 +207,34 @@
 
         /* Section Cards */
         .section-card {
-            background: var(--bg-card);
-            border-radius: 12px;
+            background: var(--dark-gray);
+            border-radius: 0;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            box-shadow: none;
             overflow: hidden;
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--red);
         }
 
         .section-header {
-            background: linear-gradient(135deg, var(--primary) 0%, #2c5282 100%);
+            background: var(--dark-gray);
             color: white;
             padding: 1rem 1.5rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            border-bottom: 1px solid var(--border);
         }
 
         .section-header:hover {
-            background: linear-gradient(135deg, #2c5282 0%, var(--primary) 100%);
+            background: var(--medium-gray);
         }
 
-        .section-header.satellite { background: linear-gradient(135deg, var(--satellite) 0%, #6d28d9 100%); }
-        .section-header.trade { background: linear-gradient(135deg, var(--trade) 0%, #0e7490 100%); }
-        .section-header.flight { background: linear-gradient(135deg, var(--flight) 0%, #0f766e 100%); }
+        .section-header.satellite { border-top: 3px solid var(--satellite); }
+        .section-header.trade { border-top: 3px solid var(--trade); }
+        .section-header.flight { border-top: 3px solid var(--flight); }
 
         .section-title {
             font-size: 1.1rem;
@@ -244,7 +255,7 @@
             font-family: 'Merriweather', serif;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--white);
             margin-bottom: 1rem;
             line-height: 1.4;
         }
@@ -252,26 +263,26 @@
         .exec-narrative {
             font-size: 1.05rem;
             margin-bottom: 1.25rem;
-            color: var(--text-dark);
+            color: var(--light-gray);
         }
 
         .exec-bottom-line {
-            background: #fff7ed;
-            border-left: 4px solid var(--accent);
+            background: rgba(226,26,65,0.15);
+            border-left: 4px solid var(--red);
             padding: 1rem;
             font-weight: 600;
-            color: #9a3412;
-            border-radius: 0 8px 8px 0;
+            color: var(--white);
+            border-radius: 0;
         }
 
         /* Key Developments */
         .development-card {
-            background: linear-gradient(135deg, #fff7ed 0%, #fffbf0 100%);
-            border: 1px solid #fed7aa;
-            border-left: 4px solid var(--accent);
+            background: var(--black);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
             padding: 1.25rem;
             margin-bottom: 1rem;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0;
         }
 
         .dev-header {
@@ -284,21 +295,22 @@
         .dev-title {
             font-size: 1.05rem;
             font-weight: 700;
-            color: #9a3412;
+            color: var(--white);
         }
 
         .dev-category {
             font-size: 0.7rem;
             padding: 0.25rem 0.6rem;
-            background: var(--accent);
+            background: var(--red);
             color: white;
-            border-radius: 4px;
+            border-radius: 0;
             font-weight: 600;
+            text-transform: uppercase;
         }
 
         .dev-body {
             font-size: 0.95rem;
-            color: var(--text-dark);
+            color: var(--light-gray);
         }
 
         /* Power Dynamics - Visual Cards */
@@ -309,14 +321,14 @@
         }
 
         .power-bloc {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border: 1px solid #bae6fd;
-            border-radius: 10px;
+            background: var(--black);
+            border: 1px solid var(--border);
+            border-radius: 0;
             padding: 1.25rem;
         }
 
-        .power-bloc.western { border-left: 4px solid #2563eb; }
-        .power-bloc.eastern { border-left: 4px solid #dc2626; }
+        .power-bloc.western { border-left: 4px solid #3b82f6; }
+        .power-bloc.eastern { border-left: 4px solid var(--red); }
         .power-bloc.nonaligned { border-left: 4px solid #16a34a; }
 
         .bloc-title {
@@ -326,22 +338,23 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            color: var(--white);
         }
 
         .bloc-content {
             font-size: 0.95rem;
-            color: var(--text-dark);
+            color: var(--light-gray);
             line-height: 1.6;
         }
 
         /* Conflicts */
         .conflict-card {
-            background: linear-gradient(135deg, #fef2f2 0%, #fff1f2 100%);
-            border: 1px solid #fecaca;
-            border-left: 4px solid var(--critical);
+            background: var(--black);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
             padding: 1.25rem;
             margin-bottom: 1rem;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0;
         }
 
         .conflict-header {
@@ -354,23 +367,24 @@
         .conflict-name {
             font-size: 1.05rem;
             font-weight: 700;
-            color: #991b1b;
+            color: var(--white);
         }
 
         .conflict-trajectory {
             font-size: 0.75rem;
             padding: 0.2rem 0.6rem;
-            border-radius: 4px;
+            border-radius: 0;
             font-weight: 600;
+            text-transform: uppercase;
         }
 
-        .trajectory-escalating { background: #dc2626; color: white; }
-        .trajectory-stable { background: #f59e0b; color: white; }
-        .trajectory-deescalating { background: #16a34a; color: white; }
+        .trajectory-escalating { background: var(--red); color: white; }
+        .trajectory-stable { background: var(--tense); color: white; }
+        .trajectory-deescalating { background: var(--stable); color: white; }
 
         .conflict-details {
             font-size: 0.9rem;
-            color: #7f1d1d;
+            color: var(--light-gray);
         }
 
         /* Black Swan */
@@ -407,9 +421,9 @@
         }
 
         .intel-card {
-            background: #f8fafc;
+            background: var(--black);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 0;
             padding: 1rem;
         }
 
@@ -424,12 +438,13 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            color: var(--white);
         }
 
         .intel-value {
             font-size: 1.5rem;
             font-weight: 800;
-            color: var(--primary);
+            color: var(--red);
         }
 
         .intel-description {
@@ -440,14 +455,15 @@
 
         /* Methodology Section */
         .methodology-section {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border: 2px solid #0ea5e9;
-            border-radius: 12px;
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-top: 3px solid #0ea5e9;
+            border-radius: 0;
             margin: 2rem 0;
         }
 
         .methodology-header {
-            background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+            background: var(--dark-gray);
         }
 
         .methodology-content { padding: 2rem; }
@@ -462,7 +478,7 @@
         .step-number {
             width: 40px;
             height: 40px;
-            background: var(--primary);
+            background: var(--red);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -476,60 +492,105 @@
         .step-content h4 {
             font-size: 1.1rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--white);
             margin-bottom: 0.5rem;
         }
 
         .step-content p {
             font-size: 0.95rem;
-            color: var(--text-dark);
+            color: var(--light-gray);
         }
 
         .ai-note {
-            background: #dbeafe;
-            border-radius: 8px;
+            background: rgba(226,26,65,0.15);
+            border-radius: 0;
             padding: 1rem 1.25rem;
             margin-top: 1.5rem;
             font-size: 0.9rem;
-            color: #1e40af;
+            color: var(--light-gray);
+            border-left: 3px solid var(--red);
         }
 
-        .ai-note strong { color: #1e3a8a; }
+        .ai-note strong { color: var(--white); }
 
         /* Footer */
         .footer {
-            background: var(--primary);
+            background: var(--black);
             color: white;
-            padding: 2rem;
+            padding: 3rem 2rem 2rem;
             margin-top: 3rem;
+            border-top: 1px solid var(--border);
         }
 
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        .footer-main {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
         }
 
         .footer-brand {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
             gap: 1rem;
         }
 
         .footer-brand img {
-            height: 60px;
+            height: 150px;
             width: auto;
         }
 
         .footer-text {
             font-size: 0.95rem;
+            color: var(--light-gray);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .footer-column h4 {
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--red);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .footer-meta {
             font-size: 0.85rem;
-            opacity: 0.85;
+            color: var(--text-muted);
         }
 
         /* Responsive */
@@ -542,8 +603,10 @@
             .power-dynamics-grid { grid-template-columns: 1fr; }
             .intel-grid { grid-template-columns: 1fr; }
             .methodology-step { flex-direction: column; gap: 1rem; }
-            .footer-content { flex-direction: column; text-align: center; gap: 1rem; }
-            .footer-brand { flex-direction: column; }
+            .footer-main { flex-direction: column; }
+            .footer-links { flex-direction: column; gap: 2rem; }
+            .footer-bottom { flex-direction: column; text-align: center; gap: 1rem; }
+            .footer-brand { align-items: center; }
         }
 
         /* Citations */
@@ -562,50 +625,29 @@
     </style>
 </head>
 <body>
+    <div class="grid-bg"></div>
     <header class="header">
-        <nav class="nav-bar">
-            <div class="nav-content">
-                <a href="global_intelligence_report.html" class="nav-link active">
-                    <span>🌍</span> Global Report
-                </a>
-                <a href="satellite_intelligence.html" class="nav-link">
-                    <span>🛰️</span> Satellite
-                </a>
-                <a href="trade_intelligence.html" class="nav-link">
-                    <span>📦</span> Trade
-                </a>
-                <a href="flight_intelligence.html" class="nav-link">
-                    <span>✈️</span> Flight
-                </a>
-                <a href="active_conflicts.html" class="nav-link">
-                    <span>⚔️</span> Conflicts
-                </a>
-                <a href="predictions.html" class="nav-link">
-                    <span>🔮</span> Predictions
-                </a>
-                <a href="methodology.html" class="nav-link">
-                    <span>📋</span> Methodology
-                </a>
-            </div>
-        </nav>
-        <div class="header-main">
-            <div class="header-content">
-                <div class="logo-section">
-                    <img src="kwm_logo.png" alt="Know What Matters">
-                    <div>
-                        <h1>Know What Matters</h1>
-                        <div class="tagline">Global Intelligence Report</div>
-                    </div>
-                </div>
-                <div class="report-meta">
-                    <div class="report-date">January 10, 2026</div>
-                    <div class="source-count">37 sources analyzed</div>
-                </div>
-            </div>
+        <div class="header-content">
+            <a href="index.html" class="logo-section">
+                <span class="logo-text">Know What Matters</span>
+            </a>
+            <nav class="nav-links">
+                <a href="global_intelligence_report.html" class="nav-link">Global Report</a>
+                <a href="predictions.html" class="nav-link">Predictions</a>
+                <a href="active_conflicts.html" class="nav-link">Conflicts</a>
+                <a href="trade_intelligence.html" class="nav-link">Trade</a>
+                <a href="methodology.html" class="nav-link">Methodology</a>
+                <a href="about.html" class="nav-link">About</a>
+            </nav>
         </div>
     </header>
 
     <main class="container">
+        <div class="page-header" style="margin-bottom: 2rem;">
+            <div style="color: var(--red); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.5rem;">Intelligence Report</div>
+            <h1 style="font-family: 'Libre Baskerville', Georgia, serif; font-size: 2.5rem; font-weight: 400;">Global Intelligence</h1>
+            <div style="color: var(--text-muted); margin-top: 0.5rem;">January 10, 2026 &middot; 37 sources analyzed</div>
+        </div>
         <!-- Global State Banner -->
         <div class="global-state-banner critical">
             <div class="state-header">
@@ -628,9 +670,9 @@
             </div>
             <div class="section-content">
                 <h2 class="exec-headline">Global Situation: CRITICAL - Multiple Active Developments</h2>
-                <p class="exec-narrative">Today's intelligence picture reveals interconnected flashpoints across multiple regions. Economic pressures are compounding geopolitical tensions, particularly around energy and trade routes. Political dynamics are shifting rapidly, with domestic pressures influencing foreign policy decisions. Active conflicts number 1, with evolving trajectories that could reshape regional stability.</p>
+                <p class="exec-narrative">The world is experiencing heightened tensions and conflicts. Russia's deployment of troops to the border with Ukraine, following a series of hypersonic missile strikes <sup>[1]</sup>, indicates an escalation in military posturing between nations. Additionally, the US seizure of Venezuelan oil tankers as part of its control over oil distribution and sanctions against Venezuela further exacerbates global tensions <sup>[2]</sup>.</p>
                 <div class="exec-bottom-line">
-                    <strong>Bottom Line:</strong> Priority watch: Ukraine-Russia War showing escalation trajectory. Position for potential spillover effects on energy markets and regional stability.
+                    <strong>Bottom Line:</strong> 5 of 8 active conflicts are escalating: Ukraine-Russia War, Sudan Civil War, Myanmar Civil War, Haiti Gang Violence, South China Sea. Continued monitoring required across all theaters.
                 </div>
             </div>
         </div>
@@ -706,18 +748,18 @@
                     
         <div class="power-bloc western">
             <div class="bloc-title">🔵 Western Bloc (US-EU-NATO) <span style="font-size: 0.7rem; background: #3b82f6; color: white; padding: 0.15rem 0.5rem; border-radius: 3px; margin-left: 0.5rem;">Cohesion: HIGH</span></div>
-            <p class="bloc-content">The United States and its allies in NATO have been actively involved in geopolitical tensions, as evidenced by the U.S. The transatlantic alliance shows renewed cohesion around Ukraine support and China containment. US-EU coordination on semiconductor export controls demonstrates alignment on strategic technology. Howe</p>
+            <p class="bloc-content">NATO allies maintain strong coordination on Ukraine military aid and economic sanctions against Russia. US-EU alignment on semiconductor export controls to China demonstrates shared strategic technology priorities. Germany's historic defense spending increase signals long-term commitment to collective security. Friction points include trade disputes over steel tariffs and green energy subsidies, but these remain manageable within the alliance framework.</p>
             <p style="margin-top: 0.75rem; font-size: 0.85rem; color: #1e40af;"><strong>Watch:</strong> Burden-sharing on Ukraine and speed of European defense buildup</p>
         </div>
         <div class="power-bloc eastern">
             <div class="bloc-title">🔴 Eastern Bloc (Russia-China-Iran) <span style="font-size: 0.7rem; background: #dc2626; color: white; padding: 0.15rem 0.5rem; border-radius: 3px; margin-left: 0.5rem;">Cohesion: MEDIUM</span></div>
-            <p class="bloc-content">The 'no limits' partnership faces practical limits. China provides diplomatic cover for Russia but avoids direct sanctions violations to protect Western market access. Russia depends on China for electronics and Iran for drones, creating asymmetric relationships. The SCO expands but lacks NATO-style mutual defense commitments. Yuan settlement grows in Russia trade, accelerating de-dollarization efforts. North Korea reintegration via arms deals adds a wildcard.</p>
+            <p class="bloc-content">China provides diplomatic cover for Russia at the UN but carefully avoids direct sanctions violations to protect Western market access. Russia depends on China for electronics and Iran for drones, creating asymmetric relationships favoring Beijing. The Shanghai Cooperation Organisation expands membership but lacks NATO-style mutual defense commitments. Yuan settlement in Russian trade accelerates de-dollarization, while North Korea's reintegration via arms deals adds unpredictability.</p>
             <p style="margin-top: 0.75rem; font-size: 0.85rem; color: #991b1b;"><strong>Watch:</strong> China balancing Russia support against Western economic ties</p>
         </div>
         <div class="power-bloc nonaligned">
             <div class="bloc-title">🟢 Non-Aligned / Global South <span style="font-size: 0.7rem; background: #16a34a; color: white; padding: 0.15rem 0.5rem; border-radius: 3px; margin-left: 0.5rem;">Cohesion: LOW</span></div>
-            <p class="bloc-content">India exemplifies the new non-alignment: buying Russian oil at discount while deepening Quad security ties with US. Brazil, South Africa, and Indonesia resist taking sides on Ukraine, prioritizing economic pragmatism. The Gulf states diversify beyond US security umbrella with Chinese infrastructure deals and Russian arms purchases. Africa increasingly rejects Western prescriptions while welcoming Chinese and Russian engagement on local terms.</p>
-            <p style="margin-top: 0.75rem; font-size: 0.85rem; color: #166534;"><strong>Watch:</strong> Leveraging great power competition without commitment</p>
+            <p class="bloc-content">India exemplifies modern non-alignment: purchasing discounted Russian oil while deepening Quad security ties with the US. Brazil, South Africa, and Indonesia refuse to take sides on Ukraine, prioritizing economic pragmatism over geopolitical alignment. Gulf states diversify beyond the US security umbrella through Chinese infrastructure investments and Russian arms purchases. African nations increasingly reject Western policy prescriptions while welcoming Chinese and Russian engagement on their own terms.</p>
+            <p style="margin-top: 0.75rem; font-size: 0.85rem; color: #166534;"><strong>Watch:</strong> Leveraging great power competition without firm commitment</p>
         </div>
                 </div>
             </div>
@@ -743,36 +785,37 @@
                     <span class="conflict-name">Gaza Conflict</span>
                     <span class="conflict-trajectory trajectory-stable">STABLE</span>
                 </div>
-                <p class="conflict-details">Humanitarian crisis continues. Ceasefire negotiations ongoing but fragile. Regional spillover risk elevated.</p>
+                <p class="conflict-details"></p>
             </div>
             <div class="conflict-card">
                 <div class="conflict-header">
-                    <span class="conflict-name">Taiwan Strait Tensions</span>
-                    <span class="conflict-trajectory trajectory-stable">STABLE</span>
+                    <span class="conflict-name">Sudan Civil War</span>
+                    <span class="conflict-trajectory trajectory-escalating">ESCALATING</span>
                 </div>
-                <p class="conflict-details">PLA exercises around Taiwan median line continue. US arms sales ongoing. Chinese gray zone tactics testing Taiwan defenses.</p>
+                <p class="conflict-details"></p>
             </div>
             <div class="conflict-card">
                 <div class="conflict-header">
                     <span class="conflict-name">Myanmar Civil War</span>
                     <span class="conflict-trajectory trajectory-escalating">ESCALATING</span>
                 </div>
-                <p class="conflict-details">Junta losing territory to resistance forces. Operation 1027 captured major towns. Conscription indicates regime desperation.</p>
+                <p class="conflict-details"></p>
             </div>
             <div class="conflict-card">
                 <div class="conflict-header">
-                    <span class="conflict-name">India-China Border (LAC)</span>
-                    <span class="conflict-trajectory trajectory-stable">STABLE</span>
+                    <span class="conflict-name">Haiti Gang Violence</span>
+                    <span class="conflict-trajectory trajectory-escalating">ESCALATING</span>
                 </div>
-                <p class="conflict-details">Himalayan standoff continues post-2020 Galwan clash. Troop disengagement at some points. Infrastructure race on both sides.</p>
+                <p class="conflict-details"></p>
             </div>
             <div class="conflict-card">
                 <div class="conflict-header">
-                    <span class="conflict-name">Kashmir (India-Pakistan)</span>
+                    <span class="conflict-name">Yemen Civil War</span>
                     <span class="conflict-trajectory trajectory-stable">STABLE</span>
                 </div>
-                <p class="conflict-details">Line of Control tensions persist. Cross-border incidents reduced since 2021. Nuclear-armed rivals maintain vigilance.</p>
+                <p class="conflict-details"></p>
             </div>
+        <p style="font-size: 0.85rem; margin-top: 1rem;"><a href="active_conflicts.html" style="color: var(--red); font-weight: 600;">View full Conflicts report →</a></p>
             </div>
         </div>
 
@@ -802,10 +845,10 @@
             </div>
         </div>
         <div style="margin-top: 1.5rem;">
-            <h4 style="font-size: 1rem; color: var(--satellite); margin-bottom: 0.75rem;">Key Observations</h4>
+            <h4 style="font-size: 1rem; color: var(--red); margin-bottom: 0.75rem;">Key Observations</h4>
             <p style="color: var(--text-muted);">Military buildup detected near contested borders. Infrastructure construction at 3 strategic ports. Unusual naval positioning in South China Sea.</p>
             
-            <p style="font-size: 0.85rem; margin-top: 1rem;"><a href="satellite_intelligence.html" style="color: var(--satellite); font-weight: 600;">View all 47 monitored sites →</a></p>
+            <p style="font-size: 0.85rem; margin-top: 1rem;"><a href="satellite_intelligence.html" style="color: var(--red); font-weight: 600;">View all 47 monitored sites →</a></p>
         </div>
             </div>
         </div>
@@ -836,12 +879,13 @@
             </div>
         </div>
         <div style="margin-top: 1.5rem;">
-            <h4 style="font-size: 1rem; color: var(--trade); margin-bottom: 0.75rem;">Trade Anomalies</h4>
+            <h4 style="font-size: 1rem; color: var(--red); margin-bottom: 0.75rem;">Trade Anomalies</h4>
             <ul style="color: var(--text-muted); list-style: disc; padding-left: 1.5rem;">
                 <li style="margin-bottom: 0.5rem;">Venezuelan oil exports rerouting through intermediary nations to evade sanctions</li>
                 <li style="margin-bottom: 0.5rem;">EU-Mercosur deal finalization creating new agricultural trade corridors</li>
                 <li style="margin-bottom: 0.5rem;">China rare earth export controls impacting Japan semiconductor production</li>
             </ul>
+            <p style="font-size: 0.85rem; margin-top: 1rem;"><a href="trade_intelligence.html" style="color: var(--red); font-weight: 600;">View full Trade Intelligence report →</a></p>
         </div>
             </div>
         </div>
@@ -872,13 +916,13 @@
             </div>
         </div>
         <div style="margin-top: 1.5rem;">
-            <h4 style="font-size: 1rem; color: var(--flight); margin-bottom: 0.75rem;">Notable Movements</h4>
+            <h4 style="font-size: 1rem; color: var(--red); margin-bottom: 0.75rem;">Notable Movements</h4>
             <ul style="color: var(--text-muted); list-style: disc; padding-left: 1.5rem;">
                 <li style="margin-bottom: 0.5rem;">Increased NATO reconnaissance flights along Eastern European borders</li>
                 <li style="margin-bottom: 0.5rem;">Chinese military transport activity elevated near Taiwan Strait</li>
                 <li style="margin-bottom: 0.5rem;">Russian strategic bomber patrols resuming Arctic routes</li>
             </ul>
-            <p style="font-size: 0.85rem; margin-top: 1rem;"><a href="flight_intelligence.html" style="color: var(--flight); font-weight: 600;">View full flight intelligence →</a></p>
+            <p style="font-size: 0.85rem; margin-top: 1rem;"><a href="flight_intelligence.html" style="color: var(--red); font-weight: 600;">View full flight intelligence →</a></p>
         </div>
             </div>
         </div>
@@ -934,13 +978,13 @@
         </div>
 
         <div style="margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div style="background: #fef2f2; border-radius: 8px; padding: 1rem;">
-                <h4 style="font-size: 0.95rem; color: #991b1b; margin-bottom: 0.5rem;">⛽ Why Oil Matters Now</h4>
-                <p style="font-size: 0.9rem; color: #7f1d1d;">Brent crude at $78 reflects Red Sea disruption premium (+$3-5) offsetting weak China demand. OPEC+ production cuts holding. Watch: Iran sanctions enforcement and Russia price cap evasion via shadow fleet. A Strait of Hormuz incident could spike prices to $100+ within days.</p>
+            <div style="background: var(--dark-gray); border: 1px solid var(--border); border-left: 3px solid var(--red); padding: 1rem;">
+                <h4 style="font-size: 0.95rem; color: var(--red); margin-bottom: 0.5rem;">⛽ Why Oil Matters Now</h4>
+                <p style="font-size: 0.9rem; color: var(--light-gray);">Brent at $78 includes a $3-5 Red Sea disruption premium from Houthi attacks. OPEC+ cuts are holding supply tight while China demand remains weak. Key risks: Iran sanctions enforcement and Russia's shadow fleet evading the price cap. A Strait of Hormuz incident could push prices above $100 within days.</p>
             </div>
-            <div style="background: #eff6ff; border-radius: 8px; padding: 1rem;">
-                <h4 style="font-size: 0.95rem; color: #1e40af; margin-bottom: 0.5rem;">💵 Why USD Strength Matters</h4>
-                <p style="font-size: 0.9rem; color: #1e3a8a;">DXY at 104 reflects Fed higher-for-longer stance vs ECB/BoJ easing. Strong dollar pressures emerging market debt, commodity importers, and US export competitiveness. Watch: Fed rate path signals and carry trade unwinding risk if BoJ tightens further.</p>
+            <div style="background: var(--dark-gray); border: 1px solid var(--border); border-left: 3px solid #3b82f6; padding: 1rem;">
+                <h4 style="font-size: 0.95rem; color: #60a5fa; margin-bottom: 0.5rem;">💵 Why USD Strength Matters</h4>
+                <p style="font-size: 0.9rem; color: var(--light-gray);">The dollar index at 104 reflects the Fed's higher-for-longer stance versus ECB and Bank of Japan easing. Strong dollar pressures emerging market debt servicing, increases costs for commodity importers, and hurts US export competitiveness. Watch for Fed rate path signals and carry trade unwinding if Japan tightens.</p>
             </div>
         </div>
 
@@ -948,59 +992,11 @@
             <h4 style="font-size: 1rem; color: var(--primary); margin-bottom: 0.75rem;">Trade & Currency Disruptions</h4>
             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem;">Active disruptions affecting global supply chains and trade flows:</p>
             
-            <div style="background: #fef3c7; border-left: 3px solid #f59e0b; padding: 0.75rem 1rem; margin: 0.5rem 0; border-radius: 0 4px 4px 0;">
-                <strong>[MEDIUM]</strong> EU states back controversial Mercosur deal with Latin American countries <sup>[1]</sup> after 25 years of talks <sup>[2]</sup>.
+            <div style="background: var(--black); border: 1px solid var(--border); border-left: 3px solid #f59e0b; padding: 0.75rem 1rem; margin: 0.5rem 0;">
+                <strong style="color: #f59e0b;">[MEDIUM]</strong> <span style="color: var(--light-gray);">EU states back controversial Mercosur deal with Latin American countries <sup>[1]</sup> after 25 years of talks <sup>[2]</sup>.</span>
             </div>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; font-style: italic;"><a href="trade_intelligence.html" style="color: var(--trade);">View full Trade Intelligence report →</a></p>
         </div>
-            </div>
-        </div>
-
-        <!-- Methodology Section -->
-        <div class="section-card methodology-section">
-            <div class="section-header methodology-header" onclick="toggleSection(this)">
-                <span class="section-title"><span class="section-icon">🔬</span> How This Report Is Generated</span>
-                <span class="toggle-icon">▼</span>
-            </div>
-            <div class="section-content methodology-content">
-                <div class="methodology-step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h4>Open Source Data Collection</h4>
-                        <p>We continuously monitor over 100 trusted news sources worldwide, including Reuters, BBC, The Guardian, NPR, and regional specialists. Our system collects articles, press releases, and official statements in near real-time.</p>
-                    </div>
-                </div>
-                <div class="methodology-step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h4>Intelligence Processing</h4>
-                        <p>Each piece of information passes through our intelligence engine, which evaluates source reliability (rated A-F), identifies key actors and relationships, and flags potential deception or bias.</p>
-                    </div>
-                </div>
-                <div class="methodology-step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h4>Statistical & Pattern Analysis</h4>
-                        <p>Our statistical processor identifies emerging trends, detects anomalies, and clusters related events to surface broader narratives. This separates signal from noise.</p>
-                    </div>
-                </div>
-                <div class="methodology-step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h4>Global Synthesis</h4>
-                        <p>The Global Analyzer integrates all processed intelligence to identify cross-regional connections and power dynamics shifts, synthesizing events into a coherent picture.</p>
-                    </div>
-                </div>
-                <div class="methodology-step">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <h4>AI-Assisted Report Generation</h4>
-                        <p>We use Phi-3, a constrained AI model, to transform structured intelligence into readable prose. Every claim must cite source facts—uncited claims are automatically removed to prevent hallucination.</p>
-                    </div>
-                </div>
-                <div class="ai-note">
-                    <strong>Why Phi-3?</strong> Smaller, constrained AI models follow instructions more precisely and are less likely to fabricate information. This enables professional intelligence at an accessible price point.
-                </div>
             </div>
         </div>
 
@@ -1014,19 +1010,46 @@
                 <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
                     This report synthesizes information from 37 sources. Citations are numbered throughout.
                 </p>
-                <div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.5rem;'><div style="font-size: 0.85rem;"><sup>[1]</sup> <a href="https://www.theglobeandmail.com/world/article-ice-shooting-renee-good-minneapolis-immigration-portland/" target="_blank" style="color: var(--primary);">Globe and Mail</a></div><div style="font-size: 0.85rem;"><sup>[2]</sup> <a href="https://www.theglobeandmail.com/world/article-russia-us-tensions-putin-trump-oil-tanker/" target="_blank" style="color: var(--primary);">Globe and Mail</a></div><div style="font-size: 0.85rem;"><sup>[3]</sup> <a href="https://www.theglobeandmail.com/world/article-us-seizes-another-tanker-venezuelan-oil-distribution/" target="_blank" style="color: var(--primary);">Globe and Mail</a></div><div style="font-size: 0.85rem;"><sup>[4]</sup> <a href="https://www.theglobeandmail.com/world/us-politics/article-us-senate-votes-to-block-trump-from-further-military-action-in/" target="_blank" style="color: var(--primary);">Globe and Mail</a></div><div style="font-size: 0.85rem;"><sup>[5]</sup> <a href="https://www.theglobeandmail.com/world/article-russia-says-it-hit-ukraine-with-a-hypersonic-ballistic-missile-in-new/" target="_blank" style="color: var(--primary);">Globe and Mail</a></div><div style="font-size: 0.85rem;"><sup>[6]</sup> <a href="https://www.theglobeandmail.com/world/article-iran-news-protests-khamenei/" target="_blank" style="color: var(--primary);">Globe and Mail</a></div><div style="font-size: 0.85rem;"><sup>[7]</sup> <a href="https://www.theglobeandmail.com/world/article-putin-ukraine-russia-attack-oreshnik-oil-tankers-venezuela/" target="_blank" style="color: var(--primary);">Globe and Mail</a></div><div style="font-size: 0.85rem;"><sup>[8]</sup> <a href="https://www.theglobeandmail.com/world/article-trump-tariffs-supreme-court-ruling-live-updates/" target="_blank" style="color: var(--primary);">Globe and Mail</a></div><div style="font-size: 0.85rem;"><sup>[9]</sup> <a href="https://www.theglobeandmail.com/world/us-politics/article-trump-irony-isolation-world-venezuela-maduro/" target="_blank" style="color: var(--primary);">Globe and Mail</a></div><div style="font-size: 0.85rem;"><sup>[10]</sup> <a href="https://www.theglobeandmail.com/world/article-bessent-worried-about-leverage-but-not-revenue-if-trump-loses-supreme/" target="_blank" style="color: var(--primary);">Globe and Mail</a></div><div style="font-size: 0.85rem;"><sup>[11]</sup> <a href="https://nationalpost.com/pmn/news-pmn/protests-against-ice-planned-across-us-after-shootings-in-minneapolis-and-portland-oregon" target="_blank" style="color: var(--primary);">National Post</a></div><div style="font-size: 0.85rem;"><sup>[12]</sup> <a href="https://nationalpost.com/pmn/news-pmn/a-battered-cuba-braces-for-aftershocks-as-us-seizures-of-oil-tankers-linked-to-venezuela-surge" target="_blank" style="color: var(--primary);">National Post</a></div><div style="font-size: 0.85rem;"><sup>[13]</sup> <a href="https://www.npr.org/2026/01/09/nx-s1-5672325/venezuela-releases-imprisoned-opposition-figures-trump-says-us-requested" target="_blank" style="color: var(--primary);">NPR</a></div><div style="font-size: 0.85rem;"><sup>[14]</sup> <a href="https://www.npr.org/2026/01/09/nx-s1-5672279/russia-used-new-oreshnik-ballistic-missile-ukraine" target="_blank" style="color: var(--primary);">NPR</a></div><div style="font-size: 0.85rem;"><sup>[15]</sup> <a href="https://www.npr.org/2026/01/09/nx-s1-5672276/protests-iran-internet-shutdown-casualties-trump-supreme-leader" target="_blank" style="color: var(--primary);">NPR</a></div><div style="font-size: 0.85rem;"><sup>[16]</sup> <a href="https://www.pbs.org/newshour/world/russia-uses-its-new-hypersonic-missile-in-major-attack-on-ukraine-and-warning-to-the-west" target="_blank" style="color: var(--primary);">Pbs</a></div><div style="font-size: 0.85rem;"><sup>[17]</sup> <a href="https://www.pbs.org/newshour/world/u-s-intercepts-5th-sanctioned-tanker-as-it-exerts-control-over-venezuelan-oil-distribution" target="_blank" style="color: var(--primary);">Pbs</a></div><div style="font-size: 0.85rem;"><sup>[18]</sup> <a href="https://www.pbs.org/newshour/world/venezuelans-struggle-with-crumbling-economy-as-trump-promises-economic-renaissance" target="_blank" style="color: var(--primary);">Pbs</a></div><div style="font-size: 0.85rem;"><sup>[19]</sup> <a href="https://www.pbs.org/newshour/show/news-wrap-internet-and-phone-service-shut-off-in-iran-amid-widening-protests" target="_blank" style="color: var(--primary);">Pbs</a></div><div style="font-size: 0.85rem;"><sup>[20]</sup> <a href="https://www.theguardian.com/global-development/2026/jan/01/us-aid-cuts-conditions-un-humanitarian-pledge-ocha" target="_blank" style="color: var(--primary);">The Guardian</a></div></div>
+                <div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.5rem;'><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[1]</sup> <a href="https://www.theglobeandmail.com/world/article-ice-shooting-renee-good-minneapolis-immigration-portland/" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Globe and Mail</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[2]</sup> <a href="https://www.theglobeandmail.com/world/article-russia-us-tensions-putin-trump-oil-tanker/" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Globe and Mail</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[3]</sup> <a href="https://www.theglobeandmail.com/world/article-us-seizes-another-tanker-venezuelan-oil-distribution/" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Globe and Mail</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[4]</sup> <a href="https://www.theglobeandmail.com/world/us-politics/article-us-senate-votes-to-block-trump-from-further-military-action-in/" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Globe and Mail</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[5]</sup> <a href="https://www.theglobeandmail.com/world/article-russia-says-it-hit-ukraine-with-a-hypersonic-ballistic-missile-in-new/" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Globe and Mail</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[6]</sup> <a href="https://www.theglobeandmail.com/world/article-iran-news-protests-khamenei/" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Globe and Mail</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[7]</sup> <a href="https://www.theglobeandmail.com/world/article-putin-ukraine-russia-attack-oreshnik-oil-tankers-venezuela/" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Globe and Mail</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[8]</sup> <a href="https://www.theglobeandmail.com/world/article-trump-tariffs-supreme-court-ruling-live-updates/" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Globe and Mail</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[9]</sup> <a href="https://www.theglobeandmail.com/world/us-politics/article-trump-irony-isolation-world-venezuela-maduro/" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Globe and Mail</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[10]</sup> <a href="https://www.theglobeandmail.com/world/article-bessent-worried-about-leverage-but-not-revenue-if-trump-loses-supreme/" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Globe and Mail</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[11]</sup> <a href="https://nationalpost.com/pmn/news-pmn/protests-against-ice-planned-across-us-after-shootings-in-minneapolis-and-portland-oregon" target="_blank" style="color: var(--light-gray); text-decoration: underline;">National Post</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[12]</sup> <a href="https://nationalpost.com/pmn/news-pmn/a-battered-cuba-braces-for-aftershocks-as-us-seizures-of-oil-tankers-linked-to-venezuela-surge" target="_blank" style="color: var(--light-gray); text-decoration: underline;">National Post</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[13]</sup> <a href="https://www.npr.org/2026/01/09/nx-s1-5672325/venezuela-releases-imprisoned-opposition-figures-trump-says-us-requested" target="_blank" style="color: var(--light-gray); text-decoration: underline;">NPR</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[14]</sup> <a href="https://www.npr.org/2026/01/09/nx-s1-5672279/russia-used-new-oreshnik-ballistic-missile-ukraine" target="_blank" style="color: var(--light-gray); text-decoration: underline;">NPR</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[15]</sup> <a href="https://www.npr.org/2026/01/09/nx-s1-5672276/protests-iran-internet-shutdown-casualties-trump-supreme-leader" target="_blank" style="color: var(--light-gray); text-decoration: underline;">NPR</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[16]</sup> <a href="https://www.pbs.org/newshour/world/russia-uses-its-new-hypersonic-missile-in-major-attack-on-ukraine-and-warning-to-the-west" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Pbs</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[17]</sup> <a href="https://www.pbs.org/newshour/world/u-s-intercepts-5th-sanctioned-tanker-as-it-exerts-control-over-venezuelan-oil-distribution" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Pbs</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[18]</sup> <a href="https://www.pbs.org/newshour/world/venezuelans-struggle-with-crumbling-economy-as-trump-promises-economic-renaissance" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Pbs</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[19]</sup> <a href="https://www.pbs.org/newshour/show/news-wrap-internet-and-phone-service-shut-off-in-iran-amid-widening-protests" target="_blank" style="color: var(--light-gray); text-decoration: underline;">Pbs</a></div><div style="font-size: 0.85rem; color: var(--light-gray);"><sup style="color: var(--red);">[20]</sup> <a href="https://www.theguardian.com/global-development/2026/jan/01/us-aid-cuts-conditions-un-humanitarian-pledge-ocha" target="_blank" style="color: var(--light-gray); text-decoration: underline;">The Guardian</a></div></div>
             </div>
         </div>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-brand">
-                <span class="footer-text">Know What Matters</span>
-                <span style="opacity: 0.6;">powered by</span>
-                <img src="aerial_logo.png" alt="Aerial Capital Inc">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <span class="footer-text"><span style="color: #e21a41; font-weight: 700;">Know What Matters</span> exists to democratize information.</span>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-top: 1rem;">
+                        <span style="opacity: 0.6; font-size: 0.85rem;">powered by</span>
+                        <img src="aerial_logo.png" alt="Aerial Capital Inc" style="height: 90px;">
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 style="color: var(--red);">Intelligence</h4>
+                        <a href="global_intelligence_report.html">Global Report</a>
+                        <a href="predictions.html">Predictions</a>
+                        <a href="active_conflicts.html">Active Conflicts</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4 style="color: var(--red);">Analysis</h4>
+                        <a href="trade_intelligence.html">Trade Intelligence</a>
+                        <a href="flight_intelligence.html">Flight Tracking</a>
+                        <a href="satellite_intelligence.html">Satellite Imagery</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4 style="color: var(--red);">About</h4>
+                        <a href="methodology.html">Methodology</a>
+                        <a href="#">Sources</a>
+                        <a href="#">Contact</a>
+                    </div>
+                </div>
             </div>
-            <div class="footer-meta">Generated 2026-01-10 13:30 | Professional Intelligence for Everyone</div>
+            <div class="footer-bottom">
+                <span>Generated 2026-01-11 02:07</span>
+                <span>Intelligence for the informed citizen</span>
+            </div>
         </div>
     </footer>
 
