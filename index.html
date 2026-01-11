@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Know What Matters | Free Global Intelligence</title>
-    <meta name="description" content="Democratizing global intelligence. Professional-grade open source intelligence briefings, free forever.">
+    <title>Know What Matters | Global Intelligence</title>
+    <meta name="description" content="Professional global intelligence briefings and predictions from open sources.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            --red: #e21a41;
             --black: #161618;
             --dark-gray: #1a1a1c;
             --medium-gray: #414143;
             --light-gray: #efeff3;
             --white: #ffffff;
-            --red: #e21a41;
-            --red-hover: #ff2d55;
+            --border: #333;
         }
+
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -28,522 +29,463 @@
             line-height: 1.6;
         }
 
+        /* Grid background pattern */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(90deg, transparent, transparent calc(8.33% - 1px), var(--border) calc(8.33% - 1px), var(--border) 8.33%);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
         /* Header */
         .header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1000;
             background: var(--black);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .header-top {
-            background: var(--dark-gray);
-            padding: 0.5rem 0;
-            font-size: 0.8rem;
-        }
-
-        .header-top-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: flex-end;
-            gap: 2rem;
-        }
-
-        .header-top a {
-            color: var(--light-gray);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .header-top a:hover {
-            color: var(--red);
-        }
-
-        .header-main {
-            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            
         }
 
         .header-content {
-            max-width: 1400px;
+            max-width: 1140px;
             margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 0 30px;
         }
 
-        .logo {
+        .header-row-1 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-row-2 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.75rem 0;
+        }
+
+        
+
+        
+
+        .logo-section {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 15px;
             text-decoration: none;
             color: var(--white);
         }
 
-        .logo img {
-            height: 50px;
+        .logo-section img {
+            height: 45px;
         }
 
         .logo-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo-title {
             font-size: 1.25rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
-
-        .logo-subtitle {
-            font-size: 0.7rem;
-            color: var(--light-gray);
+        .brand-kwm {
+            color: var(--red);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .brand-sep {
+            color: #666;
             font-weight: 400;
         }
-
-        .nav {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
+        .brand-org {
+            color: #FF6600;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
-        .nav a {
-            color: var(--white);
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .nav-link {
+            color: var(--light-gray);
             text-decoration: none;
+            padding: 0.5rem 1rem;
             font-weight: 500;
             font-size: 0.95rem;
             position: relative;
-            padding-bottom: 0.25rem;
-            transition: color 0.2s;
+            white-space: nowrap;
+            transition: color 0.4s cubic-bezier(.5,.15,.5,.85);
         }
 
-        .nav a::after {
+        .nav-link:first-child { padding-left: 0; }
+
+        .nav-link::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
+            left: 50%;
             width: 0;
             height: 2px;
             background: var(--red);
-            transition: width 0.3s cubic-bezier(0.5, 0.15, 0.5, 0.85);
+            transition: all 0.4s cubic-bezier(.5,.15,.5,.85);
+            transform: translateX(-50%);
         }
 
-        .nav a:hover::after,
-        .nav a.active::after {
-            width: 100%;
+        .nav-link:hover {
+            color: var(--white);
         }
 
-        .nav a:hover {
-            color: var(--red);
+        .nav-link:hover::after {
+            width: 80%;
         }
 
-        /* Hero */
+        /* Hero Section */
         .hero {
+            position: relative;
+            z-index: 1;
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 8rem 2rem 6rem;
-            background: linear-gradient(180deg, var(--black) 0%, var(--dark-gray) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent calc(100% / 12 - 1px),
-                rgba(255,255,255,0.03) calc(100% / 12 - 1px),
-                rgba(255,255,255,0.03) calc(100% / 12)
-            );
-            pointer-events: none;
+            justify-content: center;
+            padding: 140px 30px 80px;
         }
 
         .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-            position: relative;
-            z-index: 1;
+            max-width: 900px;
+            text-align: center;
         }
 
-        .hero-tagline {
-            font-size: 0.9rem;
-            font-weight: 600;
+        .hero-badge {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--red);
             color: var(--red);
+            padding: 0.4rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
         }
 
         .hero-title {
-            font-size: 4.5rem;
-            font-weight: 900;
-            line-height: 1.05;
-            letter-spacing: -2px;
-            margin-bottom: 2rem;
-            max-width: 900px;
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 5.6rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
         }
 
-        .hero-title .highlight {
+        .hero-title span {
             color: var(--red);
         }
 
-        .hero-description {
-            font-size: 1.35rem;
-            font-weight: 300;
+        .hero-subtitle {
+            font-size: 1.25rem;
             color: var(--light-gray);
-            max-width: 650px;
-            margin-bottom: 3rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
             line-height: 1.7;
         }
 
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: var(--red);
-            color: var(--white);
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            border: 2px solid var(--red);
-            transition: all 0.3s cubic-bezier(0.5, 0.15, 0.5, 0.85);
+        /* Cards Section */
+        .cards-section {
+            position: relative;
+            z-index: 1;
+            padding: 0 30px 120px;
         }
 
-        .hero-cta:hover {
-            background: transparent;
-            color: var(--red);
-        }
-
-        .hero-cta .arrow {
-            transition: transform 0.3s;
-        }
-
-        .hero-cta:hover .arrow {
-            transform: translateX(5px);
-        }
-
-        /* Mission Section */
-        .mission {
-            padding: 6rem 2rem;
-            background: var(--white);
-            color: var(--black);
-        }
-
-        .mission-content {
-            max-width: 900px;
+        .cards-container {
+            max-width: 1140px;
             margin: 0 auto;
         }
 
         .section-label {
+            color: var(--red);
             font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--red);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1.5rem;
-        }
-
-        .mission-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 2rem;
-            letter-spacing: -1px;
-        }
-
-        .mission-text {
-            font-size: 1.15rem;
-            line-height: 1.9;
-            color: var(--medium-gray);
-            margin-bottom: 1.5rem;
-        }
-
-        .mission-text .emphasis {
-            color: var(--red);
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
         }
 
-        .mission-quote {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--black);
-            margin-top: 2.5rem;
-            padding-left: 1.5rem;
-            border-left: 4px solid var(--red);
-        }
-
-        /* Products Section */
-        .products {
-            padding: 6rem 2rem;
-            background: var(--dark-gray);
-        }
-
-        .products-content {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .products-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .products-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
+        .section-title {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 3.5rem;
+            margin-bottom: 3rem;
+            font-weight: 400;
         }
 
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            gap: 0;
         }
 
         .card {
-            background: var(--black);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 2.5rem;
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--red);
+            padding: 2.5rem 2rem;
             text-decoration: none;
             color: var(--white);
             position: relative;
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.5, 0.15, 0.5, 0.85);
+            transition: all 0.4s cubic-bezier(.5,.15,.5,.85);
+        }
+
+        .card::before,
+        .card::after {
+            content: '';
+            position: absolute;
+            background: var(--red);
+            transition: transform 0.4s cubic-bezier(.5,.15,.5,.85);
         }
 
         .card::before {
-            content: '';
-            position: absolute;
             top: 0;
             left: 0;
-            width: 0;
+            right: 0;
             height: 3px;
-            background: var(--red);
-            transition: width 0.3s cubic-bezier(0.5, 0.15, 0.5, 0.85);
+            transform: scaleX(0);
+            transform-origin: left;
         }
 
-        .card:hover::before {
-            width: 100%;
+        .card::after {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            transform: scaleX(0);
+            transform-origin: right;
         }
 
         .card:hover {
-            border-color: var(--red);
-            transform: translateY(-5px);
+            background: #222224;
         }
 
-        .card-label {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 700;
+        .card:hover::before,
+        .card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .card-category {
             color: var(--red);
+            font-size: 0.7rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 1.25rem;
-            padding: 0.35rem 0.75rem;
-            border: 1px solid var(--red);
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
         }
 
         .card-title {
+            font-family: 'Libre Baskerville', Georgia, serif;
             font-size: 1.5rem;
-            font-weight: 700;
             margin-bottom: 1rem;
-            letter-spacing: -0.5px;
+            line-height: 1.3;
+            transition: color 0.4s ease;
+        }
+
+        .card:hover .card-title {
+            color: var(--red);
         }
 
         .card-description {
             font-size: 0.95rem;
             color: var(--light-gray);
-            line-height: 1.7;
+            line-height: 1.6;
             margin-bottom: 1.5rem;
         }
 
-        .card-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+        .card-arrow {
             color: var(--red);
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
         }
 
-        .card-link .arrow {
-            transition: transform 0.2s;
-        }
-
-        .card:hover .card-link .arrow {
+        .card:hover .card-arrow {
             transform: translateX(5px);
         }
 
-        /* Resources Section */
-        .resources {
-            padding: 6rem 2rem;
-            background: var(--light-gray);
-            color: var(--black);
+        /* Secondary Cards */
+        .secondary-section {
+            position: relative;
+            z-index: 1;
+            padding: 80px 30px;
+            background: var(--dark-gray);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
 
-        .resources-content {
-            max-width: 1400px;
+        .secondary-container {
+            max-width: 1140px;
             margin: 0 auto;
         }
 
-        .resources-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .resources-title {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .resources-grid {
+        .secondary-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            gap: 0;
         }
 
-        .resource-card {
-            background: var(--white);
-            border: 1px solid rgba(0,0,0,0.1);
-            padding: 1.75rem;
+        .secondary-card {
+            padding: 2rem 1.5rem;
+            border-right: 1px solid var(--border);
             text-decoration: none;
-            color: var(--black);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: all 0.2s;
+            color: var(--white);
+            transition: background 0.3s ease;
         }
 
-        .resource-card:hover {
-            border-color: var(--red);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .secondary-card:last-child {
+            border-right: none;
         }
 
-        .resource-icon {
-            font-size: 1.75rem;
+        .secondary-card:hover {
+            background: rgba(226, 26, 65, 0.05);
         }
 
-        .resource-label {
-            font-weight: 600;
+        .secondary-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .secondary-title {
             font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .secondary-card:hover .secondary-title {
+            color: var(--red);
+        }
+
+        .secondary-desc {
+            font-size: 0.85rem;
+            color: var(--light-gray);
+            line-height: 1.5;
         }
 
         /* Footer */
         .footer {
+            position: relative;
+            z-index: 1;
             background: var(--black);
-            padding: 4rem 2rem 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid var(--border);
+            padding: 80px 30px 40px;
         }
 
         .footer-content {
-            max-width: 1400px;
+            max-width: 1140px;
             margin: 0 auto;
+            padding: 0 30px;
         }
 
         .footer-main {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            padding-bottom: 3rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 60px;
         }
 
         .footer-brand {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            max-width: 350px;
         }
 
         .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
 
-        .footer-logo img {
-            height: 150px;
+        .footer-logo span {
+            color: var(--red);
         }
 
         .footer-tagline {
-            font-size: 0.9rem;
             color: var(--light-gray);
-            max-width: 300px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-powered {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .footer-powered span {
+            color: var(--medium-gray);
+            font-size: 0.85rem;
+        }
+
+        .footer-powered img {
+            height: 90px;
         }
 
         .footer-links {
             display: flex;
-            gap: 4rem;
+            gap: 80px;
         }
 
         .footer-column h4 {
-            font-size: 0.8rem;
-            font-weight: 700;
+            color: var(--red);
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 0.15em;
             margin-bottom: 1.25rem;
-            color: var(--light-gray);
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column li {
-            margin-bottom: 0.75rem;
+            font-weight: 600;
         }
 
         .footer-column a {
-            color: var(--white);
+            display: block;
+            color: var(--light-gray);
             text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.2s;
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+            transition: color 0.3s ease;
         }
 
         .footer-column a:hover {
-            color: var(--red);
+            color: var(--white);
         }
 
         .footer-bottom {
-            padding-top: 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .footer-copyright {
-            font-size: 0.85rem;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
             color: var(--medium-gray);
-        }
-
-        .footer-legal {
-            display: flex;
-            gap: 2rem;
         }
 
         .footer-legal a {
             color: var(--medium-gray);
             text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.2s;
+            margin-left: 2rem;
+            transition: color 0.3s ease;
         }
 
         .footer-legal a:hover {
-            color: var(--red);
+            color: var(--light-gray);
         }
 
         /* Responsive */
@@ -552,12 +494,65 @@
                 grid-template-columns: 1fr;
             }
 
-            .resources-grid {
+            .secondary-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
+            .secondary-card {
+                border-bottom: 1px solid var(--border);
+            }
+
+            .secondary-card:nth-child(2) {
+                border-right: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 20px;
+            }
+
+        .header-row-1 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-row-2 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.75rem 0;
+        }
+
+        
+
+        
+
+            .nav-links {
+                display: none;
+            }
+
             .hero-title {
-                font-size: 3rem;
+                font-size: 3.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2.45rem;
+            }
+
+            .secondary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .secondary-card {
+                border-right: none;
             }
 
             .footer-main {
@@ -566,34 +561,8 @@
             }
 
             .footer-links {
-                flex-wrap: wrap;
+                flex-direction: column;
                 gap: 2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-top {
-                display: none;
-            }
-
-            .nav {
-                display: none;
-            }
-
-            .hero {
-                padding: 7rem 1.5rem 4rem;
-            }
-
-            .hero-title {
-                font-size: 2.25rem;
-            }
-
-            .hero-description {
-                font-size: 1.1rem;
-            }
-
-            .resources-grid {
-                grid-template-columns: 1fr;
             }
 
             .footer-bottom {
@@ -602,201 +571,152 @@
                 text-align: center;
             }
 
-            .footer-legal {
-                flex-wrap: wrap;
-                justify-content: center;
+            .footer-legal a {
+                margin-left: 0;
+                margin-right: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <div class="grid-bg"></div>
+
     <header class="header">
-        <div class="header-top">
-            <div class="header-top-content">
-                <a href="methodology.html">About Our Methodology</a>
-                <a href="mailto:contact@knowwhatmatters.org">Contact</a>
-            </div>
-        </div>
-        <div class="header-main">
-            <div class="header-content">
-                <a href="index.html" class="logo">
-                    <img src="kwm_logo.png" alt="Know What Matters">
-                    <div class="logo-text">
-                        <span class="logo-title">Know What Matters</span>
-                        <span class="logo-subtitle">powered by Aerial Capital Inc.</span>
-                    </div>
+        <div class="header-content">
+            <div class="header-row-1">
+                <a href="index.html" class="logo-section">
+                    <span class="brand-kwm">KWM Intel</span><span class="brand-sep"> | </span><span class="brand-org">Know What Matters</span>
                 </a>
-                <ul class="nav">
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="global_intelligence_report.html">Global Report</a></li>
-                    <li><a href="predictions.html">Predictions</a></li>
-                    <li><a href="methodology.html">Methodology</a></li>
-                </ul>
+            </div>
+            <div class="header-row-2">
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="predictions.html" class="nav-link">Predictions</a>
+                    <a href="global_intelligence_report.html" class="nav-link">Global Intelligence Report</a>
+                    <a href="active_conflicts.html" class="nav-link">Conflicts</a>
+                    <a href="satellite_intelligence.html" class="nav-link">Satellites</a>
+                    <a href="flight_intelligence.html" class="nav-link">Flights</a>
+                    <a href="trade_intelligence.html" class="nav-link">Trade</a>
+                    <a href="methodology.html" class="nav-link">Methodology</a>
+                    <a href="about.html" class="nav-link">About</a>
+                </nav>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <p class="hero-tagline">Free Intelligence for Everyone</p>
-            <h1 class="hero-title">
-                We are the world's first<br>
-                <span class="highlight">free intelligence service.</span>
-            </h1>
-            <p class="hero-description">
-                Professional-grade global security intelligence, synthesized from over 100 trusted sources worldwide.
-                No subscriptions. No paywalls. No hidden agendas.
-            </p>
-            <a href="global_intelligence_report.html" class="hero-cta">
-                Read Today's Briefing <span class="arrow">&rarr;</span>
-            </a>
-        </div>
-    </section>
-
-    <!-- Mission Section -->
-    <section class="mission">
-        <div class="mission-content">
-            <p class="section-label">Our Mission</p>
-            <h2 class="mission-title">Democratizing information for an informed citizenry.</h2>
-            <p class="mission-text">
-                For too long, understanding our world has been a privilege reserved for governments, corporations, and the wealthy.
-                While ordinary citizens are expected to vote, invest, and make life decisions, the intelligence that shapes global events
-                remains locked behind paywalls, classified briefings, and insider networks.
-            </p>
-            <p class="mission-text">
-                <span class="emphasis">We believe this is fundamentally wrong.</span>
-            </p>
-            <p class="mission-text">
-                <span class="emphasis">Know What Matters</span> exists to <span class="emphasis">democratize information</span>. We harness the same open sources
-                that professional analysts use&mdash;satellite imagery, trade data, conflict monitors, and diplomatic channels&mdash;and
-                synthesize them into actionable briefings that anyone can understand.
-            </p>
-            <p class="mission-text">
-                <span class="emphasis">KWM Intel</span> is a project of <span class="emphasis">Know What Matters</span> focused on providing
-                professional-level global security intelligence for free to global citizens. KWM Intel is not a business model.
-                It's a mission.
-            </p>
-            <p class="mission-quote">
-                Because an informed citizenry isn't a luxury&mdash;it's the foundation of democracy itself.
+            <div class="hero-badge">Open Source Intelligence</div>
+            <h1 class="hero-title">Intelligence for the <span>Informed Citizen</span></h1>
+            <p class="hero-subtitle">
+                Professional-grade intelligence briefings synthesized from 100+ trusted sources worldwide.
+                AI-assisted analysis that separates signal from noise.
             </p>
         </div>
     </section>
 
-    <!-- Products Section -->
-    <section class="products">
-        <div class="products-content">
-            <div class="products-header">
-                <p class="section-label">What We Offer</p>
-                <h2 class="products-title">Intelligence Products</h2>
-            </div>
+    <section class="cards-section">
+        <div class="cards-container">
+            <div class="section-label">Intelligence Products</div>
+            <h2 class="section-title">Daily Briefings & Analysis</h2>
             <div class="cards-grid">
                 <a href="global_intelligence_report.html" class="card">
-                    <span class="card-label">Updated Daily</span>
+                    <div class="card-category">Updated Daily</div>
                     <h3 class="card-title">Global Intelligence Report</h3>
                     <p class="card-description">
-                        Comprehensive daily briefing covering power dynamics, active conflicts, emerging crises,
-                        economic currents, and black swan risks. The same depth you'd expect from a government briefing.
+                        Comprehensive briefing covering power dynamics, active conflicts, emerging crises,
+                        and economic currents shaping the world.
                     </p>
-                    <span class="card-link">Read Report <span class="arrow">&rarr;</span></span>
+                    <div class="card-arrow">&rarr;</div>
                 </a>
-
                 <a href="predictions.html" class="card">
-                    <span class="card-label">Updated Weekly</span>
+                    <div class="card-category">Updated Weekly</div>
                     <h3 class="card-title">Intelligence Predictions</h3>
                     <p class="card-description">
-                        Calibrated forecasts with publicly tracked accuracy. Every prediction is timestamped,
-                        resolved against real outcomes, and measured. Full transparency, full accountability.
+                        Calibrated forecasts with tracked accuracy. Every prediction is resolved
+                        and measured against outcomes.
                     </p>
-                    <span class="card-link">View Predictions <span class="arrow">&rarr;</span></span>
+                    <div class="card-arrow">&rarr;</div>
                 </a>
-
                 <a href="methodology.html" class="card">
-                    <span class="card-label">Transparent</span>
-                    <h3 class="card-title">Our Methodology</h3>
+                    <div class="card-category">Transparency</div>
+                    <h3 class="card-title">Methodology</h3>
                     <p class="card-description">
-                        We show our work. From data collection to analysis to publication,
-                        understand exactly how we produce intelligence and why you can trust it.
+                        Transparent documentation of our intelligence process, sources,
+                        and analytical frameworks.
                     </p>
-                    <span class="card-link">Learn More <span class="arrow">&rarr;</span></span>
+                    <div class="card-arrow">&rarr;</div>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Resources Section -->
-    <section class="resources">
-        <div class="resources-content">
-            <div class="resources-header">
-                <p class="section-label">Explore</p>
-                <h2 class="resources-title">Specialized Intelligence</h2>
-            </div>
-            <div class="resources-grid">
-                <a href="trade_intelligence.html" class="resource-card">
-                    <span class="resource-icon">📊</span>
-                    <span class="resource-label">Trade Intelligence</span>
+    <section class="secondary-section">
+        <div class="secondary-container">
+            <div class="secondary-grid">
+                <a href="satellite_intelligence.html" class="secondary-card">
+                    <div class="secondary-icon">🛰️</div>
+                    <h3 class="secondary-title">Satellites</h3>
+                    <p class="secondary-desc">Change detection at 47 strategic locations worldwide</p>
                 </a>
-                <a href="flight_intelligence.html" class="resource-card">
-                    <span class="resource-icon">✈️</span>
-                    <span class="resource-label">Flight Intelligence</span>
+                <a href="flight_intelligence.html" class="secondary-card">
+                    <div class="secondary-icon">✈️</div>
+                    <h3 class="secondary-title">Flights</h3>
+                    <p class="secondary-desc">Government and military aircraft movement analysis</p>
                 </a>
-                <a href="satellite_intelligence.html" class="resource-card">
-                    <span class="resource-icon">🛰️</span>
-                    <span class="resource-label">Satellite Intelligence</span>
+                <a href="trade_intelligence.html" class="secondary-card">
+                    <div class="secondary-icon">📊</div>
+                    <h3 class="secondary-title">Trade</h3>
+                    <p class="secondary-desc">Global commerce flows and sanctions monitoring</p>
                 </a>
-                <a href="active_conflicts.html" class="resource-card">
-                    <span class="resource-icon">⚔️</span>
-                    <span class="resource-label">Active Conflicts</span>
+                <a href="active_conflicts.html" class="secondary-card">
+                    <div class="secondary-icon">⚔️</div>
+                    <h3 class="secondary-title">Conflicts</h3>
+                    <p class="secondary-desc">Real-time tracking of global conflicts and escalation indicators</p>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-main">
                 <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="aerial_logo.png" alt="Aerial Capital Inc.">
-                    </div>
+                    <div class="footer-logo"><span style="color: var(--red);">KWM Intel</span></div>
                     <p class="footer-tagline">
-                        Know What Matters is powered by Aerial Capital Inc. Making intelligence accessible since 2026.
+                        Democratizing access to professional-grade intelligence.
+                        Making the world's information accessible to everyone.
                     </p>
+                    <div class="footer-powered">
+                        <span>powered by</span>
+                        <img src="aerial_logo.png" alt="Aerial Capital Inc">
+                    </div>
                 </div>
                 <div class="footer-links">
                     <div class="footer-column">
+                        <h4>Analysis</h4>
+                        <a href="global_intelligence_report.html">Global Intelligence Report</a>
+                        <a href="predictions.html">Predictions</a>
+                    </div>
+                    <div class="footer-column">
                         <h4>Intelligence</h4>
-                        <ul>
-                            <li><a href="global_intelligence_report.html">Global Report</a></li>
-                            <li><a href="predictions.html">Predictions</a></li>
-                            <li><a href="active_conflicts.html">Active Conflicts</a></li>
-                        </ul>
+                        <a href="trade_intelligence.html">Trade</a>
+                        <a href="flight_intelligence.html">Flights</a>
+                        <a href="satellite_intelligence.html">Satellites</a>
+                        <a href="active_conflicts.html">Conflicts</a>
                     </div>
                     <div class="footer-column">
-                        <h4>Data Sources</h4>
-                        <ul>
-                            <li><a href="trade_intelligence.html">Trade Data</a></li>
-                            <li><a href="flight_intelligence.html">Flight Tracking</a></li>
-                            <li><a href="satellite_intelligence.html">Satellite Imagery</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>About</h4>
-                        <ul>
-                            <li><a href="methodology.html">Methodology</a></li>
-                            <li><a href="mailto:contact@knowwhatmatters.org">Contact</a></li>
-                        </ul>
+                        <h4>KWM Intel</h4>
+                        <a href="about.html">About</a>
+                        <a href="methodology.html">Methodology</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p class="footer-copyright">&copy; 2026 Aerial Capital Inc. All rights reserved.</p>
+                <span>&copy; 2026 Aerial Capital Inc. All rights reserved.</span>
                 <div class="footer-legal">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Use</a>
-                    <a href="#">Accessibility</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Use</a>
                 </div>
             </div>
         </div>
