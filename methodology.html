@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Methodology | Know What Matters</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --accent: #0369a1;
+            --bg-light: #f8fafc;
+            --text-dark: #1a1f36;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-light); color: var(--text-dark); line-height: 1.8; }
+        .header { background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%); color: white; padding: 2rem; }
+        .header-content { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo-section { display: flex; align-items: center; gap: 1.5rem; text-decoration: none; color: white; }
+        .logo-section img { height: 70px; }
+        .logo-section h1 { font-size: 2rem; font-weight: 800; }
+        .nav-links { display: flex; gap: 1rem; }
+        .nav-link { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; }
+        .nav-link:hover { background: rgba(255,255,255,0.2); }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+
+        .abstract {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        .abstract h2 { color: var(--accent); margin-bottom: 1rem; font-size: 1.25rem; }
+        .abstract p { color: #0c4a6e; }
+
+        .section { margin-bottom: 3rem; }
+        .section h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        .section h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+        .section p { margin-bottom: 1rem; }
+        .section ul, .section ol { margin-left: 1.5rem; margin-bottom: 1rem; }
+        .section li { margin-bottom: 0.5rem; }
+
+        .pipeline-diagram {
+            margin: 2rem 0;
+        }
+        .pipeline-stage {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 0;
+        }
+        .stage-number {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-right: 1.25rem;
+            flex-shrink: 0;
+        }
+        .stage-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+        .stage-items {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .pipeline-arrow {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            padding: 0.25rem 0;
+        }
+
+        .callout {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .callout.blue {
+            background: #eff6ff;
+            border-left-color: #3b82f6;
+        }
+        .callout strong { color: #92400e; }
+        .callout.blue strong { color: #1d4ed8; }
+
+        .table-wrapper { overflow-x: auto; margin: 1.5rem 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        th { background: var(--primary); color: white; padding: 0.75rem; text-align: left; }
+        td { padding: 0.75rem; border-bottom: 1px solid var(--border); }
+        tr:hover { background: #f8fafc; }
+
+        .citation {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer { background: var(--primary); color: white; padding: 2rem; margin-top: 3rem; }
+        .footer-content { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .footer-brand { display: flex; align-items: center; gap: 1rem; }
+        .footer-brand img { height: 100px; }
+
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 1rem; }
+            .diagram { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo-section">
+                <img src="kwm_logo.png" alt="Know What Matters">
+                <div>
+                    <h1>Methodology</h1>
+                    <div style="opacity: 0.9;">Intelligence Workflow Documentation</div>
+                </div>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="global_intelligence_report.html" class="nav-link">Global Report</a>
+                <a href="predictions.html" class="nav-link">Predictions</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="abstract">
+            <h2>Abstract</h2>
+            <p>This document describes the end-to-end intelligence workflow used to produce our Global Intelligence Report. We employ a multi-stage pipeline that combines automated data collection, statistical processing, intelligence analysis, and AI-assisted report generation. Our approach prioritizes source reliability, cross-validation, and anti-hallucination safeguards to produce actionable intelligence from open sources.</p>
+        </div>
+
+        <div class="section">
+            <h2>1. System Architecture Overview</h2>
+            <p>Our intelligence pipeline consists of six sequential stages, each building upon the previous. The system processes approximately 1,500 articles daily from 100+ sources, enriches this data with structured datasets, and synthesizes findings into readable intelligence products.</p>
+
+            <div class="pipeline-diagram">
+                <div class="pipeline-stage" style="background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);">
+                    <div class="stage-number">1</div>
+                    <div class="stage-content">
+                        <h4>Data Collection</h4>
+                        <div class="stage-items">News Feeds (100+) | GDELT Events | RSS/Atom | Structured APIs</div>
+                    </div>
+                </div>
+                <div class="pipeline-arrow">&#8595;</div>
+                <div class="pipeline-stage" style="background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);">
+                    <div class="stage-number">2</div>
+                    <div class="stage-content">
+                        <h4>Aggregation & Deduplication</h4>
+                        <div class="stage-items">TF-IDF Similarity | Entity Clustering | Temporal Grouping</div>
+                    </div>
+                </div>
+                <div class="pipeline-arrow">&#8595;</div>
+                <div class="pipeline-stage" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);">
+                    <div class="stage-number">3</div>
+                    <div class="stage-content">
+                        <h4>Intelligence Processing</h4>
+                        <div class="stage-items">Source Reliability (A-F) | Claim Extraction | Confidence Scoring | Deception Detection</div>
+                    </div>
+                </div>
+                <div class="pipeline-arrow">&#8595;</div>
+                <div class="pipeline-stage" style="background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);">
+                    <div class="stage-number">4</div>
+                    <div class="stage-content">
+                        <h4>Statistical Processing</h4>
+                        <div class="stage-items">Named Entity Recognition | Actor Tracking | Anomaly Detection | Theme Clustering</div>
+                    </div>
+                </div>
+                <div class="pipeline-arrow">&#8595;</div>
+                <div class="pipeline-stage" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);">
+                    <div class="stage-number">5</div>
+                    <div class="stage-content">
+                        <h4>Global Analysis</h4>
+                        <div class="stage-items">Cross-Domain Synthesis | Relationship Inference | Enrichment Integration</div>
+                    </div>
+                </div>
+                <div class="pipeline-arrow">&#8595;</div>
+                <div class="pipeline-stage" style="background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);">
+                    <div class="stage-number">6</div>
+                    <div class="stage-content">
+                        <h4>Report Generation</h4>
+                        <div class="stage-items">AI-Assisted Prose | Citation Enforcement | Hallucination Filtering | Multi-Format Output</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. Data Collection (Stage 1)</h2>
+            <p>The foundation of our intelligence product is comprehensive open-source data collection. We monitor multiple categories of sources:</p>
+
+            <h3>2.1 News Sources</h3>
+            <p>We maintain a curated list of 100+ news sources spanning wire services, national broadcasters, regional specialists, and subject-matter experts. Sources are selected based on:</p>
+            <ul>
+                <li>Editorial independence and ownership transparency</li>
+                <li>Historical accuracy and correction practices</li>
+                <li>Geographic and topical coverage</li>
+                <li>Original reporting vs. aggregation ratio</li>
+            </ul>
+
+            <h3>2.2 Structured Data APIs</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>Data Source</th><th>Type</th><th>Update Frequency</th><th>Coverage</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>UN Comtrade</td><td>Trade flows</td><td>Monthly</td><td>200+ countries, bilateral trade</td></tr>
+                        <tr><td>ACLED</td><td>Conflict events</td><td>Weekly</td><td>Armed conflict, protests, violence</td></tr>
+                        <tr><td>OpenSky Network</td><td>Flight tracking</td><td>Real-time</td><td>ADS-B equipped aircraft</td></tr>
+                        <tr><td>OFAC/EU/UN</td><td>Sanctions</td><td>As announced</td><td>Designated entities and individuals</td></tr>
+                        <tr><td>GDELT</td><td>Events/Sentiment</td><td>15 minutes</td><td>Global news events, tone analysis</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>2.3 Collection Schedule</h3>
+            <p>News collection runs continuously with 15-minute polling intervals. Structured APIs are queried according to their update frequencies. All collected data is timestamped and stored for historical analysis.</p>
+        </div>
+
+        <div class="section">
+            <h2>3. Intelligence Processing (Stage 3)</h2>
+
+            <h3>3.1 Source Reliability Rating</h3>
+            <p>Each source is assigned a reliability grade from A (most reliable) to F (unreliable) based on:</p>
+            <ul>
+                <li><strong>Track record:</strong> Historical accuracy, corrections issued</li>
+                <li><strong>Independence:</strong> Editorial separation from state/corporate control</li>
+                <li><strong>Methodology:</strong> Sourcing practices, verification standards</li>
+                <li><strong>Transparency:</strong> Ownership disclosure, funding sources</li>
+            </ul>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>Grade</th><th>Confidence Multiplier</th><th>Examples</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>A (Excellent)</td><td>1.0</td><td>Reuters, AP, BBC, NPR</td></tr>
+                        <tr><td>B (Good)</td><td>0.85</td><td>The Guardian, Economist, WSJ</td></tr>
+                        <tr><td>C (Adequate)</td><td>0.70</td><td>Regional newspapers, specialist outlets</td></tr>
+                        <tr><td>D (Poor)</td><td>0.50</td><td>Tabloids, partisan outlets</td></tr>
+                        <tr><td>F (Unreliable)</td><td>0.25</td><td>State propaganda, known disinformation</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3.2 Claim Extraction</h3>
+            <p>We use pattern-based extraction to identify verifiable claims from article text:</p>
+            <ul>
+                <li><strong>Quote patterns:</strong> Direct statements attributed to named individuals</li>
+                <li><strong>Statistical patterns:</strong> Numerical claims with units and context</li>
+                <li><strong>Event patterns:</strong> Actor-verb-target structures (e.g., "Country X attacked Y")</li>
+            </ul>
+
+            <h3>3.3 Confidence Scoring</h3>
+            <p>Each extracted fact receives a confidence score based on:</p>
+            <div class="diagram">
+Confidence = (Source_Reliability × 0.4) + (Corroboration × 0.35) + (Recency × 0.15) + (Specificity × 0.10)
+
+Where:
+  - Source_Reliability: A-F grade converted to 0.25-1.0
+  - Corroboration: Number of independent sources confirming (max 1.0 at 3+ sources)
+  - Recency: Decay function, 1.0 for today, decreasing over time
+  - Specificity: Presence of named actors, locations, dates
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>4. Statistical Processing (Stage 4)</h2>
+
+            <h3>4.1 Named Entity Recognition</h3>
+            <p>We employ spaCy's English language model for entity extraction, identifying:</p>
+            <ul>
+                <li><strong>PERSON:</strong> Political leaders, military commanders, officials</li>
+                <li><strong>ORG:</strong> Governments, military units, corporations, NGOs</li>
+                <li><strong>GPE:</strong> Countries, states, cities</li>
+                <li><strong>NORP:</strong> Nationalities, political groups, religious groups</li>
+            </ul>
+
+            <h3>4.2 Anomaly Detection</h3>
+            <p>We maintain rolling baselines for actor mention frequency and topic prevalence. Anomalies are flagged when:</p>
+            <ul>
+                <li>Actor mentions exceed 2 standard deviations from 30-day average</li>
+                <li>New entity pairs appear in adversarial context</li>
+                <li>Topic clusters show sudden growth (&gt;50% day-over-day)</li>
+            </ul>
+
+            <h3>4.3 Theme Clustering</h3>
+            <p>Articles are clustered using TF-IDF vectorization and k-means clustering (k=15). Cluster labels are derived from top-weighted terms and matched against predefined category keywords:</p>
+            <ul>
+                <li>Conflict: attack, strike, military, troops, casualties</li>
+                <li>Diplomatic: summit, talks, agreement, embassy, minister</li>
+                <li>Economic: trade, tariff, sanctions, market, inflation</li>
+                <li>Political: election, vote, parliament, protest, resign</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>5. AI-Assisted Report Generation (Stage 6)</h2>
+
+            <h3>5.1 Model Selection</h3>
+            <p>We use constrained language models (specifically Phi-3 class) for report generation. Smaller models are preferred because they:</p>
+            <ul>
+                <li>Follow structured prompts more reliably</li>
+                <li>Generate less confabulated content</li>
+                <li>Are more cost-effective for high-volume generation</li>
+                <li>Can run locally without external API dependencies</li>
+            </ul>
+
+            <div class="callout blue">
+                <strong>Why not larger models?</strong> While larger language models produce more fluent prose, they are more prone to hallucination and less reliable at following strict output formats. For intelligence products where accuracy is paramount, we prioritize constraint adherence over fluency.
+            </div>
+
+            <h3>5.2 Anti-Hallucination Safeguards</h3>
+            <p>Every AI-generated statement must cite a source fact. Our pipeline implements multiple safeguards:</p>
+            <ol>
+                <li><strong>Citation requirement:</strong> All claims must include [FACT-N] references</li>
+                <li><strong>Reference validation:</strong> Cited facts are verified to exist in the source data</li>
+                <li><strong>Orphan removal:</strong> Statements without valid citations are automatically removed</li>
+                <li><strong>Consistency check:</strong> Generated content is compared against source facts for contradictions</li>
+            </ol>
+
+            <h3>5.3 Output Formats</h3>
+            <p>Reports are generated in multiple formats:</p>
+            <ul>
+                <li><strong>HTML:</strong> Interactive web version with collapsible sections</li>
+                <li><strong>PDF:</strong> Printable format for offline reading</li>
+                <li><strong>JSON:</strong> Structured data for programmatic access</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>6. Data Enrichment Sources</h2>
+
+            <h3>6.1 Satellite Intelligence</h3>
+            <p>We monitor 47 strategic locations using publicly available satellite imagery from Sentinel-2 (10m resolution) and Landsat-8. Change detection algorithms identify:</p>
+            <ul>
+                <li>Construction activity at military bases</li>
+                <li>Ship movements at strategic ports</li>
+                <li>Infrastructure changes at nuclear facilities</li>
+                <li>Troop/vehicle concentrations</li>
+            </ul>
+
+            <h3>6.2 Flight Intelligence</h3>
+            <p>Using ADS-B data from OpenSky Network, we track:</p>
+            <ul>
+                <li>Government VIP aircraft movements</li>
+                <li>Military transport and patrol patterns</li>
+                <li>Unusual flight patterns (diversions, formation flights)</li>
+                <li>Diplomatic shuttle activity</li>
+            </ul>
+
+            <h3>6.3 Trade Intelligence</h3>
+            <p>UN Comtrade data provides bilateral trade flows. We calculate:</p>
+            <ul>
+                <li>Trade balance shifts between major economies</li>
+                <li>Commodity dependency ratios</li>
+                <li>Sanctions evasion indicators (trade rerouting)</li>
+                <li>Supply chain disruption impacts</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>7. Limitations and Caveats</h2>
+            <p>Users should be aware of the following limitations:</p>
+            <ul>
+                <li><strong>Source bias:</strong> English-language sources are overrepresented</li>
+                <li><strong>Temporal lag:</strong> Structured data may be days to weeks behind events</li>
+                <li><strong>Satellite coverage:</strong> Cloud cover and imaging schedules create gaps</li>
+                <li><strong>ADS-B limitations:</strong> Military aircraft often disable transponders</li>
+                <li><strong>AI generation:</strong> Despite safeguards, subtle inaccuracies may occur</li>
+            </ul>
+            <div class="callout">
+                <strong>Important:</strong> This report is for informational purposes only. Critical decisions should be verified against primary sources and expert analysis.
+            </div>
+        </div>
+
+        <div class="citation">
+            <h3>How to Cite This Methodology</h3>
+            <p>Aerial Capital Inc. (2026). "Know What Matters: Intelligence Workflow Methodology." Retrieved from [URL].</p>
+            <p style="margin-top: 1rem;"><strong>Last Updated:</strong> January 10, 2026</p>
+            <p><strong>Version:</strong> 1.0</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span>Know What Matters</span>
+                <span style="opacity: 0.6;">powered by</span>
+                <img src="aerial_logo.png" alt="Aerial Capital Inc">
+            </div>
+            <div>Professional Intelligence for Everyone</div>
+        </div>
+    </footer>
+</body>
+</html>

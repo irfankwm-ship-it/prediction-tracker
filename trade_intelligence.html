@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Intelligence | Know What Matters</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --trade: #0891b2;
+            --surging: #16a34a;
+            --growing: #22c55e;
+            --stable: #f59e0b;
+            --declining: #ef4444;
+            --high: #dc2626;
+            --medium: #f59e0b;
+            --low: #16a34a;
+            --bg-light: #f8fafc;
+            --text-dark: #1a1f36;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
+        .header { background: linear-gradient(135deg, var(--trade) 0%, #0e7490 100%); color: white; padding: 2rem; }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo-section { display: flex; align-items: center; gap: 1.5rem; text-decoration: none; color: white; }
+        .logo-section img { height: 70px; width: auto; }
+        .logo-section h1 { font-size: 2rem; font-weight: 800; }
+        .nav-links { display: flex; gap: 1rem; }
+        .nav-link { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; }
+        .nav-link:hover { background: rgba(255,255,255,0.2); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+        .intro-box { background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%); border: 2px solid var(--trade); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+        .intro-box h2 { color: #0e7490; margin-bottom: 0.5rem; }
+        .intro-box p { color: #164e63; }
+
+        .section { background: white; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.06); overflow: hidden; }
+        .section-header { background: linear-gradient(135deg, var(--trade) 0%, #0e7490 100%); color: white; padding: 1rem 1.5rem; font-size: 1.1rem; font-weight: 700; }
+        .section-content { padding: 1.5rem; }
+
+        .corridors-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .corridors-table th { background: var(--primary); color: white; padding: 0.75rem; text-align: left; }
+        .corridors-table td { padding: 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+        .trend-badge { font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; color: white; }
+        .trend-badge.surging { background: var(--surging); }
+        .trend-badge.growing { background: var(--growing); }
+        .trend-badge.stable { background: var(--stable); }
+        .trend-badge.declining { background: var(--declining); }
+
+        .currency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; }
+        .currency-card { background: #f0f9ff; border-left: 4px solid var(--trade); padding: 1rem; border-radius: 0 8px 8px 0; }
+        .currency-header { display: flex; gap: 1rem; align-items: center; margin-bottom: 0.5rem; }
+        .pair { font-weight: 700; font-size: 1.1rem; color: var(--primary); }
+        .rate { font-size: 1.5rem; font-weight: 800; color: var(--trade); }
+        .outlook-badge { font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; color: white; margin-left: auto; }
+        .outlook-badge.weakening { background: #ef4444; }
+        .outlook-badge.stable { background: #16a34a; }
+        .outlook-badge.volatile { background: #f59e0b; }
+        .outlook-badge.managed { background: #8b5cf6; }
+        .changes { display: flex; gap: 1.5rem; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .assessment { font-size: 0.9rem; }
+
+        .commodity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+        .commodity-card { background: #fefce8; border-left: 4px solid #eab308; padding: 1rem; border-radius: 0 8px 8px 0; }
+        .commodity-header { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem; }
+        .commodity-name { font-weight: 700; }
+        .commodity-price { font-size: 1.2rem; font-weight: 800; color: #854d0e; }
+        .change { font-size: 0.85rem; color: var(--text-muted); margin-left: auto; }
+        .driver { font-size: 0.9rem; color: #713f12; }
+
+        .anomaly-card { padding: 1.25rem; margin-bottom: 1rem; border-radius: 8px; border-left: 5px solid; }
+        .anomaly-card.high { background: #fef2f2; border-left-color: var(--high); }
+        .anomaly-card.medium { background: #fffbeb; border-left-color: var(--medium); }
+        .anomaly-card.low { background: #f0fdf4; border-left-color: var(--low); }
+        .anomaly-header { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.75rem; }
+        .severity-badge { font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; color: white; }
+        .severity-badge.high { background: var(--high); }
+        .severity-badge.medium { background: var(--medium); }
+        .severity-badge.low { background: var(--low); }
+        .anomaly-location { font-weight: 700; }
+        .priority-tag { background: #7c3aed; color: white; font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: 3px; font-weight: 700; }
+        .disruption, .impact { font-size: 0.95rem; margin-bottom: 0.5rem; }
+
+        .sanction-card { background: #faf5ff; border-left: 4px solid #7c3aed; padding: 1rem; margin-bottom: 0.75rem; border-radius: 0 8px 8px 0; }
+        .sanction-header { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.5rem; }
+        .sanction-date { font-size: 0.85rem; color: var(--text-muted); }
+        .sanction-issuer { font-weight: 700; color: #7c3aed; }
+        .sanction-target { background: #e9d5ff; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.85rem; }
+        .sanction-detail { font-size: 0.9rem; }
+
+        .footer { background: var(--primary); color: white; padding: 2rem; margin-top: 2rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .footer-brand { display: flex; align-items: center; gap: 1rem; }
+        .footer-brand img { height: 100px; }
+
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 1rem; }
+            .currency-grid, .commodity-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo-section">
+                <img src="kwm_logo.png" alt="Know What Matters">
+                <div>
+                    <h1>Trade Intelligence</h1>
+                    <div style="opacity: 0.9;">Global Commerce & Currency Monitoring</div>
+                </div>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="global_intelligence_report.html" class="nav-link">Global Report</a>
+                <a href="satellite_intelligence.html" class="nav-link">Satellite</a>
+                <a href="flight_intelligence.html" class="nav-link">Flight</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="intro-box">
+            <h2>Understanding Trade Intelligence</h2>
+            <p>We monitor global trade flows using UN Comtrade data, shipping AIS signals, and sanctions databases. Currency movements are tracked through central bank data and market feeds. Anomalies are flagged when patterns deviate significantly from historical baselines.</p>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Trade Disruptions & Anomalies</div>
+            <div class="section-content">
+                
+        <div class="anomaly-card high">
+            <div class="anomaly-header">
+                <span class="severity-badge high">HIGH</span>
+                <span class="anomaly-location">Red Sea/Suez</span>
+                <span class="priority-tag">PRIORITY</span>
+            </div>
+            <p class="disruption"><strong>Disruption:</strong> Houthi attacks rerouting 40% of container traffic around Cape of Good Hope</p>
+            <p class="impact"><strong>Impact:</strong> 10-14 day delays. Freight rates up 300%. Insurance costs surging. European supply chains stressed.</p>
+        </div>
+        <div class="anomaly-card high">
+            <div class="anomaly-header">
+                <span class="severity-badge high">HIGH</span>
+                <span class="anomaly-location">Panama Canal</span>
+                <span class="priority-tag">PRIORITY</span>
+            </div>
+            <p class="disruption"><strong>Disruption:</strong> Drought reducing daily transits from 36 to 24 vessels</p>
+            <p class="impact"><strong>Impact:</strong> Container backlog. LNG deliveries delayed. US East Coast imports affected. Rates doubled.</p>
+        </div>
+        <div class="anomaly-card medium">
+            <div class="anomaly-header">
+                <span class="severity-badge medium">MEDIUM</span>
+                <span class="anomaly-location">US-China Tech</span>
+                
+            </div>
+            <p class="disruption"><strong>Disruption:</strong> New semiconductor export controls on advanced AI chips</p>
+            <p class="impact"><strong>Impact:</strong> Nvidia, AMD shipments halted. Chinese stockpiling. Domestic chip development accelerating.</p>
+        </div>
+        <div class="anomaly-card medium">
+            <div class="anomaly-header">
+                <span class="severity-badge medium">MEDIUM</span>
+                <span class="anomaly-location">Russia Oil</span>
+                
+            </div>
+            <p class="disruption"><strong>Disruption:</strong> G7 price cap enforcement tightening on shadow fleet</p>
+            <p class="impact"><strong>Impact:</strong> Indian refiners seeking alternatives. Insurance complications. Older tanker risks.</p>
+        </div>
+        <div class="anomaly-card low">
+            <div class="anomaly-header">
+                <span class="severity-badge low">LOW</span>
+                <span class="anomaly-location">EU-Mercosur</span>
+                
+            </div>
+            <p class="disruption"><strong>Disruption:</strong> Trade deal signed after 24 years of negotiations</p>
+            <p class="impact"><strong>Impact:</strong> Agricultural imports to rise. Auto exports to benefit. Environmental concerns in EU.</p>
+        </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Currency Markets</div>
+            <div class="section-content">
+                <div class="currency-grid">
+        <div class="currency-card">
+            <div class="currency-header">
+                <span class="pair">USD/CNY</span>
+                <span class="rate">7.28</span>
+                <span class="outlook-badge weakening">WEAKENING</span>
+            </div>
+            <div class="changes">
+                <span>1W: <strong>+0.8%</strong></span>
+                <span>1M: <strong>+2.1%</strong></span>
+            </div>
+            <p class="assessment">Yuan under pressure from capital outflows and rate differential. PBOC defending 7.30 level.</p>
+        </div>
+        <div class="currency-card">
+            <div class="currency-header">
+                <span class="pair">EUR/USD</span>
+                <span class="rate">1.08</span>
+                <span class="outlook-badge weakening">WEAKENING</span>
+            </div>
+            <div class="changes">
+                <span>1W: <strong>-0.5%</strong></span>
+                <span>1M: <strong>-1.8%</strong></span>
+            </div>
+            <p class="assessment">Euro weakened by German industrial slowdown and ECB rate cut expectations.</p>
+        </div>
+        <div class="currency-card">
+            <div class="currency-header">
+                <span class="pair">USD/JPY</span>
+                <span class="rate">148.5</span>
+                <span class="outlook-badge volatile">VOLATILE</span>
+            </div>
+            <div class="changes">
+                <span>1W: <strong>+1.2%</strong></span>
+                <span>1M: <strong>+3.5%</strong></span>
+            </div>
+            <p class="assessment">Yen at multi-decade lows. BoJ intervention risk elevated. Carry trade unwinding potential.</p>
+        </div>
+        <div class="currency-card">
+            <div class="currency-header">
+                <span class="pair">GBP/USD</span>
+                <span class="rate">1.27</span>
+                <span class="outlook-badge stable">STABLE</span>
+            </div>
+            <div class="changes">
+                <span>1W: <strong>+0.3%</strong></span>
+                <span>1M: <strong>-0.8%</strong></span>
+            </div>
+            <p class="assessment">Sterling resilient on BoE higher-for-longer stance. Brexit trade friction ongoing.</p>
+        </div>
+        <div class="currency-card">
+            <div class="currency-header">
+                <span class="pair">USD/RUB</span>
+                <span class="rate">92.5</span>
+                <span class="outlook-badge managed">MANAGED</span>
+            </div>
+            <div class="changes">
+                <span>1W: <strong>-2.1%</strong></span>
+                <span>1M: <strong>-5.4%</strong></span>
+            </div>
+            <p class="assessment">Ruble strengthening on oil revenues and capital controls. Sanctions still binding.</p>
+        </div>
+        <div class="currency-card">
+            <div class="currency-header">
+                <span class="pair">USD/INR</span>
+                <span class="rate">83.4</span>
+                <span class="outlook-badge stable">STABLE</span>
+            </div>
+            <div class="changes">
+                <span>1W: <strong>+0.2%</strong></span>
+                <span>1M: <strong>+0.9%</strong></span>
+            </div>
+            <p class="assessment">RBI actively managing depreciation. Strong forex reserves. Current account deficit concern.</p>
+        </div></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Commodity Prices</div>
+            <div class="section-content">
+                <div class="commodity-grid">
+        <div class="commodity-card">
+            <div class="commodity-header">
+                <span class="commodity-name">Brent Crude</span>
+                <span class="commodity-price">$78.40</span>
+                <span class="change">+2.3%</span>
+            </div>
+            <p class="driver">Red Sea disruption premium. OPEC+ cuts holding. China demand uncertainty.</p>
+        </div>
+        <div class="commodity-card">
+            <div class="commodity-header">
+                <span class="commodity-name">WTI Crude</span>
+                <span class="commodity-price">$73.20</span>
+                <span class="change">+2.1%</span>
+            </div>
+            <p class="driver">US production record highs. SPR refill paused. Refinery maintenance season.</p>
+        </div>
+        <div class="commodity-card">
+            <div class="commodity-header">
+                <span class="commodity-name">Natural Gas (EU)</span>
+                <span class="commodity-price">€32.50/MWh</span>
+                <span class="change">-5.2%</span>
+            </div>
+            <p class="driver">Mild winter. Storage above 80%. LNG imports robust.</p>
+        </div>
+        <div class="commodity-card">
+            <div class="commodity-header">
+                <span class="commodity-name">Gold</span>
+                <span class="commodity-price">$2,045</span>
+                <span class="change">+1.1%</span>
+            </div>
+            <p class="driver">Central bank buying. Geopolitical hedge. Fed rate path uncertainty.</p>
+        </div>
+        <div class="commodity-card">
+            <div class="commodity-header">
+                <span class="commodity-name">Copper</span>
+                <span class="commodity-price">$8,420/t</span>
+                <span class="change">-1.8%</span>
+            </div>
+            <p class="driver">China property sector weakness. Green transition demand long-term. Chile supply stable.</p>
+        </div>
+        <div class="commodity-card">
+            <div class="commodity-header">
+                <span class="commodity-name">Iron Ore</span>
+                <span class="commodity-price">$128/t</span>
+                <span class="change">+3.5%</span>
+            </div>
+            <p class="driver">China stimulus hopes. Steel production recovering. Brazil shipments delayed.</p>
+        </div></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Major Trade Corridors</div>
+            <div class="section-content" style="overflow-x: auto;">
+                <table class="corridors-table">
+                    <thead><tr><th>Corridor</th><th>Annual Volume</th><th>Trend</th><th>YoY Change</th><th>Significance</th></tr></thead>
+                    <tbody>
+        <tr>
+            <td><strong>US-China</strong></td>
+            <td>$582B</td>
+            <td><span class="trend-badge declining">DECLINING</span></td>
+            <td>-12%</td>
+            <td>World's largest bilateral trade. Tariff war ongoing. Decoupling accelerating in tech sector.</td>
+        </tr>
+        <tr>
+            <td><strong>EU-China</strong></td>
+            <td>$847B</td>
+            <td><span class="trend-badge stable">STABLE</span></td>
+            <td>-2%</td>
+            <td>EU's largest trade partner. EV tariff dispute. De-risking vs decoupling debate.</td>
+        </tr>
+        <tr>
+            <td><strong>US-Mexico</strong></td>
+            <td>$798B</td>
+            <td><span class="trend-badge growing">GROWING</span></td>
+            <td>+8%</td>
+            <td>Nearshoring boom. USMCA benefits. Drug trafficking tensions.</td>
+        </tr>
+        <tr>
+            <td><strong>US-Canada</strong></td>
+            <td>$762B</td>
+            <td><span class="trend-badge stable">STABLE</span></td>
+            <td>+1%</td>
+            <td>Integrated supply chains. Energy exports critical. USMCA compliance.</td>
+        </tr>
+        <tr>
+            <td><strong>China-ASEAN</strong></td>
+            <td>$975B</td>
+            <td><span class="trend-badge growing">GROWING</span></td>
+            <td>+11%</td>
+            <td>Largest trade bloc. Manufacturing diversification. South China Sea tensions.</td>
+        </tr>
+        <tr>
+            <td><strong>EU-US</strong></td>
+            <td>$1.1T</td>
+            <td><span class="trend-badge stable">STABLE</span></td>
+            <td>+2%</td>
+            <td>Transatlantic partnership. Steel/aluminum tariffs resolved. Green subsidy disputes.</td>
+        </tr>
+        <tr>
+            <td><strong>Russia-China</strong></td>
+            <td>$240B</td>
+            <td><span class="trend-badge surging">SURGING</span></td>
+            <td>+34%</td>
+            <td>Sanctions bypass. Energy dominance. Yuan settlement expanding.</td>
+        </tr>
+        <tr>
+            <td><strong>Russia-India</strong></td>
+            <td>$65B</td>
+            <td><span class="trend-badge surging">SURGING</span></td>
+            <td>+28%</td>
+            <td>Discounted oil imports. Rupee-ruble trade. Defense purchases.</td>
+        </tr>
+        <tr>
+            <td><strong>China-Middle East</strong></td>
+            <td>$320B</td>
+            <td><span class="trend-badge growing">GROWING</span></td>
+            <td>+15%</td>
+            <td>Oil imports. BRI investments. Currency diversification from USD.</td>
+        </tr>
+        <tr>
+            <td><strong>Japan-US</strong></td>
+            <td>$234B</td>
+            <td><span class="trend-badge stable">STABLE</span></td>
+            <td>+3%</td>
+            <td>Alliance economics. Semiconductor cooperation. Yen weakness impact.</td>
+        </tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Sanctions Updates (Last 7 Days)</div>
+            <div class="section-content">
+                
+        <div class="sanction-card">
+            <div class="sanction-header">
+                <span class="sanction-date">2026-01-09</span>
+                <span class="sanction-issuer">US (OFAC)</span>
+                <span class="sanction-target">Iranian drone manufacturers</span>
+            </div>
+            <p class="sanction-detail">5 entities added to SDN list for supplying Shahed drones to Russia. Secondary sanctions on UAE intermediaries.</p>
+        </div>
+        <div class="sanction-card">
+            <div class="sanction-header">
+                <span class="sanction-date">2026-01-08</span>
+                <span class="sanction-issuer">EU</span>
+                <span class="sanction-target">Russian LNG</span>
+            </div>
+            <p class="sanction-detail">New restrictions on Russian LNG transshipment through EU ports. Belgium, Spain most affected.</p>
+        </div>
+        <div class="sanction-card">
+            <div class="sanction-header">
+                <span class="sanction-date">2026-01-07</span>
+                <span class="sanction-issuer">US (BIS)</span>
+                <span class="sanction-target">Chinese AI companies</span>
+            </div>
+            <p class="sanction-detail">Entity list additions for companies training AI models for PLA. Cloud computing restrictions expanded.</p>
+        </div>
+        <div class="sanction-card">
+            <div class="sanction-header">
+                <span class="sanction-date">2026-01-06</span>
+                <span class="sanction-issuer">UK</span>
+                <span class="sanction-target">Venezuelan gold</span>
+            </div>
+            <p class="sanction-detail">Asset freeze on PDVSA subsidiaries involved in illegal mining. Guyana border dispute context.</p>
+        </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span>Know What Matters</span>
+                <span style="opacity: 0.6;">powered by</span>
+                <img src="aerial_logo.png" alt="Aerial Capital Inc">
+            </div>
+            <div>Generated 2026-01-10 14:19</div>
+        </div>
+    </footer>
+</body>
+</html>
