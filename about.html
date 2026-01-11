@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About KWM Intel | Know What Matters</title>
+    <meta name="description" content="KWM Intel democratizes intelligence. Free geopolitical intelligence briefings for global citizens.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #161618;
+            --dark-gray: #1a1a1c;
+            --medium-gray: #414143;
+            --light-gray: #efeff3;
+            --white: #ffffff;
+            --red: #e21a41;
+            --border: #333;
+        }
+
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent calc(8.33% - 1px), var(--border) calc(8.33% - 1px), var(--border) 8.33%);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--black);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            
+        }
+
+        .header-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .header-row-1 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-row-2 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.75rem 0;
+        }
+
+        
+
+        
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .brand-kwm {
+            color: var(--red);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .brand-sep {
+            color: #666;
+            font-weight: 400;
+        }
+        .brand-org {
+            color: #FF6600;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .nav-link {
+            color: var(--light-gray);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            white-space: nowrap;
+            transition: color 0.4s cubic-bezier(.5,.15,.5,.85);
+        }
+
+        .nav-link:first-child { padding-left: 0; }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--red);
+            transition: all 0.4s cubic-bezier(.5,.15,.5,.85);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover { color: var(--white); }
+        .nav-link:hover::after { width: 80%; }
+
+        main { position: relative; z-index: 1; }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 140px 80px 3rem;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .page-header .category {
+            color: var(--red);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header h1 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 3.85rem;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        /* About Section */
+        .about-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 2.45rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--red);
+        }
+
+        .mission-statement {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .mission-statement .tagline {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .mission-statement p {
+            color: var(--light-gray);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .about-content {
+            color: var(--light-gray);
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content strong {
+            color: var(--white);
+        }
+
+        .highlight-box {
+            background: rgba(226, 26, 65, 0.1);
+            border: 1px solid rgba(226, 26, 65, 0.3);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-box h3 {
+            color: var(--red);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+
+        /* Director Message Section */
+        .director-section {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .director-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .director-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 0;
+            object-fit: cover;
+            border: 3px solid var(--red);
+        }
+
+        .director-info h3 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+
+        .director-info .title {
+            color: var(--red);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .director-info .org {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+
+        .message-title {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .message-content {
+            color: var(--light-gray);
+            font-size: 1rem;
+            line-height: 1.9;
+        }
+
+        .message-content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .message-content strong {
+            color: var(--white);
+        }
+
+        .message-content h4 {
+            color: var(--white);
+            font-size: 1.1rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .evidence-list {
+            background: var(--black);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .evidence-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .evidence-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .evidence-list li:last-child {
+            border-bottom: none;
+        }
+
+        .evidence-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1.1rem;
+            width: 8px;
+            height: 8px;
+            background: var(--red);
+        }
+
+        .evidence-list .country {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .stat-highlight {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        .closing-statement {
+            background: rgba(226, 26, 65, 0.15);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        .signature {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            text-align: right;
+        }
+
+        .signature .name {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        .signature .role {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-gray);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .footer-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            max-width: none;
+        }
+
+        .footer-text {
+            color: var(--light-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-tagline {
+            color: var(--light-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-powered {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .footer-powered span {
+            color: var(--medium-gray);
+            font-size: 0.85rem;
+        }
+
+        .footer-powered img {
+            height: 90px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .footer-column h4 {
+            color: var(--red);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.3rem 0;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 1rem; height: auto; padding: 1rem 30px; }
+
+        .header-row-1 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-row-2 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.75rem 0;
+        }
+
+        
+
+        
+            .container { padding: 120px 20px 2rem; }
+            .page-header h1 { font-size: 2.8rem; }
+            .director-header { flex-direction: column; text-align: center; }
+            .director-photo { width: 120px; height: 120px; }
+            .footer-main { flex-direction: column; gap: 2rem; }
+
+        .footer-tagline {
+            color: var(--light-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-powered {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .footer-powered span {
+            color: var(--medium-gray);
+            font-size: 0.85rem;
+        }
+
+        .footer-powered img {
+            height: 90px;
+        }
+
+        .footer-links { flex-direction: column; gap: 2rem; }
+            .footer-bottom { flex-direction: column; text-align: center; gap: 1rem; }
+    </style>
+</head>
+<body>
+    </div>
+    <div class="grid-bg"></div>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="header-row-1">
+                <a href="index.html" class="logo-section">
+                    <span class="brand-kwm">KWM Intel</span><span class="brand-sep"> | </span><span class="brand-org">Know What Matters</span>
+                </a>
+            </div>
+            <div class="header-row-2">
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="predictions.html" class="nav-link">Predictions</a>
+                    <a href="global_intelligence_report.html" class="nav-link">Global Intelligence Report</a>
+                    <a href="active_conflicts.html" class="nav-link">Conflicts</a>
+                    <a href="satellite_intelligence.html" class="nav-link">Satellites</a>
+                    <a href="flight_intelligence.html" class="nav-link">Flights</a>
+                    <a href="trade_intelligence.html" class="nav-link">Trade</a>
+                    <a href="methodology.html" class="nav-link">Methodology</a>
+                    <a href="about.html" class="nav-link">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <div class="category">Our Mission</div>
+            <h1>About KWM Intel</h1>
+        </div>
+
+        <!-- About Section -->
+        <section class="about-section">
+            <h2 class="section-title">About</h2>
+
+            <div class="mission-statement">
+                <p class="tagline">"Intelligence should be a public good."</p>
+                <p><strong>Know What Matters</strong> is a not-for-profit organization founded on a simple belief: access to quality information should not be a privilege reserved for governments, corporations, and the wealthy. We exist to democratize information and empower informed citizens worldwide.</p>
+            </div>
+
+            <div class="about-content">
+                <p><strong>KWM Intel</strong> is our flagship intelligence project&mdash;a security and geopolitics-focused platform that delivers professional-grade intelligence briefings to a global audience at absolutely no cost. And it will always remain free.</p>
+
+                <p>For too long, intelligence-grade analysis has been locked behind classified briefings, expensive consulting fees, and paywalled research services. Heads of state receive daily intelligence briefings. Fortune 500 CEOs have access to geopolitical risk assessments. Defense contractors employ armies of analysts to track global developments.</p>
+
+                <p>Meanwhile, the citizens whose lives are shaped by these geopolitical forces&mdash;whose taxes fund military spending, whose communities bear the costs of conflict, whose futures depend on international stability&mdash;are left with fragmented news coverage and algorithmic feeds that rarely connect the dots.</p>
+
+                <div class="highlight-box">
+                    <h3>Our Mission</h3>
+                    <p>To democratize intelligence by providing the same caliber of geopolitical analysis that world leaders receive&mdash;accessible to everyone, free forever.</p>
+                </div>
+
+                <p>We leverage open-source intelligence (OSINT) methodologies, structured analytical frameworks, and cutting-edge data sources including GDELT event data, ACLED conflict tracking, UN Comtrade statistics, satellite imagery analysis, and flight pattern monitoring. Our analysis synthesizes these inputs into actionable intelligence that helps global citizens understand not just <em>what</em> is happening, but <em>why</em> it matters and <em>where</em> it's heading.</p>
+
+                <p>Because when citizens are informed, democracies are stronger. When investors understand true risks, capital flows more responsibly. When the full picture is visible to everyone, accountability becomes possible.</p>
+            </div>
+        </section>
+
+        <!-- Director's Message Section -->
+        <section class="director-section">
+            <div class="director-header">
+                <img src="director_photo.jpg" alt="Irfan Ali" class="director-photo">
+                <div class="director-info">
+                    <div class="title">Director of Intelligence</div>
+                    <h3>Irfan Ali</h3>
+                    <div class="org">KWM Intel (Know What Matters)</div>
+                </div>
+            </div>
+
+            <h3 class="message-title">A Message From Your Director of Intelligence</h3>
+
+            <div class="message-content">
+                <p>I need to share why I'm building this&mdash;and why it matters more than ever.</p>
+
+                <p>We're witnessing a fundamental shift in the global economic order. Major economies are increasingly tying GDP growth to defense spending and weapons manufacturing. Global military expenditure is on track to reach <span class="stat-highlight">$2.9 trillion in 2025</span>, following a record <span class="stat-highlight">$2.7 trillion in 2024</span>&mdash;the steepest year-on-year growth (9.4%) since the end of the Cold War. Defense spending has surged 37% over the past decade and now consumes 2.5% of global GDP. This isn't just about defense budgets. It's about economic models that increasingly require sustained conflict to maintain momentum.</p>
+
+                <h4>Look at what's actually happening:</h4>
+
+                <div class="evidence-list">
+                    <ul>
+                        <li><span class="country">Ukraine</span> isn't just fighting a war&mdash;they're building a defense export business. They now produce more military drones than all NATO countries combined, and they're opening arms sales offices in Berlin and Copenhagen to sell combat-proven technology to European partners.</li>
+                        <li><span class="country">Israel</span> has turned battlefield experience into a sales pitch. Israeli arms companies are marketing products as "battle-tested" after Gaza deployment, with defense exports on track to break records for the fifth consecutive year in 2025&mdash;expected to match or exceed the <span class="stat-highlight">$15 billion</span> set in 2024. Germany's defense deals with Israel have exceeded <span class="stat-highlight">$10 billion</span> over the past two years alone, including the $6.5 billion Arrow 3 missile system.</li>
+                        <li><span class="country">Russia</span> is sharing its hard-won military expertise with China. Moscow has agreed to equip and train Chinese airborne battalions in airdropping armored vehicles&mdash;capabilities clearly oriented toward a potential Taiwan invasion scenario.</li>
+                    </ul>
+                </div>
+
+                <p>The list goes on. <strong>Over 100 countries raised their military spending in 2025, continuing the 10-year streak of consecutive global increases.</strong></p>
+
+                <p>Here's what troubles me most: this is happening precisely as the world is becoming <em>more</em> fragmented, not less. Recent polling shows global citizenship identification is declining&mdash;only 31% of people now consider themselves world citizens, down from previous years, while strong rejection of global identity has surged 13.7%.</p>
+
+                <p>We're heading into an era of rising nationalism and accelerating militarization simultaneously&mdash;a dangerous combination that history has shown us before.</p>
+
+                <h4>This is why global intelligence reporting matters.</h4>
+
+                <p>Right now, there's a massive disconnect:</p>
+
+                <div class="evidence-list">
+                    <ul>
+                        <li>Governments are making decisions that will shape the next decade of conflict and commerce</li>
+                        <li>Defense industries are restructuring entire economies around weapons production</li>
+                        <li>Citizens are retreating into nationalist identities while being told these decisions are for their protection</li>
+                        <li>Investors are funding this trajectory without fully understanding the risks</li>
+                    </ul>
+                </div>
+
+                <p>Yet intelligence-grade analysis remains locked behind classified briefings, expensive subscriptions, and paywalled research. Meanwhile, citizens get fragmented news coverage that rarely connects the dots between what's happening in Ukraine, Gaza, and the Taiwan Strait.</p>
+
+                <p><strong>I believe intelligence should be a public good.</strong></p>
+
+                <p>Not because it will stop geopolitical momentum&mdash;I'm not naive. But because transparency creates the possibility of informed choice. When people can see the full picture clearly, they can ask harder questions of their governments about military spending priorities. They can understand the true costs of weapons-driven economic growth. They can recognize patterns that transcend any single conflict or region. They can make informed decisions about where their taxes go and which leaders they support.</p>
+
+                <p>This platform provides the same caliber of intelligence briefings that heads of state receive&mdash;except we're giving them to you, for free. We use open-source data and rigorous analytical frameworks to create comprehensive geopolitical analysis.</p>
+
+                <p>The value isn't in predicting the future&mdash;it's in illuminating the present.</p>
+
+                <div class="closing-statement">
+                    <p>In a world where nationalism is rising while global challenges require coordination, we need a platform that helps citizens understand what their governments are doing in their name. Where defense spending is becoming an economic engine, we need analysis that shows who benefits and who pays.</p>
+                    <p>Sunlight is still the best disinfectant. Right now, we're operating in the dark.</p>
+                    <p><strong>That's what we're changing.</strong></p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="header-content" style="height: auto; padding: 2rem 30px;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <span style="color: var(--red); font-size: 1.5rem; font-weight: 700;">KWM Intel</span>
+                <span style="color: var(--medium-gray); font-size: 0.85rem;">powered by</span>
+                <img src="aerial_logo.png" alt="Aerial Capital Inc" style="height: 90px;">
+            </div>
+            <div style="display: flex; gap: 2rem;">
+                <a href="about.html" style="color: var(--light-gray); text-decoration: none; font-size: 0.9rem;">About</a>
+                <a href="methodology.html" style="color: var(--light-gray); text-decoration: none; font-size: 0.9rem;">Methodology</a>
+                <a href="privacy.html" style="color: var(--light-gray); text-decoration: none; font-size: 0.9rem;">Privacy</a>
+                <a href="terms.html" style="color: var(--light-gray); text-decoration: none; font-size: 0.9rem;">Terms</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

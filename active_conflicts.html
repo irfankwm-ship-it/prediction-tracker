@@ -3,591 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Active Conflicts | Know What Matters</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Conflict Monitor | KWM Intel</title>
+    <meta name="description" content="Real-time tracking of global conflicts with trajectory analysis and escalation indicators.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e3a5f;
-            --escalating: #dc2626;
+            --red: #e21a41;
+            --black: #161618;
+            --dark-gray: #1a1a1c;
+            --medium-gray: #414143;
+            --light-gray: #efeff3;
+            --white: #ffffff;
+            --border: #333;
+            --escalating: #e21a41;
             --stable: #f59e0b;
             --deescalating: #16a34a;
-            --bg-light: #f8fafc;
-            --text-dark: #1a1f36;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
+            --text-muted: #9ca3af;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-light); color: var(--text-dark); line-height: 1.7; }
-        .header { background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%); color: white; padding: 2rem; }
-        .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo-section { display: flex; align-items: center; gap: 1.5rem; text-decoration: none; color: white; }
-        .logo-section img { height: 70px; }
-        .logo-section h1 { font-size: 2rem; font-weight: 800; }
-        .nav-links { display: flex; gap: 1rem; }
-        .nav-link { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; }
-        .nav-link:hover { background: rgba(255,255,255,0.2); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
 
-        .methodology-box {
-            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-            border: 2px solid #dc2626;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.7;
         }
-        .methodology-box h2 { color: #7f1d1d; margin-bottom: 1rem; }
-        .methodology-box > p { color: #991b1b; margin-bottom: 1.5rem; }
 
-        .trajectory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-        .trajectory-def {
-            background: white;
-            border-left: 5px solid;
-            padding: 1rem;
-            border-radius: 0 8px 8px 0;
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent calc(8.33% - 1px), var(--border) calc(8.33% - 1px), var(--border) 8.33%);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
         }
-        .trajectory-def h4 { margin-bottom: 0.5rem; font-size: 1.1rem; }
-        .definition { font-size: 0.9rem; margin-bottom: 0.75rem; }
-        .indicators { font-size: 0.85rem; }
-        .indicators ul { margin-left: 1.25rem; margin-top: 0.5rem; }
-        .indicators li { margin-bottom: 0.25rem; }
 
-        .stats-bar {
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: var(--black);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .header-row-1 {
             display: flex;
-            justify-content: space-around;
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            justify-content: flex-start;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
         }
+
+        .header-row-2 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.75rem 0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .brand-kwm { color: var(--red); font-size: 1.1rem; font-weight: 700; }
+        .brand-sep { color: #666; font-weight: 400; }
+        .brand-org { color: #FF6600; font-size: 1.1rem; font-weight: 600; }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .nav-link {
+            color: var(--light-gray);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            white-space: nowrap;
+            transition: color 0.3s;
+        }
+
+        .nav-link:first-child { padding-left: 0; }
+        .nav-link:hover { color: var(--white); }
+
+        /* Main Content */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 140px 30px 80px;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .page-header .category {
+            color: var(--red);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header h1 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header .date {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Stats Banner */
+        .stats-banner {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--red);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+
         .stat-item { text-align: center; }
-        .stat-value { font-size: 2.5rem; font-weight: 800; }
-        .stat-label { color: var(--text-muted); font-size: 0.9rem; }
+        .stat-value { font-size: 2.5rem; font-weight: 800; color: var(--red); }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
 
-        .conflict-detail {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            border-left: 6px solid;
+        /* Intro Card */
+        .intro-card {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
         }
-        .conflict-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
-        .conflict-title { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-        .conflict-title h3 { font-size: 1.5rem; color: var(--primary); }
-        .region-badge { background: #e0e7ff; color: #3730a3; font-size: 0.8rem; padding: 0.25rem 0.75rem; border-radius: 20px; font-weight: 600; }
-        .trajectory-badge { color: white; font-size: 0.85rem; padding: 0.3rem 1rem; border-radius: 6px; font-weight: 700; }
 
-        .conflict-meta { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); }
-        .conflict-parties { margin-bottom: 1rem; font-size: 0.95rem; }
-
-        .conflict-section { margin-bottom: 1.25rem; }
-        .conflict-section h4 { color: var(--primary); margin-bottom: 0.5rem; font-size: 1rem; }
-        .conflict-section ul { margin-left: 1.5rem; }
-        .conflict-section li { margin-bottom: 0.35rem; }
-
-        .trajectory-explanation {
-            border: 2px solid;
-            border-radius: 8px;
-            padding: 1rem 1.25rem;
-            margin: 1.5rem 0;
+        .intro-card p {
+            color: var(--light-gray);
+            font-size: 1rem;
+            line-height: 1.8;
         }
-        .trajectory-explanation h4 { margin-bottom: 0.5rem; }
 
-        .outlook-box {
-            background: #f0f9ff;
-            border-left: 4px solid #0ea5e9;
-            padding: 1rem;
-            border-radius: 0 8px 8px 0;
+        .intro-card strong { color: var(--white); }
+
+        /* Section */
+        .section {
+            margin-bottom: 2.5rem;
         }
-        .outlook-box h4 { color: #0369a1; margin-bottom: 0.5rem; }
 
-        .footer { background: var(--primary); color: white; padding: 2rem; margin-top: 2rem; }
-        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .footer-brand { display: flex; align-items: center; gap: 1rem; }
-        .footer-brand img { height: 100px; }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
 
+        .section-header h2 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 400;
+        }
+
+        /* Conflict Cards */
+        .conflicts-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .conflict-card {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+        }
+
+        .conflict-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .conflict-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .conflict-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .badge-escalating { background: var(--escalating); color: white; }
+        .badge-stable { background: var(--stable); color: white; }
+        .badge-deescalating { background: var(--deescalating); color: white; }
+
+        .conflict-body {
+            color: var(--light-gray);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .conflict-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-gray);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 2rem 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-brand span:first-child {
+            color: var(--red);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-brand .powered {
+            color: var(--medium-gray);
+            font-size: 0.85rem;
+        }
+
+        .footer-brand img { height: 90px; }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--white); }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .trajectory-grid { grid-template-columns: 1fr; }
-            .stats-bar { flex-direction: column; gap: 1rem; }
-            .header-content { flex-direction: column; gap: 1rem; }
+            .nav-links { display: none; }
+            .container { padding: 120px 20px 60px; }
+            .page-header h1 { font-size: 2.2rem; }
+            .stats-banner { grid-template-columns: repeat(2, 1fr); }
+            .conflict-header { flex-direction: column; align-items: flex-start; }
+            .footer-content { flex-direction: column; gap: 1.5rem; text-align: center; }
         }
     </style>
 </head>
 <body>
+    <div class="grid-bg"></div>
+
     <header class="header">
         <div class="header-content">
-            <a href="index.html" class="logo-section">
-                <img src="kwm_logo.png" alt="Know What Matters">
-                <div>
-                    <h1>Active Conflicts</h1>
-                    <div style="opacity: 0.9;">Global Conflict Monitoring & Analysis</div>
-                </div>
-            </a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="global_intelligence_report.html" class="nav-link">Global Report</a>
-                <a href="satellite_intelligence.html" class="nav-link">Satellite</a>
-                <a href="trade_intelligence.html" class="nav-link">Trade</a>
+            <div class="header-row-1">
+                <a href="index.html" class="logo-section">
+                    <span class="brand-kwm">KWM Intel</span><span class="brand-sep"> | </span><span class="brand-org">Know What Matters</span>
+                </a>
+            </div>
+            <div class="header-row-2">
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="predictions.html" class="nav-link">Predictions</a>
+                    <a href="global_intelligence_report.html" class="nav-link">Global Intelligence Report</a>
+                    <a href="active_conflicts.html" class="nav-link">Conflicts</a>
+                    <a href="satellite_intelligence.html" class="nav-link">Satellites</a>
+                    <a href="flight_intelligence.html" class="nav-link">Flights</a>
+                    <a href="trade_intelligence.html" class="nav-link">Trade</a>
+                    <a href="methodology.html" class="nav-link">Methodology</a>
+                    <a href="about.html" class="nav-link">About</a>
+                </nav>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <div class="methodology-box">
-            <h2>How We Categorize Conflict Trajectories</h2>
-            <p>Each conflict is assigned a trajectory based on observable changes in the past 30 days. "Stable" does not mean "peaceful" - it means the conflict continues at a consistent level without significant escalation or de-escalation. Our analysts review casualty data, territorial changes, diplomatic activity, and weapons deployments weekly.</p>
-            <div class="trajectory-grid">
-                
-        <div class="trajectory-def" style="border-left-color: #dc2626;">
-            <h4 style="color: #dc2626;">ESCALATING</h4>
-            <p class="definition">Active increase in hostilities, casualties, or geographic scope within the past 30 days.</p>
-            <div class="indicators">
-                <strong>Key Indicators:</strong>
-                <ul><li>Rising casualty counts week-over-week</li><li>New weapons systems introduced</li><li>Geographic expansion of fighting</li><li>Breakdown of ceasefire or negotiations</li><li>Third-party intervention or threatened intervention</li></ul>
-            </div>
-        </div>
-        <div class="trajectory-def" style="border-left-color: #f59e0b;">
-            <h4 style="color: #f59e0b;">STABLE</h4>
-            <p class="definition">Conflict continues at consistent intensity without significant escalation or de-escalation.</p>
-            <div class="indicators">
-                <strong>Key Indicators:</strong>
-                <ul><li>Frontlines largely static</li><li>Casualty rates within historical range</li><li>No major territorial changes</li><li>Diplomatic channels open but not progressing</li><li>Humanitarian situation persistent but not worsening</li></ul>
-            </div>
-        </div>
-        <div class="trajectory-def" style="border-left-color: #16a34a;">
-            <h4 style="color: #16a34a;">DE-ESCALATING</h4>
-            <p class="definition">Active reduction in hostilities, often accompanied by diplomatic progress.</p>
-            <div class="indicators">
-                <strong>Key Indicators:</strong>
-                <ul><li>Decreasing casualty counts</li><li>Ceasefire holding or expanding</li><li>Prisoner exchanges or humanitarian corridors</li><li>Third-party mediation advancing</li><li>Troop withdrawals or repositioning</li></ul>
-            </div>
-        </div>
-            </div>
+        <div class="page-header">
+            <div class="category">Live Monitoring</div>
+            <h1>Conflict Monitor</h1>
+            <p class="date">January 11, 2026</p>
         </div>
 
-        <div class="stats-bar">
+        <div class="stats-banner">
             <div class="stat-item">
-                <div class="stat-value" style="color: var(--escalating);">4</div>
+                <div class="stat-value">6</div>
+                <div class="stat-label">Active Conflicts</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">4</div>
                 <div class="stat-label">Escalating</div>
             </div>
             <div class="stat-item">
-                <div class="stat-value" style="color: var(--stable);">4</div>
+                <div class="stat-value">2</div>
                 <div class="stat-label">Stable</div>
             </div>
             <div class="stat-item">
-                <div class="stat-value" style="color: var(--deescalating);">0</div>
+                <div class="stat-value">0</div>
                 <div class="stat-label">De-escalating</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">8</div>
-                <div class="stat-label">Total Monitored</div>
-            </div>
         </div>
 
-        
-        <div class="conflict-detail" style="border-left-color: #dc2626;">
-            <div class="conflict-header">
-                <div class="conflict-title">
-                    <h3>Ukraine-Russia War</h3>
-                    <span class="region-badge">Eastern Europe</span>
+        <div class="intro-card">
+            <p><strong>About Conflict Monitoring:</strong> We track active conflicts worldwide using ACLED data, news analysis, and satellite imagery. Each conflict is assessed for trajectory (escalating, stable, or de-escalating) based on recent casualty trends, territorial changes, and diplomatic developments.</p>
+        </div>
+
+        <section class="section">
+            <div class="section-header">
+                <h2>Active Conflicts</h2>
+            </div>
+
+            <div class="conflicts-grid">
+                <div class="conflict-card">
+                    <div class="conflict-header">
+                        <span class="conflict-name">Ukraine-Russia War</span>
+                        <span class="conflict-badge badge-escalating">ESCALATING</span>
+                    </div>
+                    <p class="conflict-body">Russia deployed its new Oreshnik hypersonic missile in a major attack on Ukraine, marking a significant escalation beyond conventional warfare tactics. The weapon's deployment signals Russia's willingness to use advanced strategic weapons. NATO allies are increasing military aid in response, while diplomatic channels remain frozen.</p>
+                    <div class="conflict-meta">
+                        <span class="meta-item">Region: Eastern Europe</span>
+                        <span class="meta-item">Started: February 2022</span>
+                        <span class="meta-item">Casualties: 500,000+</span>
+                    </div>
                 </div>
-                <span class="trajectory-badge" style="background: #dc2626;">ESCALATING</span>
-            </div>
 
-            <div class="conflict-meta">
-                <span><strong>Start:</strong> February 2022</span>
-                <span><strong>Casualties:</strong> 500,000+ (combined, estimated)</span>
-                <span><strong>Displaced:</strong> 6.5 million refugees, 5 million internally displaced</span>
-            </div>
-
-            <div class="conflict-parties">
-                <strong>Parties:</strong> Russia, Ukraine, NATO (support)
-            </div>
-
-            <div class="conflict-section">
-                <h4>Summary</h4>
-                <p>Full-scale Russian invasion of Ukraine following 2014 Crimea annexation. Largest European conflict since WWII.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Current Situation</h4>
-                <p>Frontlines largely static in Donbas region. Russia consolidating gains in Luhansk and Donetsk oblasts. Ukraine conducting long-range strikes into Russian territory using Western-supplied weapons.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Recent Developments</h4>
-                <ul><li>Russia deploying hypersonic missiles (Kinzhal, Zircon) against Ukrainian infrastructure</li><li>Ukraine targeting Russian oil refineries and military bases with drone swarms</li><li>North Korean troops reportedly deployed to rear areas</li><li>F-16 deliveries beginning from European allies</li></ul>
-            </div>
-
-            <div class="trajectory-explanation" style="background: #dc262615; border-color: #dc2626;">
-                <h4>Why "ESCALATING"?</h4>
-                <p>Classified as ESCALATING due to: introduction of new weapons systems (hypersonic missiles, Western F-16s), geographic expansion of strikes (both sides now hitting deep targets), and breakdown of peace negotiations following Swiss summit.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Key Battlefronts</h4>
-                <p>Bakhmut axis, Zaporizhzhia front, Kharkiv oblast border</p>
-            </div>
-
-            <div class="outlook-box">
-                <h4>Outlook</h4>
-                <p>High-intensity conflict likely to continue through 2026. Neither side shows willingness to negotiate. Risk of escalation if NATO directly involved or if Russia uses tactical nuclear weapons.</p>
-            </div>
-        </div>
-        <div class="conflict-detail" style="border-left-color: #f59e0b;">
-            <div class="conflict-header">
-                <div class="conflict-title">
-                    <h3>Gaza Conflict</h3>
-                    <span class="region-badge">Middle East</span>
+                <div class="conflict-card">
+                    <div class="conflict-header">
+                        <span class="conflict-name">Gaza Conflict</span>
+                        <span class="conflict-badge badge-stable">STABLE</span>
+                    </div>
+                    <p class="conflict-body">Ceasefire negotiations continue with sporadic violations from both sides. The humanitarian situation remains critical with severely restricted aid access to civilian populations. International pressure mounts for a lasting peace agreement, with Qatar and Egypt leading mediation efforts.</p>
+                    <div class="conflict-meta">
+                        <span class="meta-item">Region: Middle East</span>
+                        <span class="meta-item">Escalated: October 2023</span>
+                        <span class="meta-item">Displaced: 1.9M</span>
+                    </div>
                 </div>
-                <span class="trajectory-badge" style="background: #f59e0b;">STABLE</span>
-            </div>
 
-            <div class="conflict-meta">
-                <span><strong>Start:</strong> October 2023</span>
-                <span><strong>Casualties:</strong> 40,000+ Palestinian, 1,400+ Israeli (as of late 2025)</span>
-                <span><strong>Displaced:</strong> 1.9 million (90% of Gaza population)</span>
-            </div>
-
-            <div class="conflict-parties">
-                <strong>Parties:</strong> Israel, Hamas, Palestinian Islamic Jihad, Hezbollah (related)
-            </div>
-
-            <div class="conflict-section">
-                <h4>Summary</h4>
-                <p>Israeli military operation in Gaza following October 7, 2023 Hamas attack that killed 1,200+ Israelis.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Current Situation</h4>
-                <p>Israeli ground forces control northern Gaza and Rafah border. Hamas maintains guerrilla resistance. Humanitarian catastrophe ongoing with severe food and medical shortages.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Recent Developments</h4>
-                <ul><li>Ceasefire negotiations continue through Qatar and Egypt mediation</li><li>Hostage releases occurring in limited exchanges</li><li>ICC arrest warrants issued for Israeli and Hamas leaders</li><li>Houthi attacks on Red Sea shipping continue in solidarity</li></ul>
-            </div>
-
-            <div class="trajectory-explanation" style="background: #f59e0b15; border-color: #f59e0b;">
-                <h4>Why "STABLE"?</h4>
-                <p>Classified as STABLE (not de-escalating) because: combat operations continue at reduced intensity, no comprehensive ceasefire achieved, hostages remain in captivity, and humanitarian crisis shows no improvement. 'Stable' here means consistent conflict level, not peace.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Key Battlefronts</h4>
-                <p>Khan Younis, Rafah crossing, Northern Gaza tunnels</p>
-            </div>
-
-            <div class="outlook-box">
-                <h4>Outlook</h4>
-                <p>Conflict likely to remain at current intensity. Political resolution requires Palestinian governance plan that no party has proposed. Regional spillover risk remains elevated.</p>
-            </div>
-        </div>
-        <div class="conflict-detail" style="border-left-color: #dc2626;">
-            <div class="conflict-header">
-                <div class="conflict-title">
-                    <h3>Sudan Civil War</h3>
-                    <span class="region-badge">Africa</span>
+                <div class="conflict-card">
+                    <div class="conflict-header">
+                        <span class="conflict-name">Sudan Civil War</span>
+                        <span class="conflict-badge badge-escalating">ESCALATING</span>
+                    </div>
+                    <p class="conflict-body">Fighting between the Sudanese Armed Forces (SAF) and Rapid Support Forces (RSF) intensifies in Darfur and Khartoum. Over 10 million people have been displaced, creating Africa's largest displacement crisis. Regional spillover threatens stability in Chad and South Sudan.</p>
+                    <div class="conflict-meta">
+                        <span class="meta-item">Region: East Africa</span>
+                        <span class="meta-item">Started: April 2023</span>
+                        <span class="meta-item">Displaced: 10M+</span>
+                    </div>
                 </div>
-                <span class="trajectory-badge" style="background: #dc2626;">ESCALATING</span>
-            </div>
 
-            <div class="conflict-meta">
-                <span><strong>Start:</strong> April 2023</span>
-                <span><strong>Casualties:</strong> 15,000+ killed</span>
-                <span><strong>Displaced:</strong> 10 million internally, 2+ million refugees</span>
-            </div>
-
-            <div class="conflict-parties">
-                <strong>Parties:</strong> Sudanese Armed Forces (SAF), Rapid Support Forces (RSF)
-            </div>
-
-            <div class="conflict-section">
-                <h4>Summary</h4>
-                <p>Power struggle between SAF (Gen. Burhan) and RSF (Gen. Hemedti) following failed democratic transition.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Current Situation</h4>
-                <p>RSF controls most of Darfur and parts of Khartoum. SAF holds Port Sudan and eastern regions. Ethnic violence in Darfur raising genocide concerns.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Recent Developments</h4>
-                <ul><li>RSF advances in Sennar and Blue Nile states</li><li>UAE accused of supplying weapons to RSF via Chad</li><li>UN warns of 'world's largest displacement crisis'</li><li>Egyptian military intervention increasingly likely</li></ul>
-            </div>
-
-            <div class="trajectory-explanation" style="background: #dc262615; border-color: #dc2626;">
-                <h4>Why "ESCALATING"?</h4>
-                <p>Classified as ESCALATING due to: RSF territorial gains in new states, ethnic cleansing reports from Darfur, external power involvement (UAE, Egypt, Ethiopia), and complete collapse of humanitarian access.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Key Battlefronts</h4>
-                <p>Khartoum, El Fasher (Darfur), Sennar state</p>
-            </div>
-
-            <div class="outlook-box">
-                <h4>Outlook</h4>
-                <p>Trajectory toward state collapse. No credible peace process. Regional destabilization affecting Chad, South Sudan, Ethiopia, Egypt.</p>
-            </div>
-        </div>
-        <div class="conflict-detail" style="border-left-color: #f59e0b;">
-            <div class="conflict-header">
-                <div class="conflict-title">
-                    <h3>Yemen Civil War</h3>
-                    <span class="region-badge">Middle East</span>
+                <div class="conflict-card">
+                    <div class="conflict-header">
+                        <span class="conflict-name">Myanmar Civil War</span>
+                        <span class="conflict-badge badge-escalating">ESCALATING</span>
+                    </div>
+                    <p class="conflict-body">Resistance forces continue to gain ground against the military junta across multiple regions. Ethnic armed organizations are increasingly coordinating with the People's Defense Force. China has increased border security as refugee flows grow, while the regime faces mounting economic pressure.</p>
+                    <div class="conflict-meta">
+                        <span class="meta-item">Region: Southeast Asia</span>
+                        <span class="meta-item">Escalated: February 2021</span>
+                        <span class="meta-item">Displaced: 2.6M</span>
+                    </div>
                 </div>
-                <span class="trajectory-badge" style="background: #f59e0b;">STABLE</span>
-            </div>
 
-            <div class="conflict-meta">
-                <span><strong>Start:</strong> September 2014</span>
-                <span><strong>Casualties:</strong> 150,000+ direct, 227,000+ from indirect causes</span>
-                <span><strong>Displaced:</strong> 4 million internally displaced</span>
-            </div>
-
-            <div class="conflict-parties">
-                <strong>Parties:</strong> Houthis (Ansar Allah), Yemeni Government, Saudi-led Coalition, UAE-backed STC
-            </div>
-
-            <div class="conflict-section">
-                <h4>Summary</h4>
-                <p>Multi-sided civil war following Houthi takeover of Sanaa. Saudi intervention since 2015.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Current Situation</h4>
-                <p>De facto partition with Houthis controlling north including Sanaa. Saudi-Houthi talks ongoing. Houthis conducting Red Sea attacks in support of Gaza.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Recent Developments</h4>
-                <ul><li>Houthi anti-shipping campaign disrupting global trade</li><li>US/UK conducting airstrikes on Houthi positions</li><li>Saudi-Houthi direct negotiations continuing</li><li>UN-brokered truce largely holding domestically</li></ul>
-            </div>
-
-            <div class="trajectory-explanation" style="background: #f59e0b15; border-color: #f59e0b;">
-                <h4>Why "STABLE"?</h4>
-                <p>Classified as STABLE because: domestic fighting largely paused since 2022 truce, both sides observing informal ceasefire, diplomatic channels active. Red Sea operations are external projection, not internal escalation.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Key Battlefronts</h4>
-                <p>Marib front (quiet), Hodeidah (truce), Red Sea (Houthi operations)</p>
-            </div>
-
-            <div class="outlook-box">
-                <h4>Outlook</h4>
-                <p>Domestic conflict may be winding down. Red Sea operations could invite Western intervention. Saudi seeking exit strategy.</p>
-            </div>
-        </div>
-        <div class="conflict-detail" style="border-left-color: #dc2626;">
-            <div class="conflict-header">
-                <div class="conflict-title">
-                    <h3>Myanmar Civil War</h3>
-                    <span class="region-badge">Southeast Asia</span>
+                <div class="conflict-card">
+                    <div class="conflict-header">
+                        <span class="conflict-name">Haiti Gang Violence</span>
+                        <span class="conflict-badge badge-escalating">ESCALATING</span>
+                    </div>
+                    <p class="conflict-body">Gang coalitions now control approximately 80% of Port-au-Prince. The Kenyan-led multinational security mission faces severe resource shortages and limited operational capacity. Food insecurity has reached famine levels in urban areas, with humanitarian access increasingly restricted.</p>
+                    <div class="conflict-meta">
+                        <span class="meta-item">Region: Caribbean</span>
+                        <span class="meta-item">Escalated: 2024</span>
+                        <span class="meta-item">Affected: 5.5M</span>
+                    </div>
                 </div>
-                <span class="trajectory-badge" style="background: #dc2626;">ESCALATING</span>
-            </div>
 
-            <div class="conflict-meta">
-                <span><strong>Start:</strong> February 2021 (current phase)</span>
-                <span><strong>Casualties:</strong> 50,000+ killed (estimated)</span>
-                <span><strong>Displaced:</strong> 2.6 million internally displaced</span>
-            </div>
-
-            <div class="conflict-parties">
-                <strong>Parties:</strong> Military Junta (Tatmadaw), National Unity Government, Ethnic Armed Organizations, People's Defense Forces
-            </div>
-
-            <div class="conflict-section">
-                <h4>Summary</h4>
-                <p>Armed resistance to 2021 military coup overthrowing elected government. Multiple ethnic insurgencies now coordinating.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Current Situation</h4>
-                <p>Junta losing significant territory to resistance forces. Operation 1027 by Three Brotherhood Alliance captured major towns on Chinese border.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Recent Developments</h4>
-                <ul><li>Resistance forces captured Lashio, major military command center</li><li>Junta conscription law driving mass exodus</li><li>China mediating ceasefire with ethnic armies</li><li>Rohingya caught between military and Arakan Army</li></ul>
-            </div>
-
-            <div class="trajectory-explanation" style="background: #dc262615; border-color: #dc2626;">
-                <h4>Why "ESCALATING"?</h4>
-                <p>Classified as ESCALATING due to: junta losing unprecedented territory, resistance coordination improving, conscription indicating regime desperation, and potential for junta collapse scenario.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Key Battlefronts</h4>
-                <p>Shan State, Rakhine State, Sagaing Region</p>
-            </div>
-
-            <div class="outlook-box">
-                <h4>Outlook</h4>
-                <p>Junta facing existential threat. 2025-2026 may see accelerated collapse. Post-junta governance uncertain with multiple armed groups.</p>
-            </div>
-        </div>
-        <div class="conflict-detail" style="border-left-color: #f59e0b;">
-            <div class="conflict-header">
-                <div class="conflict-title">
-                    <h3>Syria Civil War</h3>
-                    <span class="region-badge">Middle East</span>
+                <div class="conflict-card">
+                    <div class="conflict-header">
+                        <span class="conflict-name">Yemen Civil War</span>
+                        <span class="conflict-badge badge-stable">STABLE</span>
+                    </div>
+                    <p class="conflict-body">The UN-brokered truce largely holds despite Houthi attacks on Red Sea shipping. Saudi-Houthi backchannel negotiations continue with cautious progress. Humanitarian access has improved but 21 million Yemenis still require assistance, with famine risks persisting in remote areas.</p>
+                    <div class="conflict-meta">
+                        <span class="meta-item">Region: Middle East</span>
+                        <span class="meta-item">Started: 2014</span>
+                        <span class="meta-item">Need Aid: 21M</span>
+                    </div>
                 </div>
-                <span class="trajectory-badge" style="background: #f59e0b;">STABLE</span>
             </div>
-
-            <div class="conflict-meta">
-                <span><strong>Start:</strong> March 2011</span>
-                <span><strong>Casualties:</strong> 500,000+ killed</span>
-                <span><strong>Displaced:</strong> 6.8 million refugees, 6.9 million internally displaced</span>
-            </div>
-
-            <div class="conflict-parties">
-                <strong>Parties:</strong> Assad Government, Various opposition groups, SDF/Kurds, Turkey, Russia, Iran, Israel
-            </div>
-
-            <div class="conflict-section">
-                <h4>Summary</h4>
-                <p>Multi-sided conflict evolved from 2011 uprising. Assad regime recaptured most territory with Russian/Iranian support.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Current Situation</h4>
-                <p>Government controls ~70% of territory. Idlib remains opposition holdout. Northeast under Kurdish SDF control with US presence. Turkey maintains buffer zone in north.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Recent Developments</h4>
-                <ul><li>Israeli strikes on Iranian positions continue weekly</li><li>Normalization with Arab states progressing</li><li>Turkish operations against PKK/SDF ongoing</li><li>Reconstruction beginning in government areas</li></ul>
-            </div>
-
-            <div class="trajectory-explanation" style="background: #f59e0b15; border-color: #f59e0b;">
-                <h4>Why "STABLE"?</h4>
-                <p>Classified as STABLE because: no major territorial changes since 2020, conflict frozen in current configuration, all parties maintaining positions without offensive operations. Low-intensity violence continues but not escalating.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Key Battlefronts</h4>
-                <p>Idlib (frozen), Al-Tanf (US base), Northeast (SDF)</p>
-            </div>
-
-            <div class="outlook-box">
-                <h4>Outlook</h4>
-                <p>Frozen conflict likely to persist. Assad regime rehabilitated regionally. Kurdish autonomy question unresolved. Reconstruction dependent on sanctions relief.</p>
-            </div>
-        </div>
-        <div class="conflict-detail" style="border-left-color: #f59e0b;">
-            <div class="conflict-header">
-                <div class="conflict-title">
-                    <h3>Ethiopia Internal Conflicts</h3>
-                    <span class="region-badge">Africa</span>
-                </div>
-                <span class="trajectory-badge" style="background: #f59e0b;">STABLE</span>
-            </div>
-
-            <div class="conflict-meta">
-                <span><strong>Start:</strong> November 2020 (Tigray); ongoing ethnic tensions</span>
-                <span><strong>Casualties:</strong> 600,000+ in Tigray war</span>
-                <span><strong>Displaced:</strong> 4 million+</span>
-            </div>
-
-            <div class="conflict-parties">
-                <strong>Parties:</strong> Federal Government, TPLF, Fano (Amhara), OLA (Oromo)
-            </div>
-
-            <div class="conflict-section">
-                <h4>Summary</h4>
-                <p>Tigray war ended with 2022 Pretoria Agreement. Now facing Amhara and Oromo insurgencies.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Current Situation</h4>
-                <p>Tigray ceasefire holding but disarmament stalled. Amhara Fano militia actively fighting federal forces. Oromo Liberation Army conducting operations in Oromia.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Recent Developments</h4>
-                <ul><li>Heavy fighting in Amhara region continues</li><li>State of emergency declared in multiple regions</li><li>Tigray reconstruction slow, humanitarian needs acute</li><li>PM Abiy facing internal ADP (Amhara) criticism</li></ul>
-            </div>
-
-            <div class="trajectory-explanation" style="background: #f59e0b15; border-color: #f59e0b;">
-                <h4>Why "STABLE"?</h4>
-                <p>Classified as STABLE because: while Amhara fighting is concerning, overall conflict intensity below 2021-2022 Tigray war peak. Multiple low-intensity conflicts but no single escalation trajectory.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Key Battlefronts</h4>
-                <p>Amhara Region, Western Oromia, Benishangul-Gumuz</p>
-            </div>
-
-            <div class="outlook-box">
-                <h4>Outlook</h4>
-                <p>Fragmentation risk remains. Federal model under strain. Eritrea-Ethiopia relations deteriorating post-Tigray cooperation.</p>
-            </div>
-        </div>
-        <div class="conflict-detail" style="border-left-color: #dc2626;">
-            <div class="conflict-header">
-                <div class="conflict-title">
-                    <h3>Haiti Gang Violence</h3>
-                    <span class="region-badge">Caribbean</span>
-                </div>
-                <span class="trajectory-badge" style="background: #dc2626;">ESCALATING</span>
-            </div>
-
-            <div class="conflict-meta">
-                <span><strong>Start:</strong> Ongoing (acute since 2021)</span>
-                <span><strong>Casualties:</strong> 8,000+ killed in 2024</span>
-                <span><strong>Displaced:</strong> 700,000+ internally displaced</span>
-            </div>
-
-            <div class="conflict-parties">
-                <strong>Parties:</strong> Gang coalitions (G-9, G-Pep), Haitian National Police, Kenya-led MSS
-            </div>
-
-            <div class="conflict-section">
-                <h4>Summary</h4>
-                <p>State collapse with gangs controlling 80% of Port-au-Prince. International intervention beginning.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Current Situation</h4>
-                <p>Kenyan-led Multinational Security Support mission deployed but understaffed. Gangs conducting coordinated attacks. Presidential council attempting governance.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Recent Developments</h4>
-                <ul><li>Gang leader 'Barbecue' rejected amnesty offer</li><li>MSS mission struggling with funding and troops</li><li>Dominican Republic building border wall</li><li>Mass migration attempts to US increasing</li></ul>
-            </div>
-
-            <div class="trajectory-explanation" style="background: #dc262615; border-color: #dc2626;">
-                <h4>Why "ESCALATING"?</h4>
-                <p>Classified as ESCALATING because: gang territorial control expanding, casualty rates increasing, international intervention insufficient, and state capacity continuing to deteriorate.</p>
-            </div>
-
-            <div class="conflict-section">
-                <h4>Key Battlefronts</h4>
-                <p>Port-au-Prince, Artibonite Valley, Dominican border</p>
-            </div>
-
-            <div class="outlook-box">
-                <h4>Outlook</h4>
-                <p>Failed state trajectory without massive intervention. MSS mission underpowered. Regional migration crisis accelerating.</p>
-            </div>
-        </div>
+        </section>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand">
-                <span>Know What Matters</span>
-                <span style="opacity: 0.6;">powered by</span>
+                <span>KWM Intel</span>
+                <span class="powered">powered by</span>
                 <img src="aerial_logo.png" alt="Aerial Capital Inc">
             </div>
-            <div>Generated 2026-01-10 14:19</div>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="methodology.html">Methodology</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+            </div>
         </div>
     </footer>
 </body>

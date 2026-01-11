@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use | KWM Intel</title>
+    <meta name="description" content="KWM Intel Terms of Use - Terms and conditions governing your use of our intelligence services.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #e21a41;
+            --black: #161618;
+            --dark-gray: #1a1a1c;
+            --medium-gray: #414143;
+            --light-gray: #efeff3;
+            --white: #ffffff;
+            --border: #333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.8;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent calc(8.33% - 1px), var(--border) calc(8.33% - 1px), var(--border) 8.33%);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: var(--black);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            
+        }
+
+        .header-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .header-row-1 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-row-2 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.75rem 0;
+        }
+
+        
+
+        
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .brand-kwm { color: var(--red); font-size: 1.1rem; font-weight: 700; }
+        .brand-sep { color: #666; font-weight: 400; }
+        .brand-org { color: #FF6600; font-size: 1.1rem; font-weight: 600; }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .nav-link {
+            color: var(--light-gray);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            white-space: nowrap;
+            transition: color 0.4s cubic-bezier(.5,.15,.5,.85);
+        }
+
+        .nav-link:first-child { padding-left: 0; }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            width: 0; height: 2px;
+            background: var(--red);
+            transition: all 0.4s cubic-bezier(.5,.15,.5,.85);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover { color: var(--white); }
+        .nav-link:hover::after { width: 80%; }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 140px 80px 80px;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+        }
+
+        .page-header .category {
+            color: var(--red);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header h1 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .last-updated {
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+
+        .content {
+            color: var(--light-gray);
+            font-size: 1rem;
+            line-height: 1.9;
+        }
+
+        .content h2 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 2.1rem;
+            font-weight: 400;
+            color: var(--white);
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+            margin: 2rem 0 1rem;
+        }
+
+        .content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .content ul, .content ol {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+
+        .content li {
+            margin-bottom: 0.75rem;
+        }
+
+        .content strong {
+            color: var(--white);
+        }
+
+        .highlight-box {
+            background: var(--dark-gray);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+
+        .warning-box {
+            background: rgba(226, 26, 65, 0.1);
+            border: 1px solid rgba(226, 26, 65, 0.3);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .warning-box h3 {
+            color: var(--red);
+            margin-top: 0;
+        }
+
+        .contact-info {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .contact-info h3 {
+            margin-top: 0;
+        }
+
+        .footer {
+            background: var(--dark-gray);
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .container { padding: 100px 20px 60px; }
+            .page-header h1 { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="header-row-1">
+                <a href="index.html" class="logo-section">
+                    <span class="brand-kwm">KWM Intel</span><span class="brand-sep"> | </span><span class="brand-org">Know What Matters</span>
+                </a>
+            </div>
+            <div class="header-row-2">
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="predictions.html" class="nav-link">Predictions</a>
+                    <a href="global_intelligence_report.html" class="nav-link">Global Intelligence Report</a>
+                    <a href="active_conflicts.html" class="nav-link">Conflicts</a>
+                    <a href="satellite_intelligence.html" class="nav-link">Satellites</a>
+                    <a href="flight_intelligence.html" class="nav-link">Flights</a>
+                    <a href="trade_intelligence.html" class="nav-link">Trade</a>
+                    <a href="methodology.html" class="nav-link">Methodology</a>
+                    <a href="about.html" class="nav-link">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <div class="category">Legal</div>
+            <h1>Terms of Use</h1>
+            <p class="last-updated">Last Updated: January 10, 2026</p>
+        </div>
+
+        <div class="content">
+            <div class="highlight-box">
+                <p><strong>Agreement:</strong> By accessing or using KWM Intel services, you agree to be bound by these Terms of Use. If you do not agree, please do not use our services. These terms are governed by the laws of Canada and the Province of Ontario.</p>
+            </div>
+
+            <h2>1. Acceptance of Terms</h2>
+            <p>These Terms of Use ("Terms") constitute a legally binding agreement between you and Know What Matters ("KWM Intel," "we," "us," or "our"), a not-for-profit initiative and portfolio company of Aerial Capital Inc. By accessing or using our website, intelligence briefings, or any related services (collectively, the "Services"), you acknowledge that you have read, understood, and agree to be bound by these Terms.</p>
+            <p>We reserve the right to modify these Terms at any time. Changes will be effective upon posting to this page. Your continued use of the Services after any modifications constitutes acceptance of the updated Terms.</p>
+
+            <h2>2. Description of Services</h2>
+            <p>KWM Intel provides open-source intelligence (OSINT) analysis, geopolitical briefings, and related informational content. Our Services include:</p>
+            <ul>
+                <li>Daily and weekly intelligence briefings</li>
+                <li>Conflict monitoring and analysis</li>
+                <li>Trade, flight, and satellite intelligence</li>
+                <li>Geopolitical predictions and forecasts</li>
+                <li>Methodology documentation</li>
+            </ul>
+            <p>All Services are provided free of charge as part of our mission to democratize access to intelligence-grade analysis.</p>
+
+            <h2>3. Nature of Content</h2>
+            
+            <div class="warning-box">
+                <h3>Important Disclaimer</h3>
+                <p>The content provided by KWM Intel is for <strong>informational and educational purposes only</strong>. Our analysis is based on publicly available open-source information and should not be construed as:</p>
+                <ul style="margin-top: 1rem;">
+                    <li>Professional advice (legal, financial, investment, or otherwise)</li>
+                    <li>Classified or official government intelligence</li>
+                    <li>Guaranteed accurate or complete information</li>
+                    <li>Recommendation to take any specific action</li>
+                </ul>
+            </div>
+
+            <h3>3.1 No Professional Advice</h3>
+            <p>Our content does not constitute professional advice of any kind. You should consult qualified professionals before making decisions based on geopolitical events, security concerns, or other matters discussed in our briefings.</p>
+
+            <h3>3.2 Accuracy and Completeness</h3>
+            <p>While we strive for accuracy, we cannot guarantee that all information is current, complete, or error-free. Intelligence analysis inherently involves uncertainty, and our assessments represent our best interpretation of available information at the time of publication.</p>
+
+            <h3>3.3 Predictions and Forecasts</h3>
+            <p>Our predictions and forecasts are probabilistic assessments based on available data and analytical methodologies. They are not guarantees of future events. Past accuracy does not guarantee future results.</p>
+
+            <h2>4. Acceptable Use</h2>
+            <p>You agree to use the Services only for lawful purposes and in accordance with these Terms. You agree NOT to:</p>
+            <ul>
+                <li>Use the Services for any illegal purpose or in violation of any applicable laws</li>
+                <li>Misrepresent the source of our content or claim it as your own</li>
+                <li>Use the Services to harm, threaten, or harass any person or entity</li>
+                <li>Attempt to gain unauthorized access to our systems or networks</li>
+                <li>Interfere with or disrupt the Services or servers</li>
+                <li>Use automated systems (bots, scrapers) to access the Services without permission</li>
+                <li>Redistribute our content commercially without authorization</li>
+                <li>Use our content to support illegal activities, including terrorism or violence</li>
+            </ul>
+
+            <h2>5. Intellectual Property</h2>
+            
+            <h3>5.1 Our Content</h3>
+            <p>All content on KWM Intel, including text, graphics, logos, and data compilations, is the property of Know What Matters or its licensors and is protected by Canadian and international copyright laws.</p>
+
+            <h3>5.2 Limited License</h3>
+            <p>We grant you a limited, non-exclusive, non-transferable license to access and use the Services for personal, non-commercial purposes. You may:</p>
+            <ul>
+                <li>View and read content for personal use</li>
+                <li>Share links to our content</li>
+                <li>Quote limited portions with proper attribution</li>
+            </ul>
+
+            <h3>5.3 Attribution</h3>
+            <p>When referencing our content, please provide appropriate attribution: "Source: KWM Intel (Know What Matters)" with a link to the original content where possible.</p>
+
+            <h3>5.4 Restrictions</h3>
+            <p>You may not:</p>
+            <ul>
+                <li>Reproduce, distribute, or republish substantial portions of our content</li>
+                <li>Create derivative works without permission</li>
+                <li>Remove copyright or proprietary notices</li>
+                <li>Use our trademarks without authorization</li>
+            </ul>
+
+            <h2>6. Third-Party Content and Links</h2>
+            <p>Our Services may contain links to third-party websites or reference third-party content. We do not control, endorse, or assume responsibility for any third-party content. Your interactions with third parties are solely between you and them.</p>
+
+            <h2>7. Disclaimer of Warranties</h2>
+            <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW:</p>
+            <ul>
+                <li>The Services are provided "AS IS" and "AS AVAILABLE" without warranties of any kind</li>
+                <li>We disclaim all warranties, express or implied, including merchantability, fitness for a particular purpose, and non-infringement</li>
+                <li>We do not warrant that the Services will be uninterrupted, secure, or error-free</li>
+                <li>We make no representations about the accuracy, reliability, or completeness of any content</li>
+            </ul>
+
+            <h2>8. Limitation of Liability</h2>
+            <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW:</p>
+            <ul>
+                <li>KWM Intel, Aerial Capital Inc., and their officers, directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages</li>
+                <li>Our total liability for any claims arising from your use of the Services shall not exceed CAD $100</li>
+                <li>We shall not be liable for any loss or damage resulting from your reliance on information provided through the Services</li>
+            </ul>
+            <p>Some jurisdictions do not allow limitations on implied warranties or liability, so some of the above limitations may not apply to you.</p>
+
+            <h2>9. Indemnification</h2>
+            <p>You agree to indemnify, defend, and hold harmless KWM Intel, Aerial Capital Inc., and their officers, directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from:</p>
+            <ul>
+                <li>Your use of the Services</li>
+                <li>Your violation of these Terms</li>
+                <li>Your violation of any third-party rights</li>
+                <li>Any content you submit or share through the Services</li>
+            </ul>
+
+            <h2>10. Termination</h2>
+            <p>We reserve the right to suspend or terminate your access to the Services at any time, without notice, for any reason, including violation of these Terms. Upon termination, your right to use the Services will immediately cease.</p>
+
+            <h2>11. Governing Law and Dispute Resolution</h2>
+            
+            <h3>11.1 Governing Law</h3>
+            <p>These Terms shall be governed by and construed in accordance with the laws of the Province of Ontario and the federal laws of Canada applicable therein, without regard to conflict of law principles.</p>
+
+            <h3>11.2 Jurisdiction</h3>
+            <p>You agree to submit to the exclusive jurisdiction of the courts located in Toronto, Ontario, Canada for resolution of any disputes arising from these Terms or your use of the Services.</p>
+
+            <h3>11.3 Informal Resolution</h3>
+            <p>Before initiating formal legal proceedings, you agree to contact us to attempt informal resolution of any dispute.</p>
+
+            <h2>12. General Provisions</h2>
+            
+            <h3>12.1 Entire Agreement</h3>
+            <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and KWM Intel regarding the Services.</p>
+
+            <h3>12.2 Severability</h3>
+            <p>If any provision of these Terms is found to be unenforceable, the remaining provisions will continue in full force and effect.</p>
+
+            <h3>12.3 Waiver</h3>
+            <p>Our failure to enforce any right or provision of these Terms shall not constitute a waiver of such right or provision.</p>
+
+            <h3>12.4 Assignment</h3>
+            <p>You may not assign or transfer these Terms without our prior written consent. We may assign our rights and obligations without restriction.</p>
+
+            <h3>12.5 Language</h3>
+            <p>The parties have requested that these Terms and all related documents be drawn up in English. Les parties ont demandé que cette convention et tous les documents connexes soient rédigés en anglais.</p>
+
+            <div class="contact-info">
+                <h3>13. Contact Information</h3>
+                <p>If you have questions about these Terms, please contact us:</p>
+                <p><strong>KWM Intel (Know What Matters)</strong><br>
+                c/o Aerial Capital Inc.<br>
+                Email: info@kwmintel.org</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="header-content" style="height: auto; padding: 2rem 30px;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <span style="color: var(--red); font-size: 1.5rem; font-weight: 700;">KWM Intel</span>
+                <span style="color: var(--medium-gray); font-size: 0.85rem;">powered by</span>
+                <img src="aerial_logo.png" alt="Aerial Capital Inc" style="height: 90px;">
+            </div>
+            <div style="display: flex; gap: 2rem;">
+                <a href="about.html" style="color: var(--light-gray); text-decoration: none; font-size: 0.9rem;">About</a>
+                <a href="methodology.html" style="color: var(--light-gray); text-decoration: none; font-size: 0.9rem;">Methodology</a>
+                <a href="privacy.html" style="color: var(--light-gray); text-decoration: none; font-size: 0.9rem;">Privacy</a>
+                <a href="terms.html" style="color: var(--light-gray); text-decoration: none; font-size: 0.9rem;">Terms</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

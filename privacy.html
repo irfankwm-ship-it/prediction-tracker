@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | KWM Intel</title>
+    <meta name="description" content="KWM Intel Privacy Policy - How we collect, use, and protect your personal information in compliance with Canadian privacy laws.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #e21a41;
+            --black: #161618;
+            --dark-gray: #1a1a1c;
+            --medium-gray: #414143;
+            --light-gray: #efeff3;
+            --white: #ffffff;
+            --border: #333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.8;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent calc(8.33% - 1px), var(--border) calc(8.33% - 1px), var(--border) 8.33%);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: var(--black);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            
+        }
+
+        .header-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .header-row-1 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-row-2 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.75rem 0;
+        }
+
+        
+
+        
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .brand-kwm { color: var(--red); font-size: 1.1rem; font-weight: 700; }
+        .brand-sep { color: #666; font-weight: 400; }
+        .brand-org { color: #FF6600; font-size: 1.1rem; font-weight: 600; }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .nav-link {
+            color: var(--light-gray);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            white-space: nowrap;
+            transition: color 0.4s cubic-bezier(.5,.15,.5,.85);
+        }
+
+        .nav-link:first-child { padding-left: 0; }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            width: 0; height: 2px;
+            background: var(--red);
+            transition: all 0.4s cubic-bezier(.5,.15,.5,.85);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover { color: var(--white); }
+        .nav-link:hover::after { width: 80%; }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 140px 80px 80px;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+        }
+
+        .page-header .category {
+            color: var(--red);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header h1 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .last-updated {
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+
+        .content {
+            color: var(--light-gray);
+            font-size: 1rem;
+            line-height: 1.9;
+        }
+
+        .content h2 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 2.1rem;
+            font-weight: 400;
+            color: var(--white);
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+            margin: 2rem 0 1rem;
+        }
+
+        .content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .content ul, .content ol {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+
+        .content li {
+            margin-bottom: 0.75rem;
+        }
+
+        .content strong {
+            color: var(--white);
+        }
+
+        .highlight-box {
+            background: var(--dark-gray);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+
+        .contact-info {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .contact-info h3 {
+            margin-top: 0;
+        }
+
+        .footer {
+            background: var(--dark-gray);
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .container { padding: 100px 20px 60px; }
+            .page-header h1 { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="header-row-1">
+                <a href="index.html" class="logo-section">
+                    <span class="brand-kwm">KWM Intel</span><span class="brand-sep"> | </span><span class="brand-org">Know What Matters</span>
+                </a>
+            </div>
+            <div class="header-row-2">
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="predictions.html" class="nav-link">Predictions</a>
+                    <a href="global_intelligence_report.html" class="nav-link">Global Intelligence Report</a>
+                    <a href="active_conflicts.html" class="nav-link">Conflicts</a>
+                    <a href="satellite_intelligence.html" class="nav-link">Satellites</a>
+                    <a href="flight_intelligence.html" class="nav-link">Flights</a>
+                    <a href="trade_intelligence.html" class="nav-link">Trade</a>
+                    <a href="methodology.html" class="nav-link">Methodology</a>
+                    <a href="about.html" class="nav-link">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <div class="category">Legal</div>
+            <h1>Privacy Policy</h1>
+            <p class="last-updated">Last Updated: January 10, 2026</p>
+        </div>
+
+        <div class="content">
+            <div class="highlight-box">
+                <p><strong>Our Commitment:</strong> KWM Intel is committed to protecting your privacy and handling your personal information in accordance with the Personal Information Protection and Electronic Documents Act (PIPEDA) and applicable Canadian provincial privacy legislation.</p>
+            </div>
+
+            <h2>1. About This Policy</h2>
+            <p>This Privacy Policy explains how Know What Matters ("KWM Intel," "we," "us," or "our") collects, uses, discloses, and protects personal information when you access our website and intelligence services. KWM Intel is operated as a not-for-profit initiative and is a portfolio company of Aerial Capital Inc.</p>
+            <p>By using our services, you consent to the collection, use, and disclosure of your personal information as described in this Privacy Policy.</p>
+
+            <h2>2. Information We Collect</h2>
+            
+            <h3>2.1 Information You Provide</h3>
+            <ul>
+                <li><strong>Contact Information:</strong> Name, email address, and any other information you voluntarily provide when contacting us</li>
+                <li><strong>Newsletter Subscriptions:</strong> Email address if you subscribe to our intelligence briefings</li>
+                <li><strong>Feedback and Correspondence:</strong> Any information contained in messages you send to us</li>
+            </ul>
+
+            <h3>2.2 Information Collected Automatically</h3>
+            <ul>
+                <li><strong>Device Information:</strong> Browser type, operating system, device type</li>
+                <li><strong>Usage Data:</strong> Pages visited, time spent on pages, referring URLs</li>
+                <li><strong>Technical Data:</strong> IP address (anonymized), cookies, and similar tracking technologies</li>
+            </ul>
+
+            <h3>2.3 Information We Do Not Collect</h3>
+            <p>KWM Intel does not collect:</p>
+            <ul>
+                <li>Financial or payment information (our services are free)</li>
+                <li>Government identification numbers</li>
+                <li>Sensitive personal information (health, biometric, genetic data)</li>
+                <li>Information about children under 13 years of age</li>
+            </ul>
+
+            <h2>3. How We Use Your Information</h2>
+            <p>We use personal information for the following purposes:</p>
+            <ul>
+                <li><strong>Service Delivery:</strong> To provide intelligence briefings and respond to inquiries</li>
+                <li><strong>Communication:</strong> To send requested information and updates</li>
+                <li><strong>Improvement:</strong> To analyze usage patterns and improve our services</li>
+                <li><strong>Security:</strong> To protect against unauthorized access and maintain service integrity</li>
+                <li><strong>Legal Compliance:</strong> To comply with applicable laws and regulations</li>
+            </ul>
+
+            <h2>4. Consent</h2>
+            <p>In accordance with PIPEDA, we obtain your consent before collecting, using, or disclosing your personal information, except where permitted or required by law. Consent may be:</p>
+            <ul>
+                <li><strong>Express:</strong> When you actively provide information or opt-in to services</li>
+                <li><strong>Implied:</strong> When the purpose is obvious and you voluntarily provide information</li>
+            </ul>
+            <p>You may withdraw consent at any time by contacting us, subject to legal or contractual restrictions.</p>
+
+            <h2>5. Disclosure of Information</h2>
+            <p>We do not sell, rent, or trade your personal information. We may share information with:</p>
+            <ul>
+                <li><strong>Service Providers:</strong> Third parties who assist in operating our website (hosting, analytics), bound by confidentiality agreements</li>
+                <li><strong>Legal Requirements:</strong> When required by law, court order, or government request</li>
+                <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets, with notice to affected individuals</li>
+                <li><strong>Affiliated Entities:</strong> Aerial Capital Inc., our parent organization, for operational purposes</li>
+            </ul>
+
+            <h2>6. Data Security</h2>
+            <p>We implement appropriate technical and organizational measures to protect your personal information, including:</p>
+            <ul>
+                <li>Encryption of data in transit (HTTPS/TLS)</li>
+                <li>Secure server infrastructure</li>
+                <li>Access controls and authentication</li>
+                <li>Regular security assessments</li>
+            </ul>
+            <p>While we strive to protect your information, no method of transmission over the Internet is 100% secure.</p>
+
+            <h2>7. Data Retention</h2>
+            <p>We retain personal information only as long as necessary to fulfill the purposes for which it was collected, or as required by law. When information is no longer needed, we securely destroy or anonymize it.</p>
+
+            <h2>8. Your Rights Under Canadian Law</h2>
+            <p>Under PIPEDA and applicable provincial legislation, you have the right to:</p>
+            <ul>
+                <li><strong>Access:</strong> Request access to your personal information held by us</li>
+                <li><strong>Correction:</strong> Request correction of inaccurate or incomplete information</li>
+                <li><strong>Withdrawal:</strong> Withdraw consent to the collection, use, or disclosure of your information</li>
+                <li><strong>Complaint:</strong> File a complaint with the Office of the Privacy Commissioner of Canada</li>
+            </ul>
+            <p>To exercise these rights, contact our Privacy Officer using the information below.</p>
+
+            <h2>9. Cookies and Tracking Technologies</h2>
+            <p>We use cookies and similar technologies to:</p>
+            <ul>
+                <li>Remember your preferences</li>
+                <li>Understand how you use our services</li>
+                <li>Improve user experience</li>
+            </ul>
+            <p>You can control cookies through your browser settings. Disabling cookies may affect some functionality.</p>
+
+            <h2>10. International Data Transfers</h2>
+            <p>Your information may be processed in jurisdictions outside Canada where our service providers are located. When we transfer personal information internationally, we ensure appropriate safeguards are in place to protect your information in accordance with Canadian privacy laws.</p>
+
+            <h2>11. Children's Privacy</h2>
+            <p>Our services are not directed to individuals under 13 years of age. We do not knowingly collect personal information from children. If we become aware that we have collected information from a child, we will delete it promptly.</p>
+
+            <h2>12. Changes to This Policy</h2>
+            <p>We may update this Privacy Policy periodically. Material changes will be posted on this page with an updated "Last Updated" date. We encourage you to review this policy regularly.</p>
+
+            <div class="contact-info">
+                <h3>13. Contact Us</h3>
+                <p>If you have questions about this Privacy Policy or wish to exercise your privacy rights, please contact:</p>
+                <p><strong>Privacy Officer</strong><br>
+                KWM Intel (Know What Matters)<br>
+                c/o Aerial Capital Inc.<br>
+                Email: info@kwmintel.org</p>
+                <p style="margin-top: 1rem;"><strong>Office of the Privacy Commissioner of Canada</strong><br>
+                30 Victoria Street<br>
+                Gatineau, Quebec K1A 1H3<br>
+                Toll-free: 1-800-282-1376<br>
+                Website: <a href="https://www.priv.gc.ca" style="color: var(--red);">www.priv.gc.ca</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="header-content" style="height: auto; padding: 2rem 30px;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <span style="color: var(--red); font-size: 1.5rem; font-weight: 700;">KWM Intel</span>
+                <span style="color: var(--medium-gray); font-size: 0.85rem;">powered by</span>
+                <img src="aerial_logo.png" alt="Aerial Capital Inc" style="height: 90px;">
+            </div>
+            <div style="display: flex; gap: 2rem;">
+                <a href="about.html" style="color: var(--light-gray); text-decoration: none; font-size: 0.9rem;">About</a>
+                <a href="methodology.html" style="color: var(--light-gray); text-decoration: none; font-size: 0.9rem;">Methodology</a>
+                <a href="privacy.html" style="color: var(--light-gray); text-decoration: none; font-size: 0.9rem;">Privacy</a>
+                <a href="terms.html" style="color: var(--light-gray); text-decoration: none; font-size: 0.9rem;">Terms</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

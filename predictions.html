@@ -3,229 +3,480 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intelligence Predictions | Know What Matters</title>
+    <title>Intelligence Predictions | KWM Intel</title>
     <meta name="description" content="Weekly intelligence predictions with calibrated confidence levels.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e3a5f;
-            --accent: #D97638;
-            --purple: #7c3aed;
-            --critical: #dc2626;
-            --stable: #16a34a;
-            --bg-card: #ffffff;
-            --text-dark: #1a1f36;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
+            --red: #e21a41;
+            --black: #161618;
+            --dark-gray: #1a1a1c;
+            --medium-gray: #414143;
+            --light-gray: #efeff3;
+            --white: #ffffff;
+            --border: #333;
+            --green: #39FF14;
+            --text-muted: #a0a0a0;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            color: var(--text-dark);
-            line-height: 1.6;
-            min-height: 100vh;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.7;
         }
-        .nav-bar {
-            background: rgba(255,255,255,0.1);
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent calc(8.33% - 1px), var(--border) calc(8.33% - 1px), var(--border) 8.33%);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
         }
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: flex-end;
-            gap: 1.5rem;
-        }
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .nav-link:hover { background: rgba(255,255,255,0.15); }
-        .nav-link.active { background: rgba(255,255,255,0.2); }
+
+        /* Header */
         .header {
-            background: linear-gradient(135deg, var(--purple) 0%, #6d28d9 100%);
-            color: white;
-            padding: 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: var(--black);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
         }
-        .header-main { padding: 2rem 0; }
+
         .header-content {
-            max-width: 1200px;
+            max-width: 1140px;
             margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 0 30px;
         }
-        .logo-section { display: flex; align-items: center; gap: 1rem; }
-        .logo-section img { height: 70px; width: auto; }
-        .logo-section h1 { font-size: 1.75rem; font-weight: 800; }
-        .logo-section .tagline { font-size: 0.9rem; opacity: 0.9; margin-top: 0.25rem; }
-        .report-meta { text-align: right; }
-        .report-date { font-size: 1.1rem; font-weight: 600; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+        .header-row-1 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-row-2 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.75rem 0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .brand-kwm { color: var(--red); font-size: 1.1rem; font-weight: 700; }
+        .brand-sep { color: #666; font-weight: 400; }
+        .brand-org { color: #FF6600; font-size: 1.1rem; font-weight: 600; }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .nav-link {
+            color: var(--light-gray);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            white-space: nowrap;
+            transition: color 0.3s;
+        }
+
+        .nav-link:first-child { padding-left: 0; }
+        .nav-link:hover { color: var(--white); }
+
+        /* Main Content */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 140px 30px 80px;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .page-header .category {
+            color: var(--green);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header h1 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header .date {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Stats Banner */
         .stats-banner {
-            background: var(--bg-card);
-            border-radius: 12px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--green);
             padding: 1.5rem 2rem;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
-            border-left: 5px solid var(--purple);
         }
-        .stat-item { text-align: center; }
-        .stat-value { font-size: 2rem; font-weight: 800; color: var(--purple); }
-        .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Intro Card */
         .intro-card {
-            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-            border: 1px solid #e9d5ff;
-            border-radius: 12px;
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--green);
             padding: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
-        .intro-text { font-size: 1rem; color: #581c87; }
-        .section-card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            overflow: hidden;
+
+        .intro-card p {
+            color: var(--light-gray);
+            font-size: 1rem;
+            line-height: 1.8;
         }
+
+        .intro-card strong {
+            color: var(--white);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
         .section-header {
-            background: linear-gradient(135deg, var(--purple) 0%, #6d28d9 100%);
-            color: white;
-            padding: 1rem 1.5rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
         }
-        .section-title { font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 0.75rem; }
-        .section-content { padding: 1.5rem; }
+
+        .section-header h2 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 400;
+        }
+
+        /* Prediction Cards */
+        .predictions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
         .prediction-card {
-            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-            border: 1px solid #e9d5ff;
-            border-left: 4px solid var(--purple);
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            border-radius: 0 8px 8px 0;
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--green);
+            padding: 1.5rem;
         }
-        .pred-header {
+
+        .prediction-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 0.75rem;
-            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .prediction-id {
+            background: var(--green);
+            color: var(--black);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.25rem 0.5rem;
+            white-space: nowrap;
+        }
+
+        .prediction-title {
+            flex: 1;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .confidence-badge {
+            display: flex;
+            align-items: center;
             gap: 0.5rem;
         }
-        .pred-id {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--purple);
-            background: #e9d5ff;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
+
+        .confidence-bar {
+            width: 80px;
+            height: 6px;
+            background: var(--medium-gray);
+            overflow: hidden;
         }
-        .pred-title { font-size: 1.1rem; font-weight: 700; color: #581c87; flex: 1; min-width: 200px; }
-        .confidence-badge { display: flex; align-items: center; gap: 0.5rem; }
-        .confidence-bar { width: 100px; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
-        .confidence-fill { height: 100%; border-radius: 4px; }
-        .confidence-value { font-size: 0.85rem; font-weight: 700; color: #581c87; }
-        .pred-body { font-size: 0.95rem; color: var(--text-dark); margin-bottom: 0.75rem; }
-        .pred-meta { display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.8rem; color: var(--text-muted); }
-        .meta-item { display: flex; align-items: center; gap: 0.3rem; }
+
+        .confidence-fill {
+            height: 100%;
+        }
+
+        .confidence-fill.high { background: #16a34a; }
+        .confidence-fill.medium { background: #f59e0b; }
+        .confidence-fill.low { background: #e21a41; }
+
+        .confidence-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--green);
+            min-width: 40px;
+        }
+
+        .prediction-body {
+            color: var(--light-gray);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .prediction-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Vote Buttons */
+        .vote-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .vote-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .vote-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .vote-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--light-gray);
+            font-size: 0.85rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .vote-btn:hover:not(:disabled) {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .vote-btn.agree:hover:not(:disabled) {
+            border-color: #16a34a;
+            color: #16a34a;
+        }
+
+        .vote-btn.disagree:hover:not(:disabled) {
+            border-color: #e21a41;
+            color: #e21a41;
+        }
+
+        .vote-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .vote-count {
+            font-weight: 700;
+        }
+
+        /* Calibration Card */
         .calibration-card {
-            background: #f0f9ff;
-            border: 2px solid #0ea5e9;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-        }
-        .calibration-title { font-size: 1.1rem; font-weight: 700; color: #0369a1; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-        .brier-score { font-size: 2rem; font-weight: 800; color: #0369a1; text-align: center; margin: 1rem 0; }
-        .calibration-note { font-size: 0.9rem; color: #0369a1; text-align: center; }
-        .footer {
-            background: var(--primary);
-            color: white;
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--green);
             padding: 2rem;
-            margin-top: 3rem;
+            text-align: center;
         }
+
+        .calibration-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+
+        .brier-score {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--green);
+            margin-bottom: 0.5rem;
+        }
+
+        .calibration-note {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-gray);
+            border-top: 1px solid var(--border);
+        }
+
         .footer-content {
-            max-width: 1200px;
+            max-width: 1140px;
             margin: 0 auto;
+            padding: 2rem 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .footer-brand { display: flex; align-items: center; gap: 1rem; }
-        .footer-brand img { height: 50px; width: auto; }
-        .footer-text { font-size: 0.95rem; }
-        .footer-meta { font-size: 0.85rem; opacity: 0.85; }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-brand span:first-child {
+            color: var(--red);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-brand .powered {
+            color: var(--medium-gray);
+            font-size: 0.85rem;
+        }
+
+        .footer-brand img {
+            height: 90px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .header-content { flex-direction: column; text-align: center; gap: 1rem; }
-            .logo-section { flex-direction: column; }
-            .report-meta { text-align: center; }
-            .container { padding: 1rem; }
-            .stats-banner { grid-template-columns: 1fr 1fr; }
-            .footer-content { flex-direction: column; text-align: center; gap: 1rem; }
+            .nav-links { display: none; }
+            .container { padding: 120px 20px 60px; }
+            .page-header h1 { font-size: 2.2rem; }
+            .stats-banner { grid-template-columns: repeat(2, 1fr); }
+            .prediction-header { flex-direction: column; }
+            .footer-content { flex-direction: column; gap: 1.5rem; text-align: center; }
             .footer-brand { flex-direction: column; }
         }
     </style>
 </head>
 <body>
+    <div class="grid-bg"></div>
+
     <header class="header">
-        <nav class="nav-bar">
-            <div class="nav-content">
-                <a href="global_intelligence_report.html" class="nav-link">
-                    <span>🌍</span> Global Report
-                </a>
-                <a href="satellite_intelligence.html" class="nav-link">
-                    <span>🛰️</span> Satellite
-                </a>
-                <a href="trade_intelligence.html" class="nav-link">
-                    <span>📦</span> Trade
-                </a>
-                <a href="active_conflicts.html" class="nav-link">
-                    <span>⚔️</span> Conflicts
-                </a>
-                <a href="predictions.html" class="nav-link active">
-                    <span>🔮</span> Predictions
-                </a>
-                <a href="methodology.html" class="nav-link">
-                    <span>📋</span> Methodology
+        <div class="header-content">
+            <div class="header-row-1">
+                <a href="index.html" class="logo-section">
+                    <span class="brand-kwm">KWM Intel</span><span class="brand-sep"> | </span><span class="brand-org">Know What Matters</span>
                 </a>
             </div>
-        </nav>
-        <div class="header-main">
-            <div class="header-content">
-                <div class="logo-section">
-                    <img src="kwm_logo.png" alt="Know What Matters">
-                    <div>
-                        <h1>Know What Matters</h1>
-                        <div class="tagline">Intelligence Predictions</div>
-                    </div>
-                </div>
-                <div class="report-meta">
-                    <div class="report-date">Week of January 10, 2026</div>
-                </div>
+            <div class="header-row-2">
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="predictions.html" class="nav-link">Predictions</a>
+                    <a href="global_intelligence_report.html" class="nav-link">Global Intelligence Report</a>
+                    <a href="active_conflicts.html" class="nav-link">Conflicts</a>
+                    <a href="satellite_intelligence.html" class="nav-link">Satellites</a>
+                    <a href="flight_intelligence.html" class="nav-link">Flights</a>
+                    <a href="trade_intelligence.html" class="nav-link">Trade</a>
+                    <a href="methodology.html" class="nav-link">Methodology</a>
+                    <a href="about.html" class="nav-link">About</a>
+                </nav>
             </div>
         </div>
     </header>
+
     <main class="container">
+        <div class="page-header">
+            <div class="category">Forecasting</div>
+            <h1>Intelligence Predictions</h1>
+            <p class="date">Week of January 11, 2026 (Week 02)</p>
+        </div>
+
         <div class="stats-banner">
             <div class="stat-item">
                 <div class="stat-value">10</div>
@@ -244,214 +495,347 @@
                 <div class="stat-label">Brier Score</div>
             </div>
         </div>
+
         <div class="intro-card">
-            <p class="intro-text">
-                <strong>About Our Predictions:</strong> Each week, we publish 10 intelligence predictions with calibrated confidence levels. We track every prediction to resolution and measure accuracy over time. Our goal: Brier score below 0.15 (perfect = 0, random = 0.25).
+            <p><strong>About Our Predictions:</strong> Each week, we publish 10 intelligence predictions with calibrated confidence levels. We track every prediction to resolution and measure accuracy over time. Our goal: Brier score below 0.15 (perfect = 0, random = 0.25). Your votes help us calibrate our model using crowd wisdom.</p>
+        </div>
+
+        <section class="section">
+            <div class="section-header">
+                <h2>This Week's Predictions</h2>
+            </div>
+
+            <div class="predictions-grid">
+                <div class="prediction-card" data-id="PRED-2026-024">
+                    <div class="prediction-header">
+                        <span class="prediction-id">PRED-2026-024</span>
+                        <span class="prediction-title">Venezuela Escalates Military Posture</span>
+                        <div class="confidence-badge">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill high" style="width: 75%;"></div>
+                            </div>
+                            <span class="confidence-value">75%</span>
+                        </div>
+                    </div>
+                    <p class="prediction-body">Venezuela will deploy additional troops to its border with Colombia within 7 days in response to U.S. military pressure.</p>
+                    <div class="prediction-meta">
+                        <span class="meta-item">Due: January 18, 2026</span>
+                        <span class="meta-item">Category: Conflict/Security</span>
+                        <span class="meta-item">Region: Americas</span>
+                    </div>
+                    <div class="vote-section">
+                        <span class="vote-label">Do you agree?</span>
+                        <div class="vote-buttons">
+                            <button class="vote-btn agree" onclick="vote(this, 'agree')">Agree <span class="vote-count">0</span></button>
+                            <button class="vote-btn disagree" onclick="vote(this, 'disagree')">Disagree <span class="vote-count">0</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prediction-card" data-id="PRED-2026-025">
+                    <div class="prediction-header">
+                        <span class="prediction-id">PRED-2026-025</span>
+                        <span class="prediction-title">Canadian Sanctions on Venezuela Escalate</span>
+                        <div class="confidence-badge">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill medium" style="width: 65%;"></div>
+                            </div>
+                            <span class="confidence-value">65%</span>
+                        </div>
+                    </div>
+                    <p class="prediction-body">Canada will announce new sanctions against Venezuelan officials linked to human rights abuses within 7 days.</p>
+                    <div class="prediction-meta">
+                        <span class="meta-item">Due: January 18, 2026</span>
+                        <span class="meta-item">Category: Diplomatic</span>
+                        <span class="meta-item">Region: Americas</span>
+                    </div>
+                    <div class="vote-section">
+                        <span class="vote-label">Do you agree?</span>
+                        <div class="vote-buttons">
+                            <button class="vote-btn agree" onclick="vote(this, 'agree')">Agree <span class="vote-count">0</span></button>
+                            <button class="vote-btn disagree" onclick="vote(this, 'disagree')">Disagree <span class="vote-count">0</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prediction-card" data-id="PRED-2026-026">
+                    <div class="prediction-header">
+                        <span class="prediction-id">PRED-2026-026</span>
+                        <span class="prediction-title">Starlink Disruption in PNG Persists</span>
+                        <div class="confidence-badge">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill high" style="width: 85%;"></div>
+                            </div>
+                            <span class="confidence-value">85%</span>
+                        </div>
+                    </div>
+                    <p class="prediction-body">PNG will face prolonged internet outages due to Starlink shutdown beyond the initial 7-day window.</p>
+                    <div class="prediction-meta">
+                        <span class="meta-item">Due: January 18, 2026</span>
+                        <span class="meta-item">Category: Technology/Cyber</span>
+                        <span class="meta-item">Region: Pacific</span>
+                    </div>
+                    <div class="vote-section">
+                        <span class="vote-label">Do you agree?</span>
+                        <div class="vote-buttons">
+                            <button class="vote-btn agree" onclick="vote(this, 'agree')">Agree <span class="vote-count">0</span></button>
+                            <button class="vote-btn disagree" onclick="vote(this, 'disagree')">Disagree <span class="vote-count">0</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prediction-card" data-id="PRED-2026-027">
+                    <div class="prediction-header">
+                        <span class="prediction-id">PRED-2026-027</span>
+                        <span class="prediction-title">U.S.-India Trade Tensions Intensify</span>
+                        <div class="confidence-badge">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill high" style="width: 70%;"></div>
+                            </div>
+                            <span class="confidence-value">70%</span>
+                        </div>
+                    </div>
+                    <p class="prediction-body">Indian stock markets will drop 3% within 7 days due to U.S. tariff threats and trade uncertainty.</p>
+                    <div class="prediction-meta">
+                        <span class="meta-item">Due: January 18, 2026</span>
+                        <span class="meta-item">Category: Economic/Trade</span>
+                        <span class="meta-item">Region: Asia</span>
+                    </div>
+                    <div class="vote-section">
+                        <span class="vote-label">Do you agree?</span>
+                        <div class="vote-buttons">
+                            <button class="vote-btn agree" onclick="vote(this, 'agree')">Agree <span class="vote-count">0</span></button>
+                            <button class="vote-btn disagree" onclick="vote(this, 'disagree')">Disagree <span class="vote-count">0</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prediction-card" data-id="PRED-2026-028">
+                    <div class="prediction-header">
+                        <span class="prediction-id">PRED-2026-028</span>
+                        <span class="prediction-title">Syrian Military Escalates Aleppo Attacks</span>
+                        <div class="confidence-badge">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill medium" style="width: 60%;"></div>
+                            </div>
+                            <span class="confidence-value">60%</span>
+                        </div>
+                    </div>
+                    <p class="prediction-body">The Syrian army will conduct a major artillery assault on Aleppo neighborhoods within 7 days.</p>
+                    <div class="prediction-meta">
+                        <span class="meta-item">Due: January 18, 2026</span>
+                        <span class="meta-item">Category: Conflict/Security</span>
+                        <span class="meta-item">Region: Middle East</span>
+                    </div>
+                    <div class="vote-section">
+                        <span class="vote-label">Do you agree?</span>
+                        <div class="vote-buttons">
+                            <button class="vote-btn agree" onclick="vote(this, 'agree')">Agree <span class="vote-count">0</span></button>
+                            <button class="vote-btn disagree" onclick="vote(this, 'disagree')">Disagree <span class="vote-count">0</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prediction-card" data-id="PRED-2026-029">
+                    <div class="prediction-header">
+                        <span class="prediction-id">PRED-2026-029</span>
+                        <span class="prediction-title">Danish Forces Increase Greenland Patrol</span>
+                        <div class="confidence-badge">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill high" style="width: 80%;"></div>
+                            </div>
+                            <span class="confidence-value">80%</span>
+                        </div>
+                    </div>
+                    <p class="prediction-body">Denmark will deploy additional naval assets to Greenland waters within 7 days in response to U.S. pressure.</p>
+                    <div class="prediction-meta">
+                        <span class="meta-item">Due: January 18, 2026</span>
+                        <span class="meta-item">Category: Diplomatic</span>
+                        <span class="meta-item">Region: Arctic</span>
+                    </div>
+                    <div class="vote-section">
+                        <span class="vote-label">Do you agree?</span>
+                        <div class="vote-buttons">
+                            <button class="vote-btn agree" onclick="vote(this, 'agree')">Agree <span class="vote-count">0</span></button>
+                            <button class="vote-btn disagree" onclick="vote(this, 'disagree')">Disagree <span class="vote-count">0</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prediction-card" data-id="PRED-2026-030">
+                    <div class="prediction-header">
+                        <span class="prediction-id">PRED-2026-030</span>
+                        <span class="prediction-title">Venezuela's Political Stability Deteriorates</span>
+                        <div class="confidence-badge">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill high" style="width: 75%;"></div>
+                            </div>
+                            <span class="confidence-value">75%</span>
+                        </div>
+                    </div>
+                    <p class="prediction-body">Venezuela's opposition will declare a national strike within 7 days to protest government actions.</p>
+                    <div class="prediction-meta">
+                        <span class="meta-item">Due: January 18, 2026</span>
+                        <span class="meta-item">Category: Political</span>
+                        <span class="meta-item">Region: Americas</span>
+                    </div>
+                    <div class="vote-section">
+                        <span class="vote-label">Do you agree?</span>
+                        <div class="vote-buttons">
+                            <button class="vote-btn agree" onclick="vote(this, 'agree')">Agree <span class="vote-count">0</span></button>
+                            <button class="vote-btn disagree" onclick="vote(this, 'disagree')">Disagree <span class="vote-count">0</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prediction-card" data-id="PRED-2026-031">
+                    <div class="prediction-header">
+                        <span class="prediction-id">PRED-2026-031</span>
+                        <span class="prediction-title">U.S. Seizes Additional Russian Tankers</span>
+                        <div class="confidence-badge">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill medium" style="width: 65%;"></div>
+                            </div>
+                            <span class="confidence-value">65%</span>
+                        </div>
+                    </div>
+                    <p class="prediction-body">The U.S. will seize at least one more Russian-flagged tanker in the Black Sea within 7 days.</p>
+                    <div class="prediction-meta">
+                        <span class="meta-item">Due: January 18, 2026</span>
+                        <span class="meta-item">Category: Conflict/Security</span>
+                        <span class="meta-item">Region: Europe</span>
+                    </div>
+                    <div class="vote-section">
+                        <span class="vote-label">Do you agree?</span>
+                        <div class="vote-buttons">
+                            <button class="vote-btn agree" onclick="vote(this, 'agree')">Agree <span class="vote-count">0</span></button>
+                            <button class="vote-btn disagree" onclick="vote(this, 'disagree')">Disagree <span class="vote-count">0</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prediction-card" data-id="PRED-2026-032">
+                    <div class="prediction-header">
+                        <span class="prediction-id">PRED-2026-032</span>
+                        <span class="prediction-title">Migration Crisis Spills into Canada</span>
+                        <div class="confidence-badge">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill medium" style="width: 60%;"></div>
+                            </div>
+                            <span class="confidence-value">60%</span>
+                        </div>
+                    </div>
+                    <p class="prediction-body">Canada will receive a surge of asylum seekers from Syria within 7 days, straining border resources.</p>
+                    <div class="prediction-meta">
+                        <span class="meta-item">Due: January 18, 2026</span>
+                        <span class="meta-item">Category: Social/Humanitarian</span>
+                        <span class="meta-item">Region: North America</span>
+                    </div>
+                    <div class="vote-section">
+                        <span class="vote-label">Do you agree?</span>
+                        <div class="vote-buttons">
+                            <button class="vote-btn agree" onclick="vote(this, 'agree')">Agree <span class="vote-count">0</span></button>
+                            <button class="vote-btn disagree" onclick="vote(this, 'disagree')">Disagree <span class="vote-count">0</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prediction-card" data-id="PRED-2026-033">
+                    <div class="prediction-header">
+                        <span class="prediction-id">PRED-2026-033</span>
+                        <span class="prediction-title">U.S. Announces New Energy Sanctions on Russia</span>
+                        <div class="confidence-badge">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill high" style="width: 70%;"></div>
+                            </div>
+                            <span class="confidence-value">70%</span>
+                        </div>
+                    </div>
+                    <p class="prediction-body">The U.S. will impose new sanctions on Russian energy companies within 7 days, targeting oil exports.</p>
+                    <div class="prediction-meta">
+                        <span class="meta-item">Due: January 18, 2026</span>
+                        <span class="meta-item">Category: Economic/Trade</span>
+                        <span class="meta-item">Region: Europe</span>
+                    </div>
+                    <div class="vote-section">
+                        <span class="vote-label">Do you agree?</span>
+                        <div class="vote-buttons">
+                            <button class="vote-btn agree" onclick="vote(this, 'agree')">Agree <span class="vote-count">0</span></button>
+                            <button class="vote-btn disagree" onclick="vote(this, 'disagree')">Disagree <span class="vote-count">0</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="calibration-card">
+            <div class="calibration-title">Calibration Score</div>
+            <div class="brier-score">0.18</div>
+            <p class="calibration-note">
+                Brier score measures prediction accuracy. Lower is better.<br>
+                0.00 = Perfect | 0.15 = Good | 0.25 = Random
             </p>
         </div>
-        <div class="section-card">
-            <div class="section-header">
-                <span class="section-title"><span>🎯</span> This Week's Predictions</span>
-            </div>
-            <div class="section-content">
-                
-            <div class="prediction-card">
-                <div class="pred-header">
-                    <span class="pred-id">cand_20260108_000</span>
-                    <span class="pred-title">Venezuela Sanctions Escalation</span>
-                    <div class="confidence-badge">
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" style="width: 75%; background: #16a34a;"></div>
-                        </div>
-                        <span class="confidence-value">75%</span>
-                    </div>
-                </div>
-                <p class="pred-body">Within 7 days, the U.S. will announce new sanctions targeting Venezuelan oil exports, reducing them by 20%.</p>
-                <div class="pred-meta">
-                    <span class="meta-item">📅 Due: 7 days</span>
-                    <span class="meta-item">🏷️ ECONOMIC TRADE</span>
-                    <span class="meta-item">🌍 USA</span>
-                </div>
-            </div>
-            <div class="prediction-card">
-                <div class="pred-header">
-                    <span class="pred-id">cand_20260108_001</span>
-                    <span class="pred-title">Danish Greenland Defense Posture</span>
-                    <div class="confidence-badge">
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" style="width: 80%; background: #16a34a;"></div>
-                        </div>
-                        <span class="confidence-value">80%</span>
-                    </div>
-                </div>
-                <p class="pred-body">Within 7 days, Danish forces will conduct a joint military exercise with NATO in Greenland to deter potential invasions.</p>
-                <div class="pred-meta">
-                    <span class="meta-item">📅 Due: 7 days</span>
-                    <span class="meta-item">🏷️ CONFLICT SECURITY</span>
-                    <span class="meta-item">🌍 Denmark</span>
-                </div>
-            </div>
-            <div class="prediction-card">
-                <div class="pred-header">
-                    <span class="pred-id">cand_20260108_002</span>
-                    <span class="pred-title">Indian Market Volatility</span>
-                    <div class="confidence-badge">
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" style="width: 60%; background: #f59e0b;"></div>
-                        </div>
-                        <span class="confidence-value">60%</span>
-                    </div>
-                </div>
-                <p class="pred-body">Within 7 days, the Indian stock market will drop by ≥5% due to Trump's 500% tariff threat.</p>
-                <div class="pred-meta">
-                    <span class="meta-item">📅 Due: 7 days</span>
-                    <span class="meta-item">🏷️ ECONOMIC TRADE</span>
-                    <span class="meta-item">🌍 USA</span>
-                </div>
-            </div>
-            <div class="prediction-card">
-                <div class="pred-header">
-                    <span class="pred-id">cand_20260108_003</span>
-                    <span class="pred-title">PNG Internet Disruption</span>
-                    <div class="confidence-badge">
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" style="width: 55%; background: #f59e0b;"></div>
-                        </div>
-                        <span class="confidence-value">55%</span>
-                    </div>
-                </div>
-                <p class="pred-body">Within 7 days, PNG will implement a temporary internet blackout in response to Starlink shutdowns.</p>
-                <div class="pred-meta">
-                    <span class="meta-item">📅 Due: 7 days</span>
-                    <span class="meta-item">🏷️ TECHNOLOGY CYBER</span>
-                    <span class="meta-item">🌍 PNG</span>
-                </div>
-            </div>
-            <div class="prediction-card">
-                <div class="pred-header">
-                    <span class="pred-id">cand_20260108_004</span>
-                    <span class="pred-title">Syrian Aleppo Escalation</span>
-                    <div class="confidence-badge">
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" style="width: 70%; background: #16a34a;"></div>
-                        </div>
-                        <span class="confidence-value">70%</span>
-                    </div>
-                </div>
-                <p class="pred-body">Within 7 days, the Syrian army will shell Aleppo neighborhoods, causing ≥50 civilian casualties.</p>
-                <div class="pred-meta">
-                    <span class="meta-item">📅 Due: 7 days</span>
-                    <span class="meta-item">🏷️ CONFLICT SECURITY</span>
-                    <span class="meta-item">🌍 Syria</span>
-                </div>
-            </div>
-            <div class="prediction-card">
-                <div class="pred-header">
-                    <span class="pred-id">cand_20260108_005</span>
-                    <span class="pred-title">Canadian Trade Adjustment</span>
-                    <div class="confidence-badge">
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" style="width: 65%; background: #f59e0b;"></div>
-                        </div>
-                        <span class="confidence-value">65%</span>
-                    </div>
-                </div>
-                <p class="pred-body">Within 7 days, Canada will revise its trade agreements with the EU to mitigate U.S.-driven tariff risks.</p>
-                <div class="pred-meta">
-                    <span class="meta-item">📅 Due: 7 days</span>
-                    <span class="meta-item">🏷️ ECONOMIC TRADE</span>
-                    <span class="meta-item">🌍 Canada</span>
-                </div>
-            </div>
-            <div class="prediction-card">
-                <div class="pred-header">
-                    <span class="pred-id">cand_20260108_006</span>
-                    <span class="pred-title">U.S. Military Action Pause</span>
-                    <div class="confidence-badge">
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" style="width: 85%; background: #16a34a;"></div>
-                        </div>
-                        <span class="confidence-value">85%</span>
-                    </div>
-                </div>
-                <p class="pred-body">Within 7 days, the U.S. Senate will vote to block Trump's military actions in Venezuela.</p>
-                <div class="pred-meta">
-                    <span class="meta-item">📅 Due: 7 days</span>
-                    <span class="meta-item">🏷️ POLITICAL DOMESTIC</span>
-                    <span class="meta-item">🌍 USA</span>
-                </div>
-            </div>
-            <div class="prediction-card">
-                <div class="pred-header">
-                    <span class="pred-id">cand_20260108_007</span>
-                    <span class="pred-title">Protests in Minneapolis</span>
-                    <div class="confidence-badge">
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" style="width: 70%; background: #16a34a;"></div>
-                        </div>
-                        <span class="confidence-value">70%</span>
-                    </div>
-                </div>
-                <p class="pred-body">Within 7 days, Minneapolis will implement a citywide curfew due to escalating protests.</p>
-                <div class="pred-meta">
-                    <span class="meta-item">📅 Due: 7 days</span>
-                    <span class="meta-item">🏷️ SOCIAL HUMANITARIAN</span>
-                    <span class="meta-item">🌍 USA</span>
-                </div>
-            </div>
-            <div class="prediction-card">
-                <div class="pred-header">
-                    <span class="pred-id">cand_20260108_008</span>
-                    <span class="pred-title">Russia-EU Trade Surge</span>
-                    <div class="confidence-badge">
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" style="width: 60%; background: #f59e0b;"></div>
-                        </div>
-                        <span class="confidence-value">60%</span>
-                    </div>
-                </div>
-                <p class="pred-body">Within 7 days, Russia-EU trade will surpass $1.2 trillion USD, driven by sanctions evasion.</p>
-                <div class="pred-meta">
-                    <span class="meta-item">📅 Due: 7 days</span>
-                    <span class="meta-item">🏷️ ECONOMIC TRADE</span>
-                    <span class="meta-item">🌍 Russia</span>
-                </div>
-            </div>
-            <div class="prediction-card">
-                <div class="pred-header">
-                    <span class="pred-id">cand_20260108_009</span>
-                    <span class="pred-title">Cyberattack on Starlink</span>
-                    <div class="confidence-badge">
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" style="width: 50%; background: #f59e0b;"></div>
-                        </div>
-                        <span class="confidence-value">50%</span>
-                    </div>
-                </div>
-                <p class="pred-body">Within 7 days, a state-sponsored cyberattack will disrupt Starlink services in PNG.</p>
-                <div class="pred-meta">
-                    <span class="meta-item">📅 Due: 7 days</span>
-                    <span class="meta-item">🏷️ TECHNOLOGY CYBER</span>
-                    <span class="meta-item">🌍 PNG</span>
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="calibration-card">
-            <div class="calibration-title"><span>📊</span> Calibration Score</div>
-            <div class="brier-score">0.18</div>
-            <p class="calibration-note">Brier score measures prediction accuracy. Lower is better.<br>0.00 = Perfect | 0.15 = Good | 0.25 = Random</p>
-        </div>
     </main>
+
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand">
-                <span class="footer-text">Know What Matters</span>
-                <span style="opacity: 0.6;">powered by</span>
+                <span>KWM Intel</span>
+                <span class="powered">powered by</span>
                 <img src="aerial_logo.png" alt="Aerial Capital Inc">
             </div>
-            <div class="footer-meta">Generated 2026-01-10 13:30 | Professional Intelligence for Everyone</div>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="methodology.html">Methodology</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+            </div>
         </div>
     </footer>
+
+    <script>
+    function vote(btn, type) {
+        const card = btn.closest('.prediction-card');
+        const predId = card.dataset.id;
+        const countSpan = btn.querySelector('.vote-count');
+        let count = parseInt(countSpan.textContent) || 0;
+        countSpan.textContent = count + 1;
+
+        // Visual feedback
+        if (type === 'agree') {
+            btn.style.borderColor = '#16a34a';
+            btn.style.color = '#16a34a';
+        } else {
+            btn.style.borderColor = '#e21a41';
+            btn.style.color = '#e21a41';
+        }
+
+        // Store vote locally
+        const votes = JSON.parse(localStorage.getItem('kwm_prediction_votes') || '{}');
+        if (!votes[predId]) votes[predId] = { agree: 0, disagree: 0 };
+        votes[predId][type]++;
+        localStorage.setItem('kwm_prediction_votes', JSON.stringify(votes));
+
+        // Disable both buttons after voting
+        card.querySelectorAll('.vote-btn').forEach(b => {
+            b.disabled = true;
+        });
+    }
+
+    // Load saved votes on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const votes = JSON.parse(localStorage.getItem('kwm_prediction_votes') || '{}');
+        document.querySelectorAll('.prediction-card').forEach(card => {
+            const predId = card.dataset.id;
+            if (votes[predId]) {
+                const agreeCount = card.querySelector('.vote-btn.agree .vote-count');
+                const disagreeCount = card.querySelector('.vote-btn.disagree .vote-count');
+                if (agreeCount) agreeCount.textContent = votes[predId].agree || 0;
+                if (disagreeCount) disagreeCount.textContent = votes[predId].disagree || 0;
+            }
+        });
+    });
+    </script>
 </body>
 </html>

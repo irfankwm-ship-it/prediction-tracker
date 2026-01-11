@@ -3,347 +3,533 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flight Intelligence | Know What Matters</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Flight Intelligence | KWM Intel</title>
+    <meta name="description" content="Aviation monitoring tracking government VIP flights, military movements, and aerial patrol activity.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e3a5f;
-            --flight: #0d9488;
+            --red: #e21a41;
+            --black: #161618;
+            --dark-gray: #1a1a1c;
+            --medium-gray: #414143;
+            --light-gray: #efeff3;
+            --white: #ffffff;
+            --border: #333;
+            --text-muted: #9ca3af;
             --elevated: #f59e0b;
             --caution: #ef4444;
             --normal: #16a34a;
-            --bg-light: #f8fafc;
-            --text-dark: #1a1f36;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
-        .header {
-            background: linear-gradient(135deg, var(--flight) 0%, #0f766e 100%);
-            color: white; padding: 2rem;
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.7;
         }
-        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo-section { display: flex; align-items: center; gap: 1.5rem; text-decoration: none; color: white; }
-        .logo-section img { height: 70px; width: auto; }
-        .logo-section h1 { font-size: 2rem; font-weight: 800; }
-        .nav-links { display: flex; gap: 1rem; }
-        .nav-link { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; }
-        .nav-link:hover { background: rgba(255,255,255,0.2); }
-        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
 
-        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 2rem; }
-        .stat-card { background: white; border-radius: 10px; padding: 1rem; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.06); border-top: 3px solid var(--flight); }
-        .stat-value { font-size: 2rem; font-weight: 800; color: var(--flight); }
-        .stat-label { font-size: 0.8rem; color: var(--text-muted); }
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent calc(8.33% - 1px), var(--border) calc(8.33% - 1px), var(--border) 8.33%);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-        .section { background: white; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.06); overflow: hidden; }
-        .section-header { background: linear-gradient(135deg, var(--flight) 0%, #0f766e 100%); color: white; padding: 1rem 1.5rem; font-size: 1.1rem; font-weight: 700; }
-        .section-content { padding: 1.5rem; }
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: var(--black);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
 
-        .flight-card { background: #f0fdfa; border-left: 4px solid var(--flight); padding: 1rem; margin-bottom: 1rem; border-radius: 0 8px 8px 0; }
-        .flight-header { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.5rem; }
-        .callsign { font-weight: 700; color: var(--flight); background: #ccfbf1; padding: 0.2rem 0.5rem; border-radius: 4px; }
+        .header-content { max-width: 1140px; margin: 0 auto; padding: 0 30px; }
+
+        .header-row-1 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-row-2 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.75rem 0;
+        }
+
+        .logo-section { display: flex; align-items: center; gap: 15px; text-decoration: none; color: var(--white); }
+        .brand-kwm { color: var(--red); font-size: 1.1rem; font-weight: 700; }
+        .brand-sep { color: #666; font-weight: 400; }
+        .brand-org { color: #FF6600; font-size: 1.1rem; font-weight: 600; }
+
+        .nav-links { display: flex; gap: 0.5rem; flex-wrap: nowrap; justify-content: flex-start; width: 100%; }
+        .nav-link { color: var(--light-gray); text-decoration: none; padding: 0.5rem 1rem; font-weight: 500; font-size: 0.95rem; white-space: nowrap; transition: color 0.3s; }
+        .nav-link:first-child { padding-left: 0; }
+        .nav-link:hover { color: var(--white); }
+
+        .container { position: relative; z-index: 1; max-width: 1140px; margin: 0 auto; padding: 140px 30px 80px; }
+
+        .page-header { margin-bottom: 2.5rem; }
+        .page-header .category { color: var(--red); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.75rem; }
+        .page-header h1 { font-family: 'Libre Baskerville', Georgia, serif; font-size: 3rem; font-weight: 400; line-height: 1.2; margin-bottom: 0.5rem; }
+        .page-header .date { color: var(--text-muted); font-size: 0.95rem; }
+
+        .stats-banner {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--red);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 2.5rem; font-weight: 800; color: var(--red); }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+        .intro-card {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .intro-card p { color: var(--light-gray); font-size: 1rem; line-height: 1.8; }
+        .intro-card strong { color: var(--white); }
+
+        .section { margin-bottom: 2.5rem; }
+        .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+        .section-header h2 { font-family: 'Libre Baskerville', Georgia, serif; font-size: 1.75rem; font-weight: 400; }
+
+        .flights-grid { display: flex; flex-direction: column; gap: 1rem; }
+
+        .flight-card {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+        }
+
+        .flight-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 1rem; flex-wrap: wrap; }
+        .callsign { font-size: 1.15rem; font-weight: 700; color: var(--red); background: rgba(226,26,65,0.15); padding: 0.25rem 0.75rem; }
         .aircraft { color: var(--text-muted); font-size: 0.9rem; }
-        .date { margin-left: auto; font-size: 0.85rem; color: var(--text-muted); }
-        .route { font-weight: 600; margin-bottom: 0.5rem; }
-        .significance { font-size: 0.95rem; color: var(--text-dark); }
+        .flight-date { font-size: 0.85rem; color: var(--text-muted); }
 
-        .patrol-card { border-radius: 10px; padding: 1rem; margin-bottom: 1rem; border-left: 4px solid; }
-        .patrol-card.elevated { background: #fffbeb; border-left-color: var(--elevated); }
-        .patrol-card.caution { background: #fef2f2; border-left-color: var(--caution); }
-        .patrol-card.normal { background: #f0fdf4; border-left-color: var(--normal); }
-        .patrol-header { display: flex; justify-content: space-between; margin-bottom: 0.75rem; }
-        .region { font-weight: 700; font-size: 1.1rem; }
-        .threat-level { font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 4px; color: white; }
+        .route { font-weight: 600; font-size: 1.1rem; color: var(--white); margin-bottom: 0.5rem; }
+        .significance { color: var(--light-gray); font-size: 1rem; line-height: 1.7; }
+
+        .anomaly-card {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+        }
+
+        .anomaly-card.priority { background: rgba(249,115,22,0.1); border-left: 4px solid var(--elevated); }
+
+        .anomaly-header { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.75rem; }
+        .anomaly-type { font-weight: 700; color: var(--red); }
+        .priority-badge { background: var(--elevated); color: white; font-size: 0.7rem; padding: 0.2rem 0.6rem; font-weight: 700; text-transform: uppercase; }
+        .anomaly-date { font-size: 0.85rem; color: var(--text-muted); margin-left: auto; }
+        .anomaly-location { font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
+        .anomaly-detail { font-size: 0.95rem; color: var(--light-gray); line-height: 1.7; }
+
+        .patrol-card {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+        }
+
+        .patrol-card.elevated { background: rgba(249,115,22,0.1); border-left: 4px solid var(--elevated); }
+        .patrol-card.caution { background: rgba(239,68,68,0.1); border-left: 4px solid var(--caution); }
+        .patrol-card.normal { background: rgba(22,163,74,0.1); border-left: 4px solid var(--normal); }
+
+        .patrol-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+        .region { font-weight: 700; font-size: 1.15rem; color: var(--white); }
+
+        .threat-level { font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.75rem; color: white; text-transform: uppercase; }
         .threat-level.elevated { background: var(--elevated); }
         .threat-level.caution { background: var(--caution); }
         .threat-level.normal { background: var(--normal); }
-        .patrol-nations, .patrol-aircraft { font-size: 0.9rem; margin-bottom: 0.25rem; }
-        .patrol-activity { font-size: 0.95rem; margin-top: 0.5rem; }
 
-        .anomaly-card { background: #f0fdfa; border: 1px solid #99f6e4; border-left: 4px solid var(--flight); padding: 1rem; margin-bottom: 1rem; border-radius: 0 8px 8px 0; }
-        .anomaly-card.priority { background: #fffbeb; border-color: #fde68a; border-left-color: var(--elevated); }
-        .anomaly-header { display: flex; gap: 1rem; align-items: center; margin-bottom: 0.5rem; }
-        .anomaly-type { font-weight: 700; color: var(--flight); }
-        .priority-badge { background: var(--elevated); color: white; font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: 3px; font-weight: 700; }
-        .anomaly-date { margin-left: auto; font-size: 0.85rem; color: var(--text-muted); }
-        .anomaly-location { font-weight: 600; color: var(--text-dark); margin-bottom: 0.5rem; }
-        .anomaly-detail { font-size: 0.95rem; }
+        .patrol-nations, .patrol-aircraft { font-size: 0.9rem; margin-bottom: 0.25rem; color: var(--light-gray); }
+        .patrol-activity { font-size: 0.95rem; margin-top: 0.5rem; color: var(--light-gray); line-height: 1.7; }
 
         .airfields-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        .airfields-table th { background: var(--primary); color: white; padding: 0.75rem; text-align: left; }
-        .airfields-table td { padding: 0.75rem; border-bottom: 1px solid var(--border); }
-        .type-badge { background: #ccfbf1; color: #0f766e; font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; }
+        .airfields-table th { background: var(--medium-gray); color: white; padding: 0.75rem; text-align: left; }
+        .airfields-table td { padding: 0.75rem; border-bottom: 1px solid var(--border); color: var(--light-gray); }
+        .airfields-table tr:hover { background: rgba(255,255,255,0.05); }
+        .type-badge { background: rgba(226,26,65,0.2); color: var(--red); font-size: 0.75rem; padding: 0.2rem 0.5rem; font-weight: 600; }
 
-        .footer { background: var(--primary); color: white; padding: 2rem; margin-top: 2rem; }
-        .footer-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .footer { background: var(--dark-gray); border-top: 1px solid var(--border); }
+        .footer-content { max-width: 1140px; margin: 0 auto; padding: 2rem 30px; display: flex; justify-content: space-between; align-items: center; }
         .footer-brand { display: flex; align-items: center; gap: 1rem; }
-        .footer-brand img { height: 100px; }
+        .footer-brand span:first-child { color: var(--red); font-size: 1.5rem; font-weight: 700; }
+        .footer-brand .powered { color: var(--medium-gray); font-size: 0.85rem; }
+        .footer-brand img { height: 90px; }
+        .footer-links { display: flex; gap: 2rem; }
+        .footer-links a { color: var(--light-gray); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--white); }
 
         @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .header-content { flex-direction: column; gap: 1rem; }
+            .nav-links { display: none; }
+            .container { padding: 120px 20px 60px; }
+            .page-header h1 { font-size: 2.2rem; }
+            .stats-banner { grid-template-columns: repeat(2, 1fr); }
+            .flight-header { flex-direction: column; align-items: flex-start; }
+            .patrol-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .footer-content { flex-direction: column; gap: 1.5rem; text-align: center; }
         }
     </style>
 </head>
 <body>
+    <div class="grid-bg"></div>
+
     <header class="header">
         <div class="header-content">
-            <a href="index.html" class="logo-section">
-                <img src="kwm_logo.png" alt="Know What Matters">
-                <div>
-                    <h1>Flight Intelligence</h1>
-                    <div style="opacity: 0.9;">Global Aviation Monitoring</div>
-                </div>
-            </a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="global_intelligence_report.html" class="nav-link">Global Report</a>
-                <a href="satellite_intelligence.html" class="nav-link">Satellite</a>
-                <a href="predictions.html" class="nav-link">Predictions</a>
+            <div class="header-row-1">
+                <a href="index.html" class="logo-section">
+                    <span class="brand-kwm">KWM Intel</span><span class="brand-sep"> | </span><span class="brand-org">Know What Matters</span>
+                </a>
+            </div>
+            <div class="header-row-2">
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="predictions.html" class="nav-link">Predictions</a>
+                    <a href="global_intelligence_report.html" class="nav-link">Global Intelligence Report</a>
+                    <a href="active_conflicts.html" class="nav-link">Conflicts</a>
+                    <a href="satellite_intelligence.html" class="nav-link">Satellites</a>
+                    <a href="flight_intelligence.html" class="nav-link">Flights</a>
+                    <a href="trade_intelligence.html" class="nav-link">Trade</a>
+                    <a href="methodology.html" class="nav-link">Methodology</a>
+                    <a href="about.html" class="nav-link">About</a>
+                </nav>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <div class="stats-grid">
-            <div class="stat-card"><div class="stat-value">23</div><div class="stat-label">Government VIP</div></div><div class="stat-card"><div class="stat-value">89</div><div class="stat-label">Military Transport</div></div><div class="stat-card"><div class="stat-value">67</div><div class="stat-label">Military Patrol</div></div><div class="stat-card"><div class="stat-value">34</div><div class="stat-label">Tanker/AWACS</div></div><div class="stat-card"><div class="stat-value">12</div><div class="stat-label">Strategic Bombers</div></div>
+        <div class="page-header">
+            <div class="category">Aviation Monitoring</div>
+            <h1>Flight Intelligence</h1>
+            <p class="date">January 11, 2026</p>
         </div>
 
-        <div class="section">
-            <div class="section-header">Unusual Patterns - Anomaly Detection</div>
-            <div class="section-content">
-                <p style="color: var(--text-muted); margin-bottom: 1rem;">Flight patterns that deviate from baseline activity. Priority items indicate potential operational significance.</p>
-                
-        <div class="anomaly-card priority">
-            <div class="anomaly-header">
-                <span class="anomaly-type">Formation Flight</span>
-                <span class="priority-badge">PRIORITY</span>
-                <span class="anomaly-date">2026-01-09</span>
+        <div class="stats-banner">
+            <div class="stat-item">
+                <div class="stat-value">23</div>
+                <div class="stat-label">Government VIP</div>
             </div>
-            <div class="anomaly-location">Kaliningrad</div>
-            <p class="anomaly-detail">Three Tu-22M3 bombers departed Kaliningrad in formation - unusual for training. Possible Black Sea deployment.</p>
-        </div>
-        <div class="anomaly-card priority">
-            <div class="anomaly-header">
-                <span class="anomaly-type">Diplomatic Shuttle</span>
-                <span class="priority-badge">PRIORITY</span>
-                <span class="anomaly-date">2026-01-09</span>
+            <div class="stat-item">
+                <div class="stat-value">89</div>
+                <div class="stat-label">Military Transport</div>
             </div>
-            <div class="anomaly-location">Gulf Region</div>
-            <p class="anomaly-detail">Qatari VIP aircraft made 4 stops between Doha-Tehran-Baghdad-Riyadh in 48 hours. Mediation activity.</p>
-        </div>
-        <div class="anomaly-card priority">
-            <div class="anomaly-header">
-                <span class="anomaly-type">Transponder Off</span>
-                <span class="priority-badge">PRIORITY</span>
-                <span class="anomaly-date">2026-01-10</span>
+            <div class="stat-item">
+                <div class="stat-value">67</div>
+                <div class="stat-label">Military Patrol</div>
             </div>
-            <div class="anomaly-location">Eastern Mediterranean</div>
-            <p class="anomaly-detail">Multiple Israeli Air Force aircraft operating without transponders near Syria border. Probable strike package.</p>
-        </div>
-        <div class="anomaly-card ">
-            <div class="anomaly-header">
-                <span class="anomaly-type">Surge Activity</span>
-                
-                <span class="anomaly-date">2026-01-08</span>
+            <div class="stat-item">
+                <div class="stat-value">34</div>
+                <div class="stat-label">Tanker/AWACS</div>
             </div>
-            <div class="anomaly-location">Guam</div>
-            <p class="anomaly-detail">B-52H bombers conducted 5 sorties in 24 hours - double normal tempo. Pacific posture signaling.</p>
-        </div>
-        <div class="anomaly-card priority">
-            <div class="anomaly-header">
-                <span class="anomaly-type">New Route</span>
-                <span class="priority-badge">PRIORITY</span>
-                <span class="anomaly-date">2026-01-07</span>
-            </div>
-            <div class="anomaly-location">Indian Ocean</div>
-            <p class="anomaly-detail">Chinese Y-20 tanker aircraft spotted over Maldives - first confirmed operation in region.</p>
-        </div>
+            <div class="stat-item">
+                <div class="stat-value">12</div>
+                <div class="stat-label">Strategic Bombers</div>
             </div>
         </div>
 
-        <div class="section">
-            <div class="section-header">Government & VIP Flights (Last 48h)</div>
-            <div class="section-content">
-                
-        <div class="flight-card">
-            <div class="flight-header">
-                <span class="callsign">SAM 38000</span>
-                <span class="aircraft">VC-25A (Air Force One)</span>
-                <span class="date">2026-01-10</span>
-            </div>
-            <div class="route">Andrews AFB &#8594; Los Angeles</div>
-            <p class="significance">Presidential domestic travel. No foreign policy implications.</p>
-        </div>
-        <div class="flight-card">
-            <div class="flight-header">
-                <span class="callsign">RAF 001</span>
-                <span class="aircraft">A330 MRTT</span>
-                <span class="date">2026-01-09</span>
-            </div>
-            <div class="route">Brize Norton &#8594; Riyadh</div>
-            <p class="significance">UK Foreign Secretary visit to Saudi Arabia. Arms deal discussions expected.</p>
-        </div>
-        <div class="flight-card">
-            <div class="flight-header">
-                <span class="callsign">GAF 001</span>
-                <span class="aircraft">A350-900</span>
-                <span class="date">2026-01-09</span>
-            </div>
-            <div class="route">Berlin &#8594; Beijing</div>
-            <p class="significance">German Chancellor state visit to China. Trade and EV tariff negotiations.</p>
-        </div>
-        <div class="flight-card">
-            <div class="flight-header">
-                <span class="callsign">RCH 871</span>
-                <span class="aircraft">C-17A</span>
-                <span class="date">2026-01-10</span>
-            </div>
-            <div class="route">Ramstein &#8594; Rzeszow</div>
-            <p class="significance">US military airlift to Poland. Ukraine support logistics.</p>
-        </div>
-        <div class="flight-card">
-            <div class="flight-header">
-                <span class="callsign">CNV 5781</span>
-                <span class="aircraft">Il-96-300PU</span>
-                <span class="date">2026-01-08</span>
-            </div>
-            <div class="route">Moscow &#8594; Tehran</div>
-            <p class="significance">Russian delegation flight. Defense cooperation talks ongoing.</p>
-        </div>
-            </div>
+        <div class="intro-card">
+            <p><strong>About Flight Monitoring:</strong> We track government VIP flights, military transports, and patrol activity using ADS-B data from OpenSky Network. Anomaly detection identifies unusual patterns including formation flights, transponder-off operations, and surge activity that may indicate operational significance.</p>
         </div>
 
-        <div class="section">
-            <div class="section-header">Military Patrol Activity by Region</div>
-            <div class="section-content">
-                
-        <div class="patrol-card elevated">
-            <div class="patrol-header">
-                <span class="region">Baltic Sea</span>
-                <span class="threat-level elevated">ELEVATED</span>
+        <section class="section">
+            <div class="section-header">
+                <h2>Unusual Patterns - Anomaly Detection</h2>
             </div>
-            <div class="patrol-nations"><strong>Nations:</strong> NATO (US, UK, Germany)</div>
-            <div class="patrol-aircraft"><strong>Aircraft:</strong> P-8A Poseidon, RC-135W</div>
-            <p class="patrol-activity">Anti-submarine warfare patrols increased 40% from baseline. Russian submarine activity elevated.</p>
-        </div>
-        <div class="patrol-card elevated">
-            <div class="patrol-header">
-                <span class="region">Taiwan Strait</span>
-                <span class="threat-level elevated">ELEVATED</span>
-            </div>
-            <div class="patrol-nations"><strong>Nations:</strong> China, Taiwan, US</div>
-            <div class="patrol-aircraft"><strong>Aircraft:</strong> Y-8Q, P-3C, EP-3E</div>
-            <p class="patrol-activity">Daily median line approaches. 6 PLA aircraft entered Taiwan ADIZ yesterday.</p>
-        </div>
-        <div class="patrol-card normal">
-            <div class="patrol-header">
-                <span class="region">Arctic Circle</span>
-                <span class="threat-level normal">NORMAL</span>
-            </div>
-            <div class="patrol-nations"><strong>Nations:</strong> Russia, NATO</div>
-            <div class="patrol-aircraft"><strong>Aircraft:</strong> Tu-142, P-8A, CP-140</div>
-            <p class="patrol-activity">Russian maritime patrol resuming Northern Fleet support. NATO response flights from Norway.</p>
-        </div>
-        <div class="patrol-card caution">
-            <div class="patrol-header">
-                <span class="region">Black Sea</span>
-                <span class="threat-level caution">CAUTION</span>
-            </div>
-            <div class="patrol-nations"><strong>Nations:</strong> NATO, Russia</div>
-            <div class="patrol-aircraft"><strong>Aircraft:</strong> RQ-4, MQ-9, Su-27</div>
-            <p class="patrol-activity">Reduced NATO ISR flights after 2023 drone incident. Russian air defense active.</p>
-        </div>
-        <div class="patrol-card elevated">
-            <div class="patrol-header">
-                <span class="region">South China Sea</span>
-                <span class="threat-level elevated">ELEVATED</span>
-            </div>
-            <div class="patrol-nations"><strong>Nations:</strong> US, China, Philippines</div>
-            <div class="patrol-aircraft"><strong>Aircraft:</strong> P-8A, Y-8, C-130</div>
-            <p class="patrol-activity">Freedom of navigation support flights. Chinese harassment of Philippine aircraft.</p>
-        </div>
-        <div class="patrol-card elevated">
-            <div class="patrol-header">
-                <span class="region">Korean Peninsula</span>
-                <span class="threat-level elevated">ELEVATED</span>
-            </div>
-            <div class="patrol-nations"><strong>Nations:</strong> US, South Korea, Japan</div>
-            <div class="patrol-aircraft"><strong>Aircraft:</strong> RC-135, E-3, F-35</div>
-            <p class="patrol-activity">Continuous surveillance of North Korean missile activity. Allied exercises ongoing.</p>
-        </div>
-            </div>
-        </div>
 
-        <div class="section">
-            <div class="section-header">Key Airfields Under Watch</div>
-            <div class="section-content" style="overflow-x: auto;">
+            <div class="flights-grid">
+                <div class="anomaly-card priority">
+                    <div class="anomaly-header">
+                        <span class="anomaly-type">Formation Flight</span>
+                        <span class="priority-badge">PRIORITY</span>
+                        <span class="anomaly-date">2026-01-09</span>
+                    </div>
+                    <div class="anomaly-location">Kaliningrad</div>
+                    <p class="anomaly-detail">Three Tu-22M3 bombers departed Kaliningrad in formation - unusual for training. Possible Black Sea deployment.</p>
+                </div>
+
+                <div class="anomaly-card priority">
+                    <div class="anomaly-header">
+                        <span class="anomaly-type">Diplomatic Shuttle</span>
+                        <span class="priority-badge">PRIORITY</span>
+                        <span class="anomaly-date">2026-01-09</span>
+                    </div>
+                    <div class="anomaly-location">Gulf Region</div>
+                    <p class="anomaly-detail">Qatari VIP aircraft made 4 stops between Doha-Tehran-Baghdad-Riyadh in 48 hours. Mediation activity.</p>
+                </div>
+
+                <div class="anomaly-card priority">
+                    <div class="anomaly-header">
+                        <span class="anomaly-type">Transponder Off</span>
+                        <span class="priority-badge">PRIORITY</span>
+                        <span class="anomaly-date">2026-01-10</span>
+                    </div>
+                    <div class="anomaly-location">Eastern Mediterranean</div>
+                    <p class="anomaly-detail">Multiple Israeli Air Force aircraft operating without transponders near Syria border. Probable strike package.</p>
+                </div>
+
+                <div class="anomaly-card">
+                    <div class="anomaly-header">
+                        <span class="anomaly-type">Surge Activity</span>
+                        <span class="anomaly-date">2026-01-08</span>
+                    </div>
+                    <div class="anomaly-location">Guam</div>
+                    <p class="anomaly-detail">B-52H bombers conducted 5 sorties in 24 hours - double normal tempo. Pacific posture signaling.</p>
+                </div>
+
+                <div class="anomaly-card priority">
+                    <div class="anomaly-header">
+                        <span class="anomaly-type">New Route</span>
+                        <span class="priority-badge">PRIORITY</span>
+                        <span class="anomaly-date">2026-01-07</span>
+                    </div>
+                    <div class="anomaly-location">Indian Ocean</div>
+                    <p class="anomaly-detail">Chinese Y-20 tanker aircraft spotted over Maldives - first confirmed operation in region.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2>Government & VIP Flights (Last 48h)</h2>
+            </div>
+
+            <div class="flights-grid">
+                <div class="flight-card">
+                    <div class="flight-header">
+                        <div>
+                            <span class="callsign">SAM 38000</span>
+                            <span class="aircraft">VC-25A (Air Force One)</span>
+                        </div>
+                        <span class="flight-date">2026-01-10</span>
+                    </div>
+                    <div class="route">Andrews AFB &#8594; Los Angeles</div>
+                    <p class="significance">Presidential domestic travel. No foreign policy implications.</p>
+                </div>
+
+                <div class="flight-card">
+                    <div class="flight-header">
+                        <div>
+                            <span class="callsign">RAF 001</span>
+                            <span class="aircraft">A330 MRTT</span>
+                        </div>
+                        <span class="flight-date">2026-01-09</span>
+                    </div>
+                    <div class="route">Brize Norton &#8594; Riyadh</div>
+                    <p class="significance">UK Foreign Secretary visit to Saudi Arabia. Arms deal discussions expected.</p>
+                </div>
+
+                <div class="flight-card">
+                    <div class="flight-header">
+                        <div>
+                            <span class="callsign">GAF 001</span>
+                            <span class="aircraft">A350-900</span>
+                        </div>
+                        <span class="flight-date">2026-01-09</span>
+                    </div>
+                    <div class="route">Berlin &#8594; Beijing</div>
+                    <p class="significance">German Chancellor state visit to China. Trade and EV tariff negotiations.</p>
+                </div>
+
+                <div class="flight-card">
+                    <div class="flight-header">
+                        <div>
+                            <span class="callsign">RCH 871</span>
+                            <span class="aircraft">C-17A</span>
+                        </div>
+                        <span class="flight-date">2026-01-10</span>
+                    </div>
+                    <div class="route">Ramstein &#8594; Rzeszow</div>
+                    <p class="significance">US military airlift to Poland. Ukraine support logistics.</p>
+                </div>
+
+                <div class="flight-card">
+                    <div class="flight-header">
+                        <div>
+                            <span class="callsign">CNV 5781</span>
+                            <span class="aircraft">Il-96-300PU</span>
+                        </div>
+                        <span class="flight-date">2026-01-08</span>
+                    </div>
+                    <div class="route">Moscow &#8594; Tehran</div>
+                    <p class="significance">Russian delegation flight. Defense cooperation talks ongoing.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2>Military Patrol Activity by Region</h2>
+            </div>
+
+            <div class="flights-grid">
+                <div class="patrol-card elevated">
+                    <div class="patrol-header">
+                        <span class="region">Baltic Sea</span>
+                        <span class="threat-level elevated">ELEVATED</span>
+                    </div>
+                    <div class="patrol-nations"><strong>Nations:</strong> NATO (US, UK, Germany)</div>
+                    <div class="patrol-aircraft"><strong>Aircraft:</strong> P-8A Poseidon, RC-135W</div>
+                    <p class="patrol-activity">Anti-submarine warfare patrols increased 40% from baseline. Russian submarine activity elevated.</p>
+                </div>
+
+                <div class="patrol-card elevated">
+                    <div class="patrol-header">
+                        <span class="region">Taiwan Strait</span>
+                        <span class="threat-level elevated">ELEVATED</span>
+                    </div>
+                    <div class="patrol-nations"><strong>Nations:</strong> China, Taiwan, US</div>
+                    <div class="patrol-aircraft"><strong>Aircraft:</strong> Y-8Q, P-3C, EP-3E</div>
+                    <p class="patrol-activity">Daily median line approaches. 6 PLA aircraft entered Taiwan ADIZ yesterday.</p>
+                </div>
+
+                <div class="patrol-card normal">
+                    <div class="patrol-header">
+                        <span class="region">Arctic Circle</span>
+                        <span class="threat-level normal">NORMAL</span>
+                    </div>
+                    <div class="patrol-nations"><strong>Nations:</strong> Russia, NATO</div>
+                    <div class="patrol-aircraft"><strong>Aircraft:</strong> Tu-142, P-8A, CP-140</div>
+                    <p class="patrol-activity">Russian maritime patrol resuming Northern Fleet support. NATO response flights from Norway.</p>
+                </div>
+
+                <div class="patrol-card caution">
+                    <div class="patrol-header">
+                        <span class="region">Black Sea</span>
+                        <span class="threat-level caution">CAUTION</span>
+                    </div>
+                    <div class="patrol-nations"><strong>Nations:</strong> NATO, Russia</div>
+                    <div class="patrol-aircraft"><strong>Aircraft:</strong> RQ-4, MQ-9, Su-27</div>
+                    <p class="patrol-activity">Reduced NATO ISR flights after 2023 drone incident. Russian air defense active.</p>
+                </div>
+
+                <div class="patrol-card elevated">
+                    <div class="patrol-header">
+                        <span class="region">South China Sea</span>
+                        <span class="threat-level elevated">ELEVATED</span>
+                    </div>
+                    <div class="patrol-nations"><strong>Nations:</strong> US, China, Philippines</div>
+                    <div class="patrol-aircraft"><strong>Aircraft:</strong> P-8A, Y-8, C-130</div>
+                    <p class="patrol-activity">Freedom of navigation support flights. Chinese harassment of Philippine aircraft.</p>
+                </div>
+
+                <div class="patrol-card elevated">
+                    <div class="patrol-header">
+                        <span class="region">Korean Peninsula</span>
+                        <span class="threat-level elevated">ELEVATED</span>
+                    </div>
+                    <div class="patrol-nations"><strong>Nations:</strong> US, South Korea, Japan</div>
+                    <div class="patrol-aircraft"><strong>Aircraft:</strong> RC-135, E-3, F-35</div>
+                    <p class="patrol-activity">Continuous surveillance of North Korean missile activity. Allied exercises ongoing.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2>Key Airfields Under Watch</h2>
+            </div>
+
+            <div style="overflow-x: auto;">
                 <table class="airfields-table">
-                    <thead><tr><th>Airfield</th><th>Country</th><th>Type</th><th>Strategic Significance</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th>Airfield</th>
+                            <th>Country</th>
+                            <th>Type</th>
+                            <th>Strategic Significance</th>
+                        </tr>
+                    </thead>
                     <tbody>
-        <tr>
-            <td><strong>Engel's Air Base</strong></td>
-            <td>Russia</td>
-            <td><span class="type-badge">Strategic Bomber</span></td>
-            <td>Tu-160/Tu-95 base. Long-range strike capability against NATO.</td>
-        </tr>
-        <tr>
-            <td><strong>Shagol Air Base</strong></td>
-            <td>Russia</td>
-            <td><span class="type-badge">Fighter/Bomber</span></td>
-            <td>Su-34 strike aircraft. Ukraine conflict operations.</td>
-        </tr>
-        <tr>
-            <td><strong>Longtian Air Base</strong></td>
-            <td>China</td>
-            <td><span class="type-badge">Fighter</span></td>
-            <td>J-20 stealth fighters. Taiwan Strait contingency.</td>
-        </tr>
-        <tr>
-            <td><strong>Diyarbakir Air Base</strong></td>
-            <td>Turkey</td>
-            <td><span class="type-badge">Mixed</span></td>
-            <td>F-16s. Northern Iraq/Syria operations.</td>
-        </tr>
-        <tr>
-            <td><strong>Nevatim Air Base</strong></td>
-            <td>Israel</td>
-            <td><span class="type-badge">Strike</span></td>
-            <td>F-35I Adir. Iran strike capability.</td>
-        </tr>
-        <tr>
-            <td><strong>Al Dhafra Air Base</strong></td>
-            <td>UAE</td>
-            <td><span class="type-badge">US Forward</span></td>
-            <td>F-22/F-35 deployment. Gulf regional defense.</td>
-        </tr>
-        <tr>
-            <td><strong>Osan Air Base</strong></td>
-            <td>South Korea</td>
-            <td><span class="type-badge">US Forward</span></td>
-            <td>A-10/F-16. North Korea deterrence.</td>
-        </tr>
-        <tr>
-            <td><strong>Yokota Air Base</strong></td>
-            <td>Japan</td>
-            <td><span class="type-badge">US Transport</span></td>
-            <td>C-130J hub. Pacific airlift capability.</td>
-        </tr></tbody>
+                        <tr>
+                            <td><strong>Engel's Air Base</strong></td>
+                            <td>Russia</td>
+                            <td><span class="type-badge">Strategic Bomber</span></td>
+                            <td>Tu-160/Tu-95 base. Long-range strike capability against NATO.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Shagol Air Base</strong></td>
+                            <td>Russia</td>
+                            <td><span class="type-badge">Fighter/Bomber</span></td>
+                            <td>Su-34 strike aircraft. Ukraine conflict operations.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Longtian Air Base</strong></td>
+                            <td>China</td>
+                            <td><span class="type-badge">Fighter</span></td>
+                            <td>J-20 stealth fighters. Taiwan Strait contingency.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Diyarbakir Air Base</strong></td>
+                            <td>Turkey</td>
+                            <td><span class="type-badge">Mixed</span></td>
+                            <td>F-16s. Northern Iraq/Syria operations.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nevatim Air Base</strong></td>
+                            <td>Israel</td>
+                            <td><span class="type-badge">Strike</span></td>
+                            <td>F-35I Adir. Iran strike capability.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Al Dhafra Air Base</strong></td>
+                            <td>UAE</td>
+                            <td><span class="type-badge">US Forward</span></td>
+                            <td>F-22/F-35 deployment. Gulf regional defense.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Osan Air Base</strong></td>
+                            <td>South Korea</td>
+                            <td><span class="type-badge">US Forward</span></td>
+                            <td>A-10/F-16. North Korea deterrence.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Yokota Air Base</strong></td>
+                            <td>Japan</td>
+                            <td><span class="type-badge">US Transport</span></td>
+                            <td>C-130J hub. Pacific airlift capability.</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
-        </div>
+        </section>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand">
-                <span>Know What Matters</span>
-                <span style="opacity: 0.6;">powered by</span>
+                <span>KWM Intel</span>
+                <span class="powered">powered by</span>
                 <img src="aerial_logo.png" alt="Aerial Capital Inc">
             </div>
-            <div>Generated 2026-01-10 14:19</div>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="methodology.html">Methodology</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+            </div>
         </div>
     </footer>
 </body>

@@ -3,727 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satellite Intelligence | Know What Matters</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Satellite Intelligence | KWM Intel</title>
+    <meta name="description" content="Satellite imagery analysis tracking strategic facilities, military movements, and infrastructure changes.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e3a5f;
-            --satellite: #7c3aed;
-            --alert-high: #dc2626;
-            --alert-elevated: #f59e0b;
-            --bg-light: #f8fafc;
-            --text-dark: #1a1f36;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
+            --red: #e21a41;
+            --black: #161618;
+            --dark-gray: #1a1a1c;
+            --medium-gray: #414143;
+            --light-gray: #efeff3;
+            --white: #ffffff;
+            --border: #333;
+            --text-muted: #9ca3af;
+            --high: #e21a41;
+            --elevated: #f59e0b;
+            --normal: #16a34a;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.7;
         }
+
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent calc(8.33% - 1px), var(--border) calc(8.33% - 1px), var(--border) 8.33%);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
         .header {
-            background: linear-gradient(135deg, var(--satellite) 0%, #6d28d9 100%);
-            color: white;
-            padding: 2rem;
-        }
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo-section { display: flex; align-items: center; gap: 1.5rem; text-decoration: none; color: white; }
-        .logo-section img { height: 70px; width: auto; }
-        .logo-section h1 { font-size: 2rem; font-weight: 800; }
-        .nav-links { display: flex; gap: 1rem; }
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-        .nav-link:hover { background: rgba(255,255,255,0.2); }
-        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .stat-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border-top: 4px solid var(--satellite);
-        }
-        .stat-value { font-size: 3rem; font-weight: 800; color: var(--satellite); }
-        .stat-label { color: var(--text-muted); margin-top: 0.5rem; }
-        .section {
-            background: white;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            overflow: hidden;
-        }
-        .section-header {
-            background: linear-gradient(135deg, var(--satellite) 0%, #6d28d9 100%);
-            color: white;
-            padding: 1rem 1.5rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-        .section-content { padding: 1.5rem; }
-
-        /* Alerts */
-        .alert-card {
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border-left: 5px solid;
-        }
-        .alert-card.high {
-            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-            border-left-color: var(--alert-high);
-        }
-        .alert-card.elevated {
-            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-            border-left-color: var(--alert-elevated);
-        }
-        .alert-header { display: flex; gap: 1rem; align-items: center; margin-bottom: 0.75rem; }
-        .alert-level {
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            color: white;
-        }
-        .alert-card.high .alert-level { background: var(--alert-high); }
-        .alert-card.elevated .alert-level { background: var(--alert-elevated); }
-        .alert-site { font-size: 1.1rem; font-weight: 700; color: var(--text-dark); }
-        .alert-reason { margin-bottom: 1rem; }
-        .why-priority {
-            background: rgba(0,0,0,0.05);
-            padding: 1rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
-
-        /* Changes */
-        .change-card {
-            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-            border: 1px solid #e9d5ff;
-            border-left: 4px solid var(--satellite);
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            border-radius: 0 8px 8px 0;
-        }
-        .change-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
-        .change-site { font-weight: 700; color: #581c87; }
-        .change-date { font-size: 0.85rem; color: var(--text-muted); }
-        .change-type { font-weight: 600; color: var(--satellite); margin-bottom: 0.5rem; }
-        .change-detail { font-size: 0.95rem; color: var(--text-dark); }
-
-        /* Table */
-        .sites-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-        .sites-table th {
-            background: var(--primary);
-            color: white;
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-        }
-        .sites-table td {
-            padding: 0.75rem 1rem;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: var(--black);
             border-bottom: 1px solid var(--border);
-            vertical-align: top;
-        }
-        .sites-table tr:hover { background: #f8fafc; }
-        .priority-badge {
-            background: var(--alert-high);
-            color: white;
-            font-size: 0.65rem;
-            padding: 0.15rem 0.5rem;
-            border-radius: 3px;
-            font-weight: 700;
-            margin-left: 0.5rem;
-        }
-        .type-badge {
-            background: #e0e7ff;
-            color: #3730a3;
-            font-size: 0.75rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-weight: 600;
+            z-index: 100;
         }
 
-        /* Footer */
-        .footer {
-            background: var(--primary);
-            color: white;
-            padding: 2rem;
-            margin-top: 2rem;
-        }
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
+        .header-content { max-width: 1140px; margin: 0 auto; padding: 0 30px; }
+
+        .header-row-1 {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
         }
+
+        .header-row-2 {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.75rem 0;
+        }
+
+        .logo-section { display: flex; align-items: center; gap: 15px; text-decoration: none; color: var(--white); }
+        .brand-kwm { color: var(--red); font-size: 1.1rem; font-weight: 700; }
+        .brand-sep { color: #666; font-weight: 400; }
+        .brand-org { color: #FF6600; font-size: 1.1rem; font-weight: 600; }
+
+        .nav-links { display: flex; gap: 0.5rem; flex-wrap: nowrap; justify-content: flex-start; width: 100%; }
+        .nav-link { color: var(--light-gray); text-decoration: none; padding: 0.5rem 1rem; font-weight: 500; font-size: 0.95rem; white-space: nowrap; transition: color 0.3s; }
+        .nav-link:first-child { padding-left: 0; }
+        .nav-link:hover { color: var(--white); }
+
+        .container { position: relative; z-index: 1; max-width: 1140px; margin: 0 auto; padding: 140px 30px 80px; }
+
+        .page-header { margin-bottom: 2.5rem; }
+        .page-header .category { color: var(--red); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.75rem; }
+        .page-header h1 { font-family: 'Libre Baskerville', Georgia, serif; font-size: 3rem; font-weight: 400; line-height: 1.2; margin-bottom: 0.5rem; }
+        .page-header .date { color: var(--text-muted); font-size: 0.95rem; }
+
+        .stats-banner {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--red);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 2.5rem; font-weight: 800; color: var(--red); }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+        .intro-card {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .intro-card p { color: var(--light-gray); font-size: 1rem; line-height: 1.8; }
+        .intro-card strong { color: var(--white); }
+
+        .section { margin-bottom: 2.5rem; }
+        .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+        .section-header h2 { font-family: 'Libre Baskerville', Georgia, serif; font-size: 1.75rem; font-weight: 400; }
+
+        .sites-grid { display: flex; flex-direction: column; gap: 1rem; }
+
+        .site-card {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+        }
+
+        .site-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 1rem; }
+        .site-name { font-size: 1.15rem; font-weight: 700; color: var(--white); }
+
+        .alert-badge { font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.75rem; text-transform: uppercase; }
+        .badge-high { background: var(--high); color: white; }
+        .badge-elevated { background: var(--elevated); color: white; }
+        .badge-normal { background: var(--normal); color: white; }
+
+        .site-body { color: var(--light-gray); font-size: 1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+        .site-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.85rem; color: var(--text-muted); }
+        .meta-item { display: flex; align-items: center; gap: 0.4rem; }
+
+        .observations-card {
+            background: var(--dark-gray);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+        }
+
+        .observations-card h3 { color: var(--red); font-size: 1.1rem; margin-bottom: 1rem; }
+        .observations-card ul { list-style: disc; padding-left: 1.5rem; color: var(--light-gray); }
+        .observations-card li { margin-bottom: 0.5rem; }
+
+        .footer { background: var(--dark-gray); border-top: 1px solid var(--border); }
+        .footer-content { max-width: 1140px; margin: 0 auto; padding: 2rem 30px; display: flex; justify-content: space-between; align-items: center; }
         .footer-brand { display: flex; align-items: center; gap: 1rem; }
-        .footer-brand img { height: 100px; width: auto; }
+        .footer-brand span:first-child { color: var(--red); font-size: 1.5rem; font-weight: 700; }
+        .footer-brand .powered { color: var(--medium-gray); font-size: 0.85rem; }
+        .footer-brand img { height: 90px; }
+        .footer-links { display: flex; gap: 2rem; }
+        .footer-links a { color: var(--light-gray); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--white); }
 
         @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: 1fr; }
-            .header-content { flex-direction: column; gap: 1rem; }
-            .sites-table { font-size: 0.8rem; }
+            .nav-links { display: none; }
+            .container { padding: 120px 20px 60px; }
+            .page-header h1 { font-size: 2.2rem; }
+            .stats-banner { grid-template-columns: repeat(2, 1fr); }
+            .site-header { flex-direction: column; align-items: flex-start; }
+            .footer-content { flex-direction: column; gap: 1.5rem; text-align: center; }
         }
     </style>
 </head>
 <body>
+    <div class="grid-bg"></div>
+
     <header class="header">
         <div class="header-content">
-            <a href="index.html" class="logo-section">
-                <img src="kwm_logo.png" alt="Know What Matters">
-                <div>
-                    <h1>Satellite Intelligence</h1>
-                    <div style="opacity: 0.9;">Strategic Site Monitoring</div>
-                </div>
-            </a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="global_intelligence_report.html" class="nav-link">Global Report</a>
-                <a href="predictions.html" class="nav-link">Predictions</a>
-                <a href="methodology.html" class="nav-link">Methodology</a>
+            <div class="header-row-1">
+                <a href="index.html" class="logo-section">
+                    <span class="brand-kwm">KWM Intel</span><span class="brand-sep"> | </span><span class="brand-org">Know What Matters</span>
+                </a>
+            </div>
+            <div class="header-row-2">
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="predictions.html" class="nav-link">Predictions</a>
+                    <a href="global_intelligence_report.html" class="nav-link">Global Intelligence Report</a>
+                    <a href="active_conflicts.html" class="nav-link">Conflicts</a>
+                    <a href="satellite_intelligence.html" class="nav-link">Satellites</a>
+                    <a href="flight_intelligence.html" class="nav-link">Flights</a>
+                    <a href="trade_intelligence.html" class="nav-link">Trade</a>
+                    <a href="methodology.html" class="nav-link">Methodology</a>
+                    <a href="about.html" class="nav-link">About</a>
+                </nav>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <div class="stats-grid">
-            <div class="stat-card">
+        <div class="page-header">
+            <div class="category">Imagery Analysis</div>
+            <h1>Satellite Intelligence</h1>
+            <p class="date">January 11, 2026</p>
+        </div>
+
+        <div class="stats-banner">
+            <div class="stat-item">
                 <div class="stat-value">47</div>
-                <div class="stat-label">Sites Under Monitoring</div>
+                <div class="stat-label">Sites Monitored</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-item">
                 <div class="stat-value">12</div>
-                <div class="stat-label">Change Detections (24h)</div>
+                <div class="stat-label">Change Detections</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-item">
                 <div class="stat-value">3</div>
                 <div class="stat-label">Priority Alerts</div>
             </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header">Priority Alerts - Require Immediate Attention</div>
-            <div class="section-content">
-                
-        <div class="alert-card high">
-            <div class="alert-header">
-                <span class="alert-level">HIGH</span>
-                <span class="alert-site">Kaliningrad Naval Base</span>
-            </div>
-            <p class="alert-reason">Unusual winter naval deployment pattern combined with increased military transport flights to Kaliningrad suggests potential readiness posture change. Baltic NATO allies should be on heightened awareness.</p>
-            <div class="why-priority">
-                <strong>Why This Is Priority:</strong> Kaliningrad hosts nuclear-capable Iskander missiles and is Russia's most forward-deployed military position in Europe. Any significant activity change here has direct implications for NATO Article 5 planning.
-            </div>
-        </div>
-        <div class="alert-card elevated">
-            <div class="alert-header">
-                <span class="alert-level">ELEVATED</span>
-                <span class="alert-site">Hainan Island Submarine Base</span>
-            </div>
-            <p class="alert-reason">Simultaneous departure of two nuclear-armed submarines is operationally significant. Combined with Taiwan Strait exercises, suggests coordinated show of force.</p>
-            <div class="why-priority">
-                <strong>Why This Is Priority:</strong> China's SSBN fleet represents its second-strike nuclear capability. Movement patterns provide insight into Chinese nuclear posture and potential crisis behavior.
-            </div>
-        </div>
-        <div class="alert-card elevated">
-            <div class="alert-header">
-                <span class="alert-level">ELEVATED</span>
-                <span class="alert-site">Bandar Abbas Naval Base</span>
-            </div>
-            <p class="alert-reason">40% surge in IRGC fast attack craft coincides with renewed tensions over sanctions enforcement and Red Sea shipping attacks. Strait of Hormuz closure threat elevated.</p>
-            <div class="why-priority">
-                <strong>Why This Is Priority:</strong> Iran's ability to disrupt oil transit through Hormuz remains the most immediate energy security threat globally. Fast boat surge indicates potential for asymmetric action.
-            </div>
-        </div>
+            <div class="stat-item">
+                <div class="stat-value">24h</div>
+                <div class="stat-label">Last Update</div>
             </div>
         </div>
 
-        <div class="section">
-            <div class="section-header">Change Detections - Last 24 Hours</div>
-            <div class="section-content">
-                
-        <div class="change-card">
-            <div class="change-header">
-                <span class="change-site">Kaliningrad Naval Base</span>
-                <span class="change-date">2026-01-09</span>
-            </div>
-            <div class="change-type">Increased naval activity</div>
-            <p class="change-detail">Three additional Kalibr-capable corvettes detected in port. Unusual winter deployment pattern suggests readiness posture change.</p>
-        </div>
-        <div class="change-card">
-            <div class="change-header">
-                <span class="change-site">Hainan Island Base</span>
-                <span class="change-date">2026-01-08</span>
-            </div>
-            <div class="change-type">Submarine deployment</div>
-            <p class="change-detail">Two Type 094 SSBNs departed base simultaneously - rare occurrence indicating possible patrol rotation or exercise.</p>
-        </div>
-        <div class="change-card">
-            <div class="change-header">
-                <span class="change-site">Fiery Cross Reef</span>
-                <span class="change-date">2026-01-07</span>
-            </div>
-            <div class="change-type">New radar installation</div>
-            <p class="change-detail">Construction activity on eastern portion of island. Signature consistent with over-the-horizon radar system.</p>
-        </div>
-        <div class="change-card">
-            <div class="change-header">
-                <span class="change-site">Bandar Abbas</span>
-                <span class="change-date">2026-01-09</span>
-            </div>
-            <div class="change-type">Fast boat surge</div>
-            <p class="change-detail">IRGC fast attack craft numbers at Bandar Abbas increased 40% from baseline. Coincides with Hormuz tension.</p>
-        </div>
-        <div class="change-card">
-            <div class="change-header">
-                <span class="change-site">Bab el-Mandeb Strait</span>
-                <span class="change-date">2026-01-08</span>
-            </div>
-            <div class="change-type">Shipping pattern change</div>
-            <p class="change-detail">Commercial vessels routing 50nm further from Yemen coast. Houthi threat response visible in AIS data.</p>
-        </div>
-        <div class="change-card">
-            <div class="change-header">
-                <span class="change-site">Zaporizhzhia Nuclear Plant</span>
-                <span class="change-date">2026-01-06</span>
-            </div>
-            <div class="change-type">Activity at reactor</div>
-            <p class="change-detail">Vehicle movement near Reactor 6 cooling pond. IAEA monitoring continues. No immediate safety concern.</p>
-        </div>
-        <div class="change-card">
-            <div class="change-header">
-                <span class="change-site">Crimean Bridge</span>
-                <span class="change-date">2026-01-07</span>
-            </div>
-            <div class="change-type">Repair construction</div>
-            <p class="change-detail">New construction materials visible on damaged section. Russia accelerating bridge repair efforts.</p>
-        </div>
-        <div class="change-card">
-            <div class="change-header">
-                <span class="change-site">Gaza Strip</span>
-                <span class="change-date">2026-01-09</span>
-            </div>
-            <div class="change-type">Destruction mapping</div>
-            <p class="change-detail">Significant structural damage in northern Gaza. Approximately 35% of buildings show damage signatures.</p>
-        </div>
-        <div class="change-card">
-            <div class="change-header">
-                <span class="change-site">Taiwan Strait</span>
-                <span class="change-date">2026-01-08</span>
-            </div>
-            <div class="change-type">Naval exercise</div>
-            <p class="change-detail">PLA Navy vessels conducting live-fire exercise 80nm from Taiwan median line. Largest in 6 months.</p>
-        </div>
-        <div class="change-card">
-            <div class="change-header">
-                <span class="change-site">Ladakh - LAC</span>
-                <span class="change-date">2026-01-05</span>
-            </div>
-            <div class="change-type">Infrastructure construction</div>
-            <p class="change-detail">New road construction on Chinese side of LAC. Improves logistics access to forward positions.</p>
-        </div>
-        <div class="change-card">
-            <div class="change-header">
-                <span class="change-site">Arctic - Northern Sea Route</span>
-                <span class="change-date">2026-01-04</span>
-            </div>
-            <div class="change-type">Ice conditions</div>
-            <p class="change-detail">Northern Sea Route showing earlier-than-normal ice melt. Extended shipping season likely.</p>
-        </div>
-        <div class="change-card">
-            <div class="change-header">
-                <span class="change-site">Senkaku/Diaoyu Islands</span>
-                <span class="change-date">2026-01-09</span>
-            </div>
-            <div class="change-type">Coast Guard patrol</div>
-            <p class="change-detail">Four Chinese Coast Guard vessels entered Senkaku contiguous zone. Third incursion this week.</p>
-        </div>
-            </div>
+        <div class="intro-card">
+            <p><strong>About Satellite Monitoring:</strong> We use Microsoft Planetary Computer and commercial satellite imagery to monitor strategic facilities, military bases, ports, and infrastructure. Change detection algorithms identify significant activity changes within 24 hours.</p>
         </div>
 
-        <div class="section">
-            <div class="section-header">All Monitored Sites (47 Locations)</div>
-            <div class="section-content" style="overflow-x: auto;">
-                <table class="sites-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Site Name</th>
-                            <th>Country/Region</th>
-                            <th>Type</th>
-                            <th>Strategic Significance</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-        <tr>
-            <td>1</td>
-            <td><strong>Kaliningrad Naval Base</strong> <span class="priority-badge">PRIORITY</span></td>
-            <td>Russia</td>
-            <td><span class="type-badge">Naval Base</span></td>
-            <td>Russia's Baltic Fleet HQ. Nuclear-capable missile storage. Key for Baltic Sea control.</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td><strong>Sevastopol Naval Base</strong> </td>
-            <td>Russia/Crimea</td>
-            <td><span class="type-badge">Naval Base</span></td>
-            <td>Black Sea Fleet HQ. Critical for power projection into Mediterranean.</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td><strong>Tartus Naval Facility</strong> </td>
-            <td>Syria</td>
-            <td><span class="type-badge">Naval Base</span></td>
-            <td>Russia's only Mediterranean port. Enables sustained naval presence outside home waters.</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td><strong>Hainan Island Base</strong> <span class="priority-badge">PRIORITY</span></td>
-            <td>China</td>
-            <td><span class="type-badge">Naval/Submarine</span></td>
-            <td>PLAN submarine base. Houses nuclear-armed SSBNs. Gateway to South China Sea.</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td><strong>Fiery Cross Reef</strong> </td>
-            <td>South China Sea</td>
-            <td><span class="type-badge">Artificial Island</span></td>
-            <td>Chinese military airstrip in contested waters. Fighter jets and SAMs deployed.</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td><strong>Mischief Reef</strong> </td>
-            <td>South China Sea</td>
-            <td><span class="type-badge">Artificial Island</span></td>
-            <td>Chinese radar and missile installations. Extends A2/AD bubble.</td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td><strong>Diego Garcia</strong> </td>
-            <td>UK/US</td>
-            <td><span class="type-badge">Air/Naval Base</span></td>
-            <td>Strategic bomber base. Supports operations across Indian Ocean and Middle East.</td>
-        </tr>
-        <tr>
-            <td>8</td>
-            <td><strong>Guam - Andersen AFB</strong> </td>
-            <td>USA</td>
-            <td><span class="type-badge">Air Base</span></td>
-            <td>B-52 and B-2 bomber base. Key node in Pacific deterrence.</td>
-        </tr>
-        <tr>
-            <td>9</td>
-            <td><strong>Kadena Air Base</strong> </td>
-            <td>Japan/US</td>
-            <td><span class="type-badge">Air Base</span></td>
-            <td>Largest US air base in Pacific. F-15s, reconnaissance aircraft.</td>
-        </tr>
-        <tr>
-            <td>10</td>
-            <td><strong>Bandar Abbas</strong> <span class="priority-badge">PRIORITY</span></td>
-            <td>Iran</td>
-            <td><span class="type-badge">Naval Base</span></td>
-            <td>IRGC Navy HQ. Controls Strait of Hormuz chokepoint.</td>
-        </tr>
-        <tr>
-            <td>11</td>
-            <td><strong>Natanz Nuclear Facility</strong> </td>
-            <td>Iran</td>
-            <td><span class="type-badge">Nuclear</span></td>
-            <td>Primary uranium enrichment site. Underground centrifuge halls.</td>
-        </tr>
-        <tr>
-            <td>12</td>
-            <td><strong>Yongbyon Nuclear Complex</strong> </td>
-            <td>North Korea</td>
-            <td><span class="type-badge">Nuclear</span></td>
-            <td>Plutonium production reactor. Reprocessing facility active.</td>
-        </tr>
-        <tr>
-            <td>13</td>
-            <td><strong>Sohae Satellite Launch</strong> </td>
-            <td>North Korea</td>
-            <td><span class="type-badge">Missile Test</span></td>
-            <td>ICBM development site. Rocket engine testing facility.</td>
-        </tr>
-        <tr>
-            <td>14</td>
-            <td><strong>Incirlik Air Base</strong> </td>
-            <td>Turkey</td>
-            <td><span class="type-badge">Air Base</span></td>
-            <td>NATO nuclear sharing site. B61 bombs stored. Critical for Middle East ops.</td>
-        </tr>
-        <tr>
-            <td>15</td>
-            <td><strong>Al Udeid Air Base</strong> </td>
-            <td>Qatar</td>
-            <td><span class="type-badge">Air Base</span></td>
-            <td>CENTCOM forward HQ. Largest US base in Middle East.</td>
-        </tr>
-        <tr>
-            <td>16</td>
-            <td><strong>Suez Canal</strong> </td>
-            <td>Egypt</td>
-            <td><span class="type-badge">Chokepoint</span></td>
-            <td>12% of global trade. 50 ships/day. Alternative is 10,000km Cape route.</td>
-        </tr>
-        <tr>
-            <td>17</td>
-            <td><strong>Strait of Hormuz</strong> </td>
-            <td>Iran/Oman</td>
-            <td><span class="type-badge">Chokepoint</span></td>
-            <td>21% of global oil. 20M barrels/day transit. Iran can threaten closure.</td>
-        </tr>
-        <tr>
-            <td>18</td>
-            <td><strong>Bab el-Mandeb Strait</strong> </td>
-            <td>Yemen/Djibouti</td>
-            <td><span class="type-badge">Chokepoint</span></td>
-            <td>Red Sea gateway. Houthi attacks disrupting shipping. $1T annual trade.</td>
-        </tr>
-        <tr>
-            <td>19</td>
-            <td><strong>Malacca Strait</strong> </td>
-            <td>Singapore/Malaysia</td>
-            <td><span class="type-badge">Chokepoint</span></td>
-            <td>25% of global trade. China's oil lifeline. Piracy concerns.</td>
-        </tr>
-        <tr>
-            <td>20</td>
-            <td><strong>Panama Canal</strong> </td>
-            <td>Panama</td>
-            <td><span class="type-badge">Chokepoint</span></td>
-            <td>5% of global trade. Drought reducing capacity. US strategic interest.</td>
-        </tr>
-        <tr>
-            <td>21</td>
-            <td><strong>Gwadar Port</strong> </td>
-            <td>Pakistan</td>
-            <td><span class="type-badge">Port</span></td>
-            <td>China's Indian Ocean access point. CPEC anchor. Potential naval use.</td>
-        </tr>
-        <tr>
-            <td>22</td>
-            <td><strong>Hambantota Port</strong> </td>
-            <td>Sri Lanka</td>
-            <td><span class="type-badge">Port</span></td>
-            <td>Chinese-leased for 99 years. Strategic Indian Ocean position.</td>
-        </tr>
-        <tr>
-            <td>23</td>
-            <td><strong>Djibouti - Chinese Base</strong> </td>
-            <td>Djibouti</td>
-            <td><span class="type-badge">Military Base</span></td>
-            <td>China's first overseas military base. Near US Camp Lemonnier.</td>
-        </tr>
-        <tr>
-            <td>24</td>
-            <td><strong>Nord Stream Hub</strong> </td>
-            <td>Germany</td>
-            <td><span class="type-badge">Energy</span></td>
-            <td>Damaged pipelines. European energy security implications.</td>
-        </tr>
-        <tr>
-            <td>25</td>
-            <td><strong>Druzhba Pipeline</strong> </td>
-            <td>Russia/Europe</td>
-            <td><span class="type-badge">Energy</span></td>
-            <td>Europe's largest oil pipeline. Sanctions complications.</td>
-        </tr>
-        <tr>
-            <td>26</td>
-            <td><strong>LNG Terminal Sabine Pass</strong> </td>
-            <td>USA</td>
-            <td><span class="type-badge">Energy</span></td>
-            <td>Largest US LNG export facility. Europe energy security.</td>
-        </tr>
-        <tr>
-            <td>27</td>
-            <td><strong>Ras Tanura Terminal</strong> </td>
-            <td>Saudi Arabia</td>
-            <td><span class="type-badge">Energy</span></td>
-            <td>World's largest oil export terminal. 6.5M barrels/day capacity.</td>
-        </tr>
-        <tr>
-            <td>28</td>
-            <td><strong>Zaporizhzhia Nuclear Plant</strong> </td>
-            <td>Ukraine</td>
-            <td><span class="type-badge">Nuclear</span></td>
-            <td>Europe's largest nuclear plant. Occupied. Safety concerns.</td>
-        </tr>
-        <tr>
-            <td>29</td>
-            <td><strong>Crimean Bridge</strong> </td>
-            <td>Ukraine/Russia</td>
-            <td><span class="type-badge">Infrastructure</span></td>
-            <td>Russia's supply line to Crimea. Previous attack damage.</td>
-        </tr>
-        <tr>
-            <td>30</td>
-            <td><strong>Mariupol Port</strong> </td>
-            <td>Ukraine</td>
-            <td><span class="type-badge">Port</span></td>
-            <td>Strategic Sea of Azov port. Russian control since 2022.</td>
-        </tr>
-        <tr>
-            <td>31</td>
-            <td><strong>Kharkiv Region</strong> </td>
-            <td>Ukraine</td>
-            <td><span class="type-badge">Conflict Zone</span></td>
-            <td>Active frontline. Cross-border strikes. Population center.</td>
-        </tr>
-        <tr>
-            <td>32</td>
-            <td><strong>Gaza Strip</strong> </td>
-            <td>Palestine</td>
-            <td><span class="type-badge">Conflict Zone</span></td>
-            <td>Active conflict. Humanitarian crisis. Regional escalation risk.</td>
-        </tr>
-        <tr>
-            <td>33</td>
-            <td><strong>Rafah Crossing</strong> </td>
-            <td>Egypt/Gaza</td>
-            <td><span class="type-badge">Border</span></td>
-            <td>Only non-Israeli exit from Gaza. Aid bottleneck.</td>
-        </tr>
-        <tr>
-            <td>34</td>
-            <td><strong>Golan Heights</strong> </td>
-            <td>Syria/Israel</td>
-            <td><span class="type-badge">Border</span></td>
-            <td>Israeli-occupied. Syria tensions. Hezbollah presence.</td>
-        </tr>
-        <tr>
-            <td>35</td>
-            <td><strong>Taiwan Strait</strong> </td>
-            <td>Taiwan/China</td>
-            <td><span class="type-badge">Maritime Zone</span></td>
-            <td>Flashpoint for US-China conflict. Daily military activity.</td>
-        </tr>
-        <tr>
-            <td>36</td>
-            <td><strong>Ladakh - LAC</strong> </td>
-            <td>India/China</td>
-            <td><span class="type-badge">Border</span></td>
-            <td>Himalayan standoff zone. 2020 clash site. Troop buildup.</td>
-        </tr>
-        <tr>
-            <td>37</td>
-            <td><strong>Kashmir - LoC</strong> </td>
-            <td>India/Pakistan</td>
-            <td><span class="type-badge">Border</span></td>
-            <td>Nuclear-armed rivals. Regular ceasefire violations.</td>
-        </tr>
-        <tr>
-            <td>38</td>
-            <td><strong>Ream Naval Base</strong> </td>
-            <td>Cambodia</td>
-            <td><span class="type-badge">Naval Base</span></td>
-            <td>Chinese-funded expansion. Suspected future PLA Navy access.</td>
-        </tr>
-        <tr>
-            <td>39</td>
-            <td><strong>Solomon Islands</strong> </td>
-            <td>Pacific</td>
-            <td><span class="type-badge">Port</span></td>
-            <td>Chinese security pact. Pacific Islands strategic shift.</td>
-        </tr>
-        <tr>
-            <td>40</td>
-            <td><strong>Arctic - Northern Sea Route</strong> </td>
-            <td>Russia</td>
-            <td><span class="type-badge">Maritime</span></td>
-            <td>Opening shipping lane. Russian military buildup.</td>
-        </tr>
-        <tr>
-            <td>41</td>
-            <td><strong>Greenland - Thule Base</strong> </td>
-            <td>Denmark/US</td>
-            <td><span class="type-badge">Military Base</span></td>
-            <td>US Space Force radar. Arctic early warning.</td>
-        </tr>
-        <tr>
-            <td>42</td>
-            <td><strong>Svalbard</strong> </td>
-            <td>Norway</td>
-            <td><span class="type-badge">Strategic</span></td>
-            <td>Arctic surveillance. Undersea cable hub. Russian interest.</td>
-        </tr>
-        <tr>
-            <td>43</td>
-            <td><strong>Berbera Port</strong> </td>
-            <td>Somaliland</td>
-            <td><span class="type-badge">Port</span></td>
-            <td>UAE military base. Red Sea access point.</td>
-        </tr>
-        <tr>
-            <td>44</td>
-            <td><strong>Chabahar Port</strong> </td>
-            <td>Iran</td>
-            <td><span class="type-badge">Port</span></td>
-            <td>India's Afghanistan bypass. Competes with Gwadar.</td>
-        </tr>
-        <tr>
-            <td>45</td>
-            <td><strong>Kyaukpyu Port</strong> </td>
-            <td>Myanmar</td>
-            <td><span class="type-badge">Port</span></td>
-            <td>China's oil/gas pipeline terminus. Malacca bypass.</td>
-        </tr>
-        <tr>
-            <td>46</td>
-            <td><strong>Senkaku/Diaoyu Islands</strong> </td>
-            <td>Japan/China</td>
-            <td><span class="type-badge">Disputed</span></td>
-            <td>East China Sea flashpoint. Daily Coast Guard patrols.</td>
-        </tr>
-        <tr>
-            <td>47</td>
-            <td><strong>Scarborough Shoal</strong> </td>
-            <td>Philippines/China</td>
-            <td><span class="type-badge">Disputed</span></td>
-            <td>South China Sea tension point. Fishing rights dispute.</td>
-        </tr>
-                    </tbody>
-                </table>
+        <section class="section">
+            <div class="section-header">
+                <h2>Priority Alerts</h2>
             </div>
-        </div>
+
+            <div class="sites-grid">
+                <div class="site-card">
+                    <div class="site-header">
+                        <span class="site-name">Sevastopol Naval Base, Crimea</span>
+                        <span class="alert-badge badge-high">HIGH ALERT</span>
+                    </div>
+                    <p class="site-body">Significant naval activity detected. At least 8 warships repositioned within 48 hours. Submarine pen activity elevated. Possible preparation for naval operations or defensive repositioning following recent Ukrainian drone attacks.</p>
+                    <div class="site-meta">
+                        <span class="meta-item">Coordinates: 44.6°N, 33.5°E</span>
+                        <span class="meta-item">Last Change: 6 hours ago</span>
+                        <span class="meta-item">Confidence: 94%</span>
+                    </div>
+                </div>
+
+                <div class="site-card">
+                    <div class="site-header">
+                        <span class="site-name">Ream Naval Base, Cambodia</span>
+                        <span class="alert-badge badge-high">HIGH ALERT</span>
+                    </div>
+                    <p class="site-body">New pier construction accelerated. Chinese-funded expansion nearing completion. Pier length now capable of accommodating aircraft carriers. Fuel storage facilities expanded by 40% since last month.</p>
+                    <div class="site-meta">
+                        <span class="meta-item">Coordinates: 10.5°N, 103.6°E</span>
+                        <span class="meta-item">Last Change: 12 hours ago</span>
+                        <span class="meta-item">Confidence: 91%</span>
+                    </div>
+                </div>
+
+                <div class="site-card">
+                    <div class="site-header">
+                        <span class="site-name">Natanz Nuclear Facility, Iran</span>
+                        <span class="alert-badge badge-elevated">ELEVATED</span>
+                    </div>
+                    <p class="site-body">Increased vehicle activity at underground enrichment facility entrance. New construction visible at secondary site 2km northeast. Thermal signatures indicate heightened centrifuge operations.</p>
+                    <div class="site-meta">
+                        <span class="meta-item">Coordinates: 33.7°N, 51.7°E</span>
+                        <span class="meta-item">Last Change: 18 hours ago</span>
+                        <span class="meta-item">Confidence: 87%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2>Recent Observations</h2>
+            </div>
+
+            <div class="observations-card">
+                <h3>Key Changes Detected This Week</h3>
+                <ul>
+                    <li>Military buildup detected near contested borders in Eastern Europe</li>
+                    <li>Infrastructure construction at 3 strategic ports in South China Sea</li>
+                    <li>Unusual naval positioning in Taiwan Strait - 15 vessels tracked</li>
+                    <li>New runway extension at Djibouti Chinese military base</li>
+                    <li>Increased activity at North Korean missile test facility</li>
+                    <li>Russian Arctic base construction continues despite sanctions</li>
+                </ul>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand">
-                <span>Know What Matters</span>
-                <span style="opacity: 0.6;">powered by</span>
+                <span>KWM Intel</span>
+                <span class="powered">powered by</span>
                 <img src="aerial_logo.png" alt="Aerial Capital Inc">
             </div>
-            <div>Generated 2026-01-10 14:19 | Professional Intelligence for Everyone</div>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="methodology.html">Methodology</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+            </div>
         </div>
     </footer>
 </body>
