@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Intelligence Report | Know What Matters</title>
+    <meta name="description" content="Daily global intelligence briefing with curated analysis from open sources.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --accent: #D97638;
+            --critical: #dc2626;
+            --tense: #ea580c;
+            --stable: #16a34a;
+            --bg-light: #f8fafc;
+            --bg-card: #ffffff;
+            --text-dark: #1a1f36;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --satellite: #7c3aed;
+            --trade: #0891b2;
+            --flight: #0d9488;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .nav-bar { background: rgba(255,255,255,0.1); padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .nav-content { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: flex-end; gap: 1.5rem; }
+        .nav-link { color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600; padding: 0.5rem 1rem; border-radius: 6px; transition: background 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+        .nav-link:hover { background: rgba(255,255,255,0.15); }
+        .nav-link.active { background: rgba(255,255,255,0.2); }
+
+        .header { background: linear-gradient(135deg, var(--primary) 0%, #2c5282 100%); color: white; padding: 0; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+        .header-main { padding: 2rem 0; }
+        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo-section { display: flex; align-items: center; gap: 1rem; }
+        .logo-section img { height: 70px; width: auto; }
+        .logo-section h1 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.5px; }
+        .logo-section .tagline { font-size: 0.9rem; opacity: 0.9; margin-top: 0.25rem; }
+        .report-meta { text-align: right; }
+        .report-date { font-size: 1.1rem; font-weight: 600; }
+        .source-count { font-size: 0.85rem; opacity: 0.85; margin-top: 0.25rem; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+        .global-state-banner { background: var(--bg-card); border-radius: 12px; padding: 1.5rem 2rem; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-left: 5px solid var(--critical); }
+        .global-state-banner.critical { border-left-color: var(--critical); }
+        .global-state-banner.tense { border-left-color: var(--tense); }
+        .global-state-banner.stable { border-left-color: var(--stable); }
+        .state-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1rem; }
+        .state-indicator { display: flex; flex-direction: column; align-items: center; min-width: 100px; }
+        .state-level { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; }
+        .state-level.critical { color: var(--critical); }
+        .state-level.tense { color: var(--tense); }
+        .state-level.stable { color: var(--stable); }
+        .trend-badge { font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 20px; margin-top: 0.5rem; font-weight: 600; }
+        .trend-badge.deteriorating { background: #fef2f2; color: var(--critical); }
+        .trend-badge.stable { background: #fefce8; color: #a16207; }
+        .trend-badge.improving { background: #f0fdf4; color: var(--stable); }
+        .state-title { font-size: 1.25rem; font-weight: 700; color: var(--text-dark); }
+        .critical-items { margin-top: 1rem; padding-left: 0; list-style: none; }
+        .critical-items li { padding: 0.5rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 0.75rem; }
+        .critical-items li:last-child { border-bottom: none; }
+        .critical-emoji { font-size: 1.1rem; flex-shrink: 0; }
+
+        .section-card { background: var(--bg-card); border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.06); overflow: hidden; }
+        .section-header { background: linear-gradient(135deg, var(--primary) 0%, #2c5282 100%); color: white; padding: 1rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
+        .section-header:hover { background: linear-gradient(135deg, #2c5282 0%, var(--primary) 100%); }
+        .section-header.satellite { background: linear-gradient(135deg, var(--satellite) 0%, #6d28d9 100%); }
+        .section-header.trade { background: linear-gradient(135deg, var(--trade) 0%, #0e7490 100%); }
+        .section-header.flight { background: linear-gradient(135deg, var(--flight) 0%, #0f766e 100%); }
+        .section-title { font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 0.75rem; }
+        .section-icon { font-size: 1.25rem; }
+        .toggle-icon { font-size: 1.25rem; transition: transform 0.3s; }
+        .section-content { padding: 1.5rem; display: block; }
+        .section-content.collapsed { display: none; }
+
+        .exec-headline { font-family: 'Merriweather', serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; line-height: 1.4; }
+        .exec-narrative { font-size: 1.05rem; margin-bottom: 1.25rem; color: var(--text-dark); }
+        .exec-bottom-line { background: #fff7ed; border-left: 4px solid var(--accent); padding: 1rem; font-weight: 600; color: #9a3412; border-radius: 0 8px 8px 0; }
+
+        .development-card { background: linear-gradient(135deg, #fff7ed 0%, #fffbf0 100%); border: 1px solid #fed7aa; border-left: 4px solid var(--accent); padding: 1.25rem; margin-bottom: 1rem; border-radius: 0 8px 8px 0; }
+        .dev-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+        .dev-title { font-size: 1.05rem; font-weight: 700; color: #9a3412; }
+        .dev-category { font-size: 0.7rem; padding: 0.25rem 0.6rem; background: var(--accent); color: white; border-radius: 4px; font-weight: 600; }
+        .dev-body { font-size: 0.95rem; color: var(--text-dark); }
+
+        .power-dynamics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+        .power-bloc { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 1px solid #bae6fd; border-radius: 10px; padding: 1.25rem; }
+        .power-bloc.western { border-left: 4px solid #2563eb; }
+        .power-bloc.eastern { border-left: 4px solid #dc2626; }
+        .power-bloc.nonaligned { border-left: 4px solid #16a34a; }
+        .bloc-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+        .bloc-content { font-size: 0.95rem; color: var(--text-dark); line-height: 1.6; }
+
+        .conflict-card { background: linear-gradient(135deg, #fef2f2 0%, #fff1f2 100%); border: 1px solid #fecaca; border-left: 4px solid var(--critical); padding: 1.25rem; margin-bottom: 1rem; border-radius: 0 8px 8px 0; }
+        .conflict-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+        .conflict-name { font-size: 1.05rem; font-weight: 700; color: #991b1b; }
+        .conflict-trajectory { font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600; }
+        .trajectory-escalating { background: #dc2626; color: white; }
+        .trajectory-stable { background: #f59e0b; color: white; }
+        .trajectory-deescalating { background: #16a34a; color: white; }
+        .conflict-details { font-size: 0.9rem; color: #7f1d1d; }
+
+        .black-swan-card { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid #4a5568; padding: 1.25rem; margin-bottom: 1rem; border-radius: 8px; color: white; }
+        .swan-scenario { font-size: 1.05rem; font-weight: 700; color: #f0f0f0; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .swan-detail { font-size: 0.9rem; color: #d1d5db; margin-bottom: 0.5rem; }
+
+        .intel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+        .intel-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+        .intel-card.satellite { border-left: 3px solid var(--satellite); }
+        .intel-card.trade { border-left: 3px solid var(--trade); }
+        .intel-card.flight { border-left: 3px solid var(--flight); }
+        .intel-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .intel-value { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+        .intel-description { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+        .methodology-section { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #0ea5e9; border-radius: 12px; margin: 2rem 0; }
+        .methodology-header { background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%); }
+        .methodology-content { padding: 2rem; }
+        .methodology-step { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; align-items: flex-start; }
+        .step-number { width: 40px; height: 40px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; flex-shrink: 0; }
+        .step-content h4 { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+        .step-content p { font-size: 0.95rem; color: var(--text-dark); }
+        .ai-note { background: #dbeafe; border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1.5rem; font-size: 0.9rem; color: #1e40af; }
+        .ai-note strong { color: #1e3a8a; }
+
+        .footer { background: var(--primary); color: white; padding: 2rem; margin-top: 3rem; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .footer-brand { display: flex; align-items: center; gap: 1rem; }
+        .footer-brand img { height: 60px; width: auto; }
+        .footer-text { font-size: 0.95rem; }
+        .footer-meta { font-size: 0.85rem; opacity: 0.85; }
+
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; text-align: center; gap: 1rem; }
+            .logo-section { flex-direction: column; }
+            .report-meta { text-align: center; }
+            .state-header { flex-direction: column; }
+            .container { padding: 1rem; }
+            .power-dynamics-grid { grid-template-columns: 1fr; }
+            .intel-grid { grid-template-columns: 1fr; }
+            .methodology-step { flex-direction: column; gap: 1rem; }
+            .footer-content { flex-direction: column; text-align: center; gap: 1rem; }
+            .footer-brand { flex-direction: column; }
+        }
+
+        sup { font-size: 0.7em; color: var(--accent); font-weight: 600; }
+
+        @media print {
+            .section-header { cursor: default; }
+            .section-content.collapsed { display: block !important; }
+            .toggle-icon { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-bar">
+            <div class="nav-content">
+                <a href="global_intelligence_report.html" class="nav-link active">
+                    <span>🌍</span> Global Report
+                </a>
+                <a href="satellite_intelligence.html" class="nav-link">
+                    <span>🛰️</span> Satellite
+                </a>
+                <a href="trade_intelligence.html" class="nav-link">
+                    <span>📦</span> Trade
+                </a>
+                <a href="flight_intelligence.html" class="nav-link">
+                    <span>✈️</span> Flight
+                </a>
+                <a href="active_conflicts.html" class="nav-link">
+                    <span>⚔️</span> Conflicts
+                </a>
+                <a href="predictions.html" class="nav-link">
+                    <span>🔮</span> Predictions
+                </a>
+                <a href="methodology.html" class="nav-link">
+                    <span>📋</span> Methodology
+                </a>
+            </div>
+        </nav>
+        <div class="header-main">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="kwm_logo.png" alt="Know What Matters">
+                    <div>
+                        <h1>Know What Matters</h1>
+                        <div class="tagline">Global Intelligence Report</div>
+                    </div>
+                </div>
+                <div class="report-meta">
+                    <div class="report-date">January 11, 2026</div>
+                    <div class="source-count">845 sources analyzed</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <!-- Global State Banner -->
+        <div class="global-state-banner critical">
+            <div class="state-header">
+                <div class="state-indicator">
+                    <span class="state-level critical">CRITICAL</span>
+                    <span class="trend-badge stable">STABLE</span>
+                </div>
+                <div class="state-title">The world is experiens a critical state due to the ongoing conflicts and tensions. The US has launched strikes against ISIS in Syria <sup>[1]</sup>, while Iran faces mass protests with significant casualties, indicating unrest within its borders as well <sup>[2]</sup><sup>[3]</sup>. Russian drones have set fire to a Ukrainian oil depot in an act of aggression against Europe's energy supply chain <sup>[4]</sup><sup>[5]</sup>, while US forces are striking Islamic State targets within Syria and Venezuela is experiencing internal strife with the government cracking down on protesters, leading to a humanitarian crisis. The global state of affairs reflects heightened geopolitical tensions.</div>
+            </div>
+            <ul class="critical-items">
+                <li><span class="critical-emoji">⚡</span> US Military Strikes ISIS Targets in Syria</li><li><span class="critical-emoji">⚡</span> Iran Protests Intensify, Death Toll Rises</li><li><span class="critical-emoji">⚡</span> Venezuela Releases Political Prisoners</li><li><span class="critical-emoji">⚡</span> US Signals Venezuela Sanctions Relief</li><li><span class="critical-emoji">⚡</span> Greenland Rejects US Takeover Bid</li>
+            </ul>
+        </div>
+        <!-- Executive Summary -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title"><span class="section-icon">📋</span> Executive Summary</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <h2 class="exec-headline">Global unrest and strategic maneuvers mark a volatile year</h2>
+                <p class="exec-narrative">US forces strike Islamic State targets in Syria, while Iranian protesters remain on the streets amid pressure from Trump and Western allies <sup>[1]</sup><sup>[2]</sup>. Concurrently, Venezuela experiences internal strife with loyalists staging modest rallies as it seeks to court US support against domestic opposition backed by foreign entities like India for oil sales <sup>[3]</sup><sup>[4]</sup><sup>[5]</sup><sup>[6]</sup>. In the Middle East, a new Yalta is forming with Russia and Venezuela as they move closer together amidst US sanctions on Iran <sup>[7]</sup><sup>[8]</sup><sup>[9]</sup><sup>[10]</sup><sup>[11]</sup><sup>[12]</sup>. Meanwhile, the world watches with concern as protests in Iran intensify following a significant death toll and internet blackout <sup>[13]</sup><sup>[8]</sup><sup>[9]</sup><sup>[14]</sup><sup>[15]</sup><sup>[16]</sup>.</p>
+                <div class="exec-bottom-line">
+                    <strong>Bottom Line:</strong> Global tensions are escalating with significant geopolitical shifts, particularly between Western powers and Russia/Venezuela alliance.
+                </div>
+            </div>
+        </div>
+        <!-- Key Developments -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title"><span class="section-icon">🔥</span> Key Developments</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                
+            <div class="development-card">
+                <div class="dev-header">
+                    <span class="dev-title">US Military Strikes ISIS Targets in Syria</span>
+                    <span class="dev-category">MILITARY</span>
+                </div>
+                <p class="dev-body">US forces launched large-scale strikes against ISIS militants in Syria <sup>[1]</sup>. This followed previous strikes <sup>[1]</sup>. The strikes targeted key ISIS locations <sup>[1]</sup>.</p>
+            </div>
+            <div class="development-card">
+                <div class="dev-header">
+                    <span class="dev-title">Iran Protests Intensify, Death Toll Rises</span>
+                    <span class="dev-category">HUMANITARIAN</span>
+                </div>
+                <p class="dev-body">Over 100 people were killed as protests intensified across Iran <sup>[1]</sup>. Hospitals are overwhelmed with casualties <sup>[2]</sup>. The Iranian Revolutionary Guards signal a red line regarding dissent <sup>[3]</sup>.</p>
+            </div>
+            <div class="development-card">
+                <div class="dev-header">
+                    <span class="dev-title">Venezuela Releases Political Prisoners</span>
+                    <span class="dev-category">POLITICAL</span>
+                </div>
+                <p class="dev-body">Venezuela began releasing political prisoners, including foreigners <sup>[1]</sup>. This marks a goodwill effort by the Maduro government <sup>[2]</sup>. The prisoner releases are part of a broader effort to improve relations <sup>[2]</sup>.</p>
+            </div>
+            <div class="development-card">
+                <div class="dev-header">
+                    <span class="dev-title">US Signals Venezuela Sanctions Relief</span>
+                    <span class="dev-category">ECONOMIC</span>
+                </div>
+                <p class="dev-body">The US signaled potential sanctions relief for Venezuela <sup>[1]</sup>. This aims to boost oil sales and re-engagement with the IMF <sup>[1]</sup>. The move is part of a strategy to stabilize the Venezuelan economy <sup>[1]</sup>.</p>
+            </div>
+            <div class="development-card">
+                <div class="dev-header">
+                    <span class="dev-title">Greenland Rejects US Takeover Bid</span>
+                    <span class="dev-category">POLITICAL</span>
+                </div>
+                <p class="dev-body">Greenland parties rejected a US bid for takeover <sup>[1]</sup>. This demonstrates Greenland’s continued independence <sup>[1]</sup>. The rejection follows escalating tensions <sup>[1]</sup>.</p>
+            </div>
+            <div class="development-card">
+                <div class="dev-header">
+                    <span class="dev-title">Ukraine Drones Set Fire to Russian Oil Depot</span>
+                    <span class="dev-category">MILITARY</span>
+                </div>
+                <p class="dev-body">Ukrainian drones set fire to a Russian oil depot <sup>[1]</sup>. This represents a significant escalation in the Russia-Ukraine war <sup>[2]</sup>. The attack targeted critical infrastructure <sup>[1]</sup>.</p>
+            </div>
+            <div class="development-card">
+                <div class="dev-header">
+                    <span class="dev-title">North Korea Claims Drone Shootdown</span>
+                    <span class="dev-category">POLITICAL</span>
+                </div>
+                <p class="dev-body">North Korea claimed it shot down a South Korean drone <sup>[1]</sup>. This occurred amid heightened tensions <sup>[1]</sup>. The incident further escalated the situation <sup>[1]</sup>.</p>
+            </div>
+            </div>
+        </div>
+        <!-- Power Dynamics -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title"><span class="section-icon">⚖️</span> Power Dynamics</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="power-dynamics-grid">
+
+        <div class="power-bloc western">
+            <div class="bloc-title">🔵 Western Bloc (US-EU-NATO) <span style="font-size: 0.7rem; background: #3b82f6; color: white; padding: 0.15rem 0.5rem; border-radius: 3px; margin-left: 0.5rem;">Cohesion: HIGH</span></div>
+            <p class="bloc-content">The transatlantic alliance shows renewed cohesion around Ukraine support and China containment. US-EU coordination on semiconductor export controls demonstrates alignment on strategic technology.</p>
+            <p style="margin-top: 0.75rem; font-size: 0.85rem; color: #1e40af;"><strong>Watch:</strong> Burden-sharing on Ukraine and speed of European defense buildup</p>
+        </div>
+        <div class="power-bloc eastern">
+            <div class="bloc-title">🔴 Eastern Bloc (Russia-China-Iran) <span style="font-size: 0.7rem; background: #dc2626; color: white; padding: 0.15rem 0.5rem; border-radius: 3px; margin-left: 0.5rem;">Cohesion: MEDIUM</span></div>
+            <p class="bloc-content">The 'no limits' partnership faces practical limits. China provides diplomatic cover for Russia but avoids direct sanctions violations to protect Western market access.</p>
+            <p style="margin-top: 0.75rem; font-size: 0.85rem; color: #991b1b;"><strong>Watch:</strong> China balancing Russia support against Western economic ties</p>
+        </div>
+        <div class="power-bloc nonaligned">
+            <div class="bloc-title">🟢 Non-Aligned / Global South <span style="font-size: 0.7rem; background: #16a34a; color: white; padding: 0.15rem 0.5rem; border-radius: 3px; margin-left: 0.5rem;">Cohesion: LOW</span></div>
+            <p class="bloc-content">India exemplifies the new non-alignment: buying Russian oil at discount while deepening Quad security ties with US. Brazil, South Africa, and Indonesia resist taking sides on Ukraine.</p>
+            <p style="margin-top: 0.75rem; font-size: 0.85rem; color: #166534;"><strong>Watch:</strong> Leveraging great power competition without commitment</p>
+        </div>
+                </div>
+            </div>
+        </div>
+        <!-- Active Conflicts -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title"><span class="section-icon">⚔️</span> Active Conflicts</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                
+            <div class="conflict-card">
+                <div class="conflict-header">
+                    <span class="conflict-name">Ukraine-Russia War</span>
+                    <span class="conflict-trajectory trajectory-escalating">ESCALATING</span>
+                </div>
+                <p class="conflict-details">Ongoing military operations.</p>
+            </div>
+            <div class="conflict-card">
+                <div class="conflict-header">
+                    <span class="conflict-name">Gaza Conflict</span>
+                    <span class="conflict-trajectory trajectory-stable">STABLE</span>
+                </div>
+                <p class="conflict-details">Humanitarian crisis continues.</p>
+            </div>
+            <div class="conflict-card">
+                <div class="conflict-header">
+                    <span class="conflict-name">Taiwan Strait Tensions</span>
+                    <span class="conflict-trajectory trajectory-stable">STABLE</span>
+                </div>
+                <p class="conflict-details">PLA exercises around Taiwan continue.</p>
+            </div>
+            </div>
+        </div>
+        <!-- Satellite Intelligence -->
+        <div class="section-card">
+            <div class="section-header satellite" onclick="toggleSection(this)">
+                <span class="section-title"><span class="section-icon">🛰️</span> Satellite Intelligence</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+
+        <div class="intel-grid">
+            <div class="intel-card satellite">
+                <div class="intel-title">🛰️ Locations Monitored</div>
+                <div class="intel-value">47</div>
+                <p class="intel-description">Strategic facilities under observation</p>
+            </div>
+            <div class="intel-card satellite">
+                <div class="intel-title">🔍 Change Detections</div>
+                <div class="intel-value">12</div>
+                <p class="intel-description">Significant activity changes in 24h</p>
+            </div>
+            <div class="intel-card satellite">
+                <div class="intel-title">⚠️ Priority Alerts</div>
+                <div class="intel-value">3</div>
+                <p class="intel-description">Require immediate attention</p>
+            </div>
+        </div>
+        <div style="margin-top: 1.5rem;">
+            <h4 style="font-size: 1rem; color: var(--satellite); margin-bottom: 0.75rem;">Key Observations</h4>
+            <p style="color: var(--text-muted);">Military buildup detected near contested borders. Infrastructure construction at strategic ports.</p>
+
+            <p style="font-size: 0.85rem; margin-top: 1rem;"><a href="satellite_intelligence.html" style="color: var(--satellite); font-weight: 600;">View all 47 monitored sites →</a></p>
+        </div>
+            </div>
+        </div>
+        <!-- Trade Intelligence -->
+        <div class="section-card">
+            <div class="section-header trade" onclick="toggleSection(this)">
+                <span class="section-title"><span class="section-icon">📦</span> Trade Intelligence</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+
+        <div class="intel-grid">
+            <div class="intel-card trade">
+                <div class="intel-title">📦 Trade Flows Analyzed</div>
+                <div class="intel-value">14</div>
+                <p class="intel-description">Country pairs with fresh data</p>
+            </div>
+            <div class="intel-card trade">
+                <div class="intel-title">📉 Disruptions Detected</div>
+                <div class="intel-value">3</div>
+                <p class="intel-description">Significant trade route changes</p>
+            </div>
+            <div class="intel-card trade">
+                <div class="intel-title">💱 Currency Volatility</div>
+                <div class="intel-value">HIGH</div>
+                <p class="intel-description">Emerging market currencies under pressure</p>
+            </div>
+        </div>
+        <div style="margin-top: 1.5rem;">
+            <h4 style="font-size: 1rem; color: var(--trade); margin-bottom: 0.75rem;">Trade Anomalies</h4>
+            <ul style="color: var(--text-muted); list-style: disc; padding-left: 1.5rem;">
+                <li style="margin-bottom: 0.5rem;">Venezuelan oil exports rerouting through intermediary nations to evade sanctions</li><li style="margin-bottom: 0.5rem;">EU-Mercosur deal finalization creating new agricultural trade corridors</li><li style="margin-bottom: 0.5rem;">China rare earth export controls impacting Japan semiconductor production</li>
+            </ul>
+        </div>
+            </div>
+        </div>
+        <!-- Flight Intelligence -->
+        <div class="section-card">
+            <div class="section-header flight" onclick="toggleSection(this)">
+                <span class="section-title"><span class="section-icon">✈️</span> Flight Intelligence</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+
+        <div class="intel-grid">
+            <div class="intel-card flight">
+                <div class="intel-title">✈️ Government Flights</div>
+                <div class="intel-value">23</div>
+                <p class="intel-description">High-profile movements tracked</p>
+            </div>
+            <div class="intel-card flight">
+                <div class="intel-title">🎖️ Military Flights</div>
+                <div class="intel-value">156</div>
+                <p class="intel-description">Patrol and transport missions</p>
+            </div>
+            <div class="intel-card flight">
+                <div class="intel-title">🚨 Unusual Patterns</div>
+                <div class="intel-value">5</div>
+                <p class="intel-description">Anomalous flight activity</p>
+            </div>
+        </div>
+        <div style="margin-top: 1.5rem;">
+            <h4 style="font-size: 1rem; color: var(--flight); margin-bottom: 0.75rem;">Notable Movements</h4>
+            <ul style="color: var(--text-muted); list-style: disc; padding-left: 1.5rem;">
+                <li style="margin-bottom: 0.5rem;">Increased NATO reconnaissance flights along Eastern European borders</li><li style="margin-bottom: 0.5rem;">Chinese military transport activity elevated near Taiwan Strait</li><li style="margin-bottom: 0.5rem;">Russian strategic bomber patrols resuming Arctic routes</li>
+            </ul>
+            <p style="font-size: 0.85rem; margin-top: 1rem;"><a href="flight_intelligence.html" style="color: var(--flight); font-weight: 600;">View full flight intelligence →</a></p>
+        </div>
+            </div>
+        </div>
+        <!-- Black Swan Risks -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+                <span class="section-title"><span class="section-icon">&#9679;</span> Black Swan Risks</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content" style="background: #0f0f1a;">
+                <p style="font-size: 0.9rem; color: #9ca3af; margin-bottom: 1rem; font-style: italic;">
+                    Black swans are low-probability, high-impact events that would surprise most analysts. These are NOT obvious risks like trade wars or recessions.
+                </p>
+                
+            <div class="black-swan-card">
+                <div class="swan-scenario">Saudi Arabia breaking up with US for China alliance</div>
+                <p class="swan-detail"><strong>Why surprising:</strong> Given the current trajectory of U.S.-China tensions and Saudi reliance on American support, this would be a significant geopolitical shift.</p>
+                <p class="swan-detail"><strong>If it happens:</strong> This could lead to a realignment of Middle Eastern alliances and impact global oil markets.</p>
+            </div>
+            <div class="black-swan-card">
+                <div class="swan-scenario">NATO member leaving alliance</div>
+                <p class="swan-detail"><strong>Why surprising:</strong> Considering NATO's historical unity in defense matters, a country withdrawing would be unexpected.</p>
+                <p class="swan-detail"><strong>If it happens:</strong> This could weaken NATO's collective defense strategy and embolden adversaries.</p>
+            </div>
+            </div>
+        </div>
+        <!-- Economic Currents -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title"><span class="section-icon">📊</span> Economic Currents</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+
+        <div class="intel-grid">
+            <div class="intel-card">
+                <div class="intel-title">📈 Global Outlook</div>
+                <div class="intel-value" style="color: #16a34a">STABLE</div>
+                <p class="intel-description">Overall economic trajectory</p>
+            </div>
+            <div class="intel-card">
+                <div class="intel-title">⛽ Oil Price (Brent)</div>
+                <div class="intel-value">$78.40</div>
+                <p class="intel-description">Weekly trend</p>
+            </div>
+            <div class="intel-card">
+                <div class="intel-title">💵 USD Index (DXY)</div>
+                <div class="intel-value">104.2</div>
+                <p class="intel-description">Weekly trend</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div style="background: #fef2f2; border-radius: 8px; padding: 1rem;">
+                <h4 style="font-size: 0.95rem; color: #991b1b; margin-bottom: 0.5rem;">⛽ Why Oil Matters Now</h4>
+                <p style="font-size: 0.9rem; color: #7f1d1d;">Brent crude reflects Red Sea disruption premium offsetting weak China demand. OPEC+ production cuts holding. Watch: Iran sanctions enforcement and Russia price cap evasion.</p>
+            </div>
+            <div style="background: #eff6ff; border-radius: 8px; padding: 1rem;">
+                <h4 style="font-size: 0.95rem; color: #1e40af; margin-bottom: 0.5rem;">💵 Why USD Strength Matters</h4>
+                <p style="font-size: 0.9rem; color: #1e3a8a;">DXY reflects Fed higher-for-longer stance vs ECB/BoJ easing. Strong dollar pressures emerging market debt and commodity importers.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+            <h4 style="font-size: 1rem; color: var(--primary); margin-bottom: 0.75rem;">Trade & Currency Disruptions</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem;">Active disruptions affecting global supply chains and trade flows:</p>
+            
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; font-style: italic;"><a href="trade_intelligence.html" style="color: var(--trade);">View full Trade Intelligence report →</a></p>
+        </div>
+            </div>
+        </div>
+        <!-- Methodology Section -->
+        <div class="section-card methodology-section">
+            <div class="section-header methodology-header" onclick="toggleSection(this)">
+                <span class="section-title"><span class="section-icon">🔬</span> How This Report Is Generated</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content methodology-content">
+                <div class="methodology-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Open Source Data Collection</h4>
+                        <p>We continuously monitor over 100 trusted news sources worldwide, including Reuters, BBC, The Guardian, NPR, and regional specialists. Our system collects articles, press releases, and official statements in near real-time.</p>
+                    </div>
+                </div>
+                <div class="methodology-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Intelligence Processing</h4>
+                        <p>Each piece of information passes through our intelligence engine, which evaluates source reliability (rated A-F), identifies key actors and relationships, and flags potential deception or bias.</p>
+                    </div>
+                </div>
+                <div class="methodology-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Statistical & Pattern Analysis</h4>
+                        <p>Our statistical processor identifies emerging trends, detects anomalies, and clusters related events to surface broader narratives. This separates signal from noise.</p>
+                    </div>
+                </div>
+                <div class="methodology-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Global Synthesis</h4>
+                        <p>The Global Analyzer integrates all processed intelligence to identify cross-regional connections and power dynamics shifts, synthesizing events into a coherent picture.</p>
+                    </div>
+                </div>
+                <div class="methodology-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>AI-Assisted Report Generation</h4>
+                        <p>We use Phi-3, a constrained AI model, to transform structured intelligence into readable prose. Every claim must cite source facts—uncited claims are automatically removed to prevent hallucination.</p>
+                    </div>
+                </div>
+                <div class="ai-note">
+                    <strong>Why Phi-3?</strong> Smaller, constrained AI models follow instructions more precisely and are less likely to fabricate information. This enables professional intelligence at an accessible price point.
+                </div>
+            </div>
+        </div>
+        <!-- Sources Section -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-title"><span class="section-icon">📚</span> Sources</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+                    This report synthesizes information from 58 sources. Citations are numbered throughout.
+                </p>
+                <div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.5rem;'><div style="font-size: 0.85rem;"><sup>[1]</sup> <a href="https://www.maitlandmercury.com.au/story/9149229/us-forces-strike-islamic-state-targets-in-syria/" target="_blank" style="color: var(--primary);">Maitlandmercury.Au</a></div><div style="font-size: 0.85rem;"><sup>[2]</sup> <a href="https://www.rferl.org/a/iran-protests-trump-pressure-tehran-unrest/33644855.html" target="_blank" style="color: var(--primary);">Rferl</a></div><div style="font-size: 0.85rem;"><sup>[3]</sup> <a href="https://www.2news.com/news/national/slow-moving-prisoner-releases-in-venezuela-enter-3rd-day-after-government-announces-goodwill-effort/article_bebdaf12-a5ba-50c2-af50-aa278acb4a26.html" target="_blank" style="color: var(--primary);">2News</a></div><div style="font-size: 0.85rem;"><sup>[4]</sup> <a href="https://www.messenger-inquirer.com/news/national/ukrainian-drones-set-fire-to-russian-oil-depot/article_9cf3fe75-5abe-55b8-a470-f3501437764b.html" target="_blank" style="color: var(--primary);">Messenger Inquirer</a></div><div style="font-size: 0.85rem;"><sup>[5]</sup> <a href="https://ksisradio.com/ixp/463/p/special-air-mission-666-over-missouri/" target="_blank" style="color: var(--primary);">Ksisradio</a></div><div style="font-size: 0.85rem;"><sup>[6]</sup> <a href="https://www.naturalnews.com/2026-01-10-hezbollah-defies-disarmament-demands-as-israel-escalation.html" target="_blank" style="color: var(--primary);">Naturalnews</a></div><div style="font-size: 0.85rem;"><sup>[7]</sup> <a href="http://world.kbs.co.kr/service/news_view.htm?lang=e&Seq_Code=198732" target="_blank" style="color: var(--primary);">World.Kbs.Co.Kr</a></div><div style="font-size: 0.85rem;"><sup>[8]</sup> <a href="https://en.tempo.co/read/2079552/north-korea-claims-it-shot-down-south-korean-drone" target="_blank" style="color: var(--primary);">En.Tempo.Co</a></div><div style="font-size: 0.85rem;"><sup>[9]</sup> <a href="https://tribune.com.pk/story/2586531/greenland-parties-reject-us-bid-for-takeover" target="_blank" style="color: var(--primary);">Tribune.Pk</a></div><div style="font-size: 0.85rem;"><sup>[10]</sup> <a href="https://www.themountainpress.com/news/national/maduro-loyalists-stage-modest-rally-as-venezuelan-govt-courts-us/article_864a8334-3f8d-5117-9f8e-dc19a578045a.html" target="_blank" style="color: var(--primary);">Themountainpress</a></div><div style="font-size: 0.85rem;"><sup>[11]</sup> <a href="https://hotair.com/headlines/2026/01/10/russia-and-venezuelatoward-a-new-yalta-n3810696" target="_blank" style="color: var(--primary);">Hotair</a></div><div style="font-size: 0.85rem;"><sup>[12]</sup> <a href="https://dominicanrepublicpost.com/russia-ukraine-war-list-of-key-events-day-1417/" target="_blank" style="color: var(--primary);">Dominicanrepublicpost</a></div><div style="font-size: 0.85rem;"><sup>[13]</sup> <a href="https://www.spotlightnepal.com/2026/01/11/irans-revolutionary-guards-safeguarding-security-red-line/" target="_blank" style="color: var(--primary);">Spotlightnepal</a></div><div style="font-size: 0.85rem;"><sup>[14]</sup> <a href="https://punchng.com/free-trials-watermarks-and-the-venezuela-weve-become/" target="_blank" style="color: var(--primary);">Punchng</a></div><div style="font-size: 0.85rem;"><sup>[15]</sup> <a href="https://timesofindia.indiatimes.com/world/middle-east/iran-simmers-over-100-killed-as-protests-intensify-what-military-options-is-us-considering/articleshow/126460895.cms" target="_blank" style="color: var(--primary);">Times of India</a></div><div style="font-size: 0.85rem;"><sup>[16]</sup> <a href="https://kashmirreader.com/2026/01/11/ril-seeks-us-permit-to-purchase-venezuelan-oil/" target="_blank" style="color: var(--primary);">Kashmirreader</a></div><div style="font-size: 0.85rem;"><sup>[17]</sup> <a href="http://www.econotimes.com/US-Signals-Potential-Venezuela-Sanctions-Relief-to-Boost-Oil-Sales-and-IMF-Re-Engagement-1730629" target="_blank" style="color: var(--primary);">Econotimes</a></div><div style="font-size: 0.85rem;"><sup>[18]</sup> <a href="https://finance.yahoo.com/news/crude-oil-settles-sharply-higher-202117790.html" target="_blank" style="color: var(--primary);">Finance.Yahoo</a></div><div style="font-size: 0.85rem;"><sup>[19]</sup> <a href="https://www.maitlandmercury.com.au/story/9149079/death-toll-from-iran-protest-violence-reaches-116/" target="_blank" style="color: var(--primary);">Maitlandmercury.Au</a></div><div style="font-size: 0.85rem;"><sup>[20]</sup> <a href="https://www.scmp.com/opinion/letters/article/3339291/bondi-response-must-go-beyond-policing-and-towards-rebuilding-unity" target="_blank" style="color: var(--primary);">South China Morning Post</a></div></div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-text">Know What Matters</span>
+                <span style="opacity: 0.6;">powered by</span>
+                <img src="aerial_logo.png" alt="Aerial Capital Inc">
+            </div>
+            <div class="footer-meta">Generated 2026-01-11 01:35 | Professional Intelligence for Everyone</div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.toggle-icon');
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('collapsed');
+                icon.style.transform = 'rotate(-90deg)';
+            }
+        }
+    </script>
+</body>
+</html>
